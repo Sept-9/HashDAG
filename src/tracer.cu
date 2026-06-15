@@ -274,6 +274,19 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 		}
 	}
 
+	// LOD: align partial-descent paths so they share the same bit layout as full-descent paths.
+	// After `hitLevel` calls to path.descend(), the descent bits live in positions [0, hitLevel-1]
+	// (descend shifts existing bits left and ORs the new bit at the bottom). Full-descent paths,
+	// however, have their first descent at bit (dag.levels - 1) and the last descent at bit 0,
+	// which is the layout child_index(lv, dag.levels) and the DAG-coordinate interpretation
+	// (path as world position in DAG units) both assume. Shift LOD paths left to match.
+	if (hitLevel > 0 && hitLevel < dag.levels)
+	{
+		const uint32 alignShift = dag.levels - hitLevel;
+		path.path.x <<= alignShift;
+		path.path.y <<= alignShift;
+		path.path.z <<= alignShift;
+	}
 	path.store_with_level(pixel.x, imageHeight - 1 - pixel.y, traceParams.pathsSurface, hitLevel);
 }
 
