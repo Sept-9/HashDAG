@@ -1,5 +1,5 @@
 #ifdef _MSC_VER
-#  pragma warning( disable: 4244 )  // conversion from don't care to whatever, possible loss of data 
+#  pragma warning( disable: 4244 )  // conversion from don't care to whatever, possible loss of data
 #endif
 #ifdef __MINGW32__
 #  define __STDC_FORMAT_MACROS
@@ -32,6 +32,7 @@ static const char* IntTable100 =
 
 static inline void PrintTinyInt( char*& buf, uint64_t v )
 {
+    assert( v < 100 );
     if( v >= 10 )
     {
         *buf++ = '0' + v/10;
@@ -41,6 +42,7 @@ static inline void PrintTinyInt( char*& buf, uint64_t v )
 
 static inline void PrintTinyInt0( char*& buf, uint64_t v )
 {
+    assert( v < 100 );
     if( v >= 10 )
     {
         *buf++ = '0' + v/10;
@@ -54,6 +56,7 @@ static inline void PrintTinyInt0( char*& buf, uint64_t v )
 
 static inline void PrintSmallInt( char*& buf, uint64_t v )
 {
+    assert( v < 1000 );
     if( v >= 100 )
     {
         memcpy( buf, IntTable100 + v/10*2, 2 );
@@ -62,6 +65,27 @@ static inline void PrintSmallInt( char*& buf, uint64_t v )
     else if( v >= 10 )
     {
         *buf++ = '0' + v/10;
+    }
+    *buf++ = '0' + v%10;
+}
+
+static inline void PrintSmallInt0( char*& buf, uint64_t v )
+{
+    assert( v < 1000 );
+    if( v >= 100 )
+    {
+        memcpy( buf, IntTable100 + v/10*2, 2 );
+        buf += 2;
+    }
+    else if( v >= 10 )
+    {
+        *buf++ = '0';
+        *buf++ = '0' + v/10;
+    }
+    else
+    {
+        memcpy( buf, "00", 2 );
+        buf += 2;
     }
     *buf++ = '0' + v%10;
 }
@@ -93,7 +117,15 @@ static inline void PrintSmallIntFrac( char*& buf, uint64_t v )
     uint64_t fr = v % 1000;
     if( fr >= 995 )
     {
-        PrintSmallInt( buf, in+1 );
+        if( in < 999 )
+        {
+            PrintSmallInt( buf, in+1 );
+        }
+        else
+        {
+            memcpy( buf, "1000", 4 );
+            buf += 4;
+        }
     }
     else
     {
@@ -123,6 +155,22 @@ static inline void PrintSecondsFrac( char*& buf, uint64_t v )
     }
 }
 
+uint64_t _int64_abs( int64_t x )
+{
+    if( x < 0 )
+    {
+        // `-x` does not work if `x` is `std::numeric_limits<int64_t>::min()`,
+        // see https://github.com/wolfpld/tracy/pull/1040
+        // This works though:
+        // https://graphics.stanford.edu/~seander/bithacks.html#IntegerAbs
+        return -(uint64_t)x;
+    }
+    else
+    {
+        return x;
+    }
+}
+
 const char* TimeToString( int64_t _ns )
 {
     enum { Pool = 8 };
@@ -132,16 +180,11 @@ const char* TimeToString( int64_t _ns )
     char* bufstart = buf;
     bufsel = ( bufsel + 1 ) % Pool;
 
-    uint64_t ns;
+    uint64_t ns = _int64_abs(_ns);
     if( _ns < 0 )
     {
         *buf = '-';
         buf++;
-        ns = -_ns;
-    }
-    else
-    {
-        ns = _ns;
     }
 
     if( ns < 1000 )
@@ -152,11 +195,7 @@ const char* TimeToString( int64_t _ns )
     else if( ns < 1000ll * 1000 )
     {
         PrintSmallIntFrac( buf, ns );
-#ifdef TRACY_EXTENDED_FONT
         memcpy( buf, " \xce\xbcs", 5 );
-#else
-        memcpy( buf, " us", 4 );
-#endif
     }
     else if( ns < 1000ll * 1000 * 1000 )
     {
@@ -195,15 +234,9 @@ const char* TimeToString( int64_t _ns )
         const auto h = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 * 60 ) - d * 24 );
         const auto m = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 ) - d * ( 60 * 24 ) - h * 60 );
         const auto s = int64_t( ns / ( 1000ll * 1000 * 1000 ) - d * ( 60 * 60 * 24 ) - h * ( 60 * 60 ) - m * 60 );
-        if( d < 1000 )
-        {
-            PrintSmallInt( buf, d );
-            *buf++ = 'd';
-        }
-        else
-        {
-            buf += sprintf( buf, "%" PRIi64 "d", d );
-        }
+        assert( d < 100 );
+        PrintTinyInt( buf, d );
+        *buf++ = 'd';
         PrintTinyInt0( buf, h );
         *buf++ = ':';
         PrintTinyInt0( buf, m );
@@ -214,45 +247,113 @@ const char* TimeToString( int64_t _ns )
     return bufstart;
 }
 
-const char* RealToString( double val, bool separator )
+const char* TimeToStringExact( int64_t _ns )
 {
     enum { Pool = 8 };
     static char bufpool[Pool][64];
     static int bufsel = 0;
     char* buf = bufpool[bufsel];
+    char* bufstart = buf;
     bufsel = ( bufsel + 1 ) % Pool;
 
-    sprintf( buf, "%f", val );
-    auto ptr = buf;
-    if( *ptr == '-' ) ptr++;
-
-    const auto vbegin = ptr;
-
-    if( separator )
+    uint64_t ns = _int64_abs(_ns);
+    if( _ns < 0 )
     {
-        while( *ptr != '\0' && *ptr != ',' && *ptr != '.' ) ptr++;
-        auto end = ptr;
-        while( *end != '\0' ) end++;
-        auto sz = end - ptr;
-
-        while( ptr - vbegin > 3 )
-        {
-            ptr -= 3;
-            memmove( ptr+1, ptr, sz );
-            *ptr = ',';
-            sz += 4;
-        }
+        *buf = '-';
+        buf++;
     }
 
-    while( *ptr != '\0' && *ptr != ',' && *ptr != '.' ) ptr++;
+    const char* numStart = buf;
 
-    if( *ptr == '\0' ) return buf;
-    while( *ptr != '\0' ) ptr++;
-    ptr--;
-    while( *ptr == '0' ) ptr--;
-    if( *ptr != '.' && *ptr != ',' ) ptr++;
-    *ptr = '\0';
-    return buf;
+    if( ns >= 1000ll * 1000 * 1000 * 60 * 60 * 24 )
+    {
+        const auto d = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 * 60 * 24 ) );
+        const auto h = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 * 60 ) - d * 24 );
+        const auto m = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 ) - d * ( 60 * 24 ) - h * 60 );
+        const auto s = int64_t( ns / ( 1000ll * 1000 * 1000 ) - d * ( 60 * 60 * 24 ) - h * ( 60 * 60 ) - m * 60 );
+        if( d < 100 )
+        {
+            PrintTinyInt( buf, d );
+            *buf++ = 'd';
+        }
+        else
+        {
+            memcpy( buf, "100+d", 5 );
+            buf += 5;
+        }
+        PrintTinyInt0( buf, h );
+        *buf++ = ':';
+        PrintTinyInt0( buf, m );
+        *buf++ = ':';
+        PrintTinyInt0( buf, s );
+        ns %= 1000ll * 1000 * 1000;
+    }
+    else if( ns >= 1000ll * 1000 * 1000 * 60 * 60 )
+    {
+        const auto h = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 * 60 ) );
+        const auto m = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 ) - h * 60 );
+        const auto s = int64_t( ns / ( 1000ll * 1000 * 1000 ) - h * ( 60 * 60 ) - m * 60 );
+        PrintTinyInt( buf, h );
+        *buf++ = ':';
+        PrintTinyInt0( buf, m );
+        *buf++ = ':';
+        PrintTinyInt0( buf, s );
+        ns %= 1000ll * 1000 * 1000;
+    }
+    else if( ns >= 1000ll * 1000 * 1000 * 60 )
+    {
+        const auto m = int64_t( ns / ( 1000ll * 1000 * 1000 * 60 ) );
+        const auto s = int64_t( ns / ( 1000ll * 1000 * 1000 ) - m * 60 );
+        PrintTinyInt( buf, m );
+        *buf++ = ':';
+        PrintTinyInt0( buf, s );
+        ns %= 1000ll * 1000 * 1000;
+    }
+    else if( ns >= 1000ll * 1000 * 1000 )
+    {
+        PrintTinyInt( buf, int64_t( ns / ( 1000ll * 1000 * 1000 ) ) );
+        *buf++ = 's';
+        ns %= 1000ll * 1000 * 1000;
+    }
+
+    if( ns > 0 )
+    {
+        if( buf != numStart ) *buf++ = ' ';
+        if( ns >= 1000ll * 1000 )
+        {
+            PrintSmallInt0( buf, int64_t( ns / ( 1000ll * 1000 ) ) );
+            *buf++ = ',';
+            ns %= 1000ll * 1000;
+        }
+        else
+        {
+            memcpy( buf, "000,", 4 );
+            buf += 4;
+        }
+        if( ns >= 1000ll )
+        {
+            PrintSmallInt0( buf, int64_t( ns / 1000ll ) );
+            *buf++ = ',';
+            ns %= 1000ll;
+        }
+        else
+        {
+            memcpy( buf, "000,", 4 );
+            buf += 4;
+        }
+        PrintSmallInt0( buf, ns );
+        *buf++ = 'n';
+        *buf++ = 's';
+    }
+    else
+    {
+        memcpy( buf, "000,000,000ns", 13 );
+        buf += 13;
+    }
+
+    *buf++ = '\0';
+
+    return bufstart;
 }
 
 const char* MemSizeToString( int64_t val )
@@ -280,29 +381,28 @@ const char* MemSizeToString( int64_t val )
     };
     Unit unit;
 
+    char* ptr;
     if( aval < 10000ll * 1024 )
     {
-        sprintf( buf, "%.2f", val / 1024. );
+        ptr = PrintFloat( buf, buf+64, val / 1024., 2 );
         unit = Unit::Kilobyte;
     }
     else if( aval < 10000ll * 1024 * 1024 )
     {
-        sprintf( buf, "%.2f", val / ( 1024. * 1024 ) );
+        ptr = PrintFloat( buf, buf+64, val / ( 1024. * 1024 ), 2 );
         unit = Unit::Megabyte;
     }
     else if( aval < 10000ll * 1024 * 1024 * 1024 )
     {
-        sprintf( buf, "%.2f", val / ( 1024. * 1024 * 1024 ) );
+        ptr = PrintFloat( buf, buf+64, val / ( 1024. * 1024 * 1024 ), 2 );
         unit = Unit::Gigabyte;
     }
     else
     {
-        sprintf( buf, "%.2f", val / ( 1024. * 1024 * 1024 * 1024 ) );
+        ptr = PrintFloat( buf, buf+64, val / ( 1024. * 1024 * 1024 * 1024 ), 2 );
         unit = Unit::Terabyte;
     }
 
-    auto ptr = buf;
-    while( *ptr ) ptr++;
     ptr--;
     while( ptr >= buf && *ptr == '0' ) ptr--;
     if( *ptr != '.' ) ptr++;
@@ -330,6 +430,35 @@ const char* MemSizeToString( int64_t val )
     *ptr++ = '\0';
 
     return buf;
+}
+
+const char* LocationToString( const char* fn, uint32_t line )
+{
+    if( line == 0 ) return fn;
+
+    enum { Pool = 8 };
+    static char bufpool[Pool][4096];
+    static int bufsel = 0;
+    char* buf = bufpool[bufsel];
+    bufsel = ( bufsel + 1 ) % Pool;
+
+    sprintf( buf, "%s:%i", fn, line );
+    return buf;
+}
+
+namespace detail
+{
+
+char* RealToStringGetBuffer()
+{
+    enum { Pool = 8 };
+    static char bufpool[Pool][64];
+    static int bufsel = 0;
+    char* buf = bufpool[bufsel];
+    bufsel = ( bufsel + 1 ) % Pool;
+    return buf;
+}
+
 }
 
 }

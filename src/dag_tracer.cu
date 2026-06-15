@@ -132,6 +132,8 @@ inline Tracer::TracePathsParams get_trace_params(
 template<typename TDAG>
 float DAGTracer::resolve_paths(const CameraView& camera, const DAGInfo& dagInfo, const TDAG& dag, float lodPixelThreshold)
 {
+	// Tracy zone "ResolvePaths" lives in engine.cpp at the call site;
+	// PROFILE_FUNCTION() is a no-op here because typedefs.h disables Tracy under __CUDACC__.
 	PROFILE_FUNCTION();
 	
 	const dim3 block_dim = dim3(4, 64);
@@ -161,6 +163,8 @@ float DAGTracer::resolve_paths(const CameraView& camera, const DAGInfo& dagInfo,
 template<typename TDAG, typename TDAGColors>
 float DAGTracer::resolve_colors(const TDAG& dag, const TDAGColors& colors, EDebugColors debugColors, uint32 debugColorsIndexLevel, ToolInfo toolInfo)
 {
+	// Tracy zone "ResolveColors" lives in engine.cpp at the call site;
+	// PROFILE_FUNCTION() is a no-op here because typedefs.h disables Tracy under __CUDACC__.
 	PROFILE_FUNCTION();
 	
     colors.check_ready_for_rt();
@@ -197,6 +201,8 @@ float DAGTracer::resolve_colors(const TDAG& dag, const TDAGColors& colors, EDebu
 template<typename TDAG>
 float DAGTracer::resolve_shadows(const CameraView& camera, const DAGInfo& dagInfo, const TDAG& dag, float shadowBias, float fogDensity)
 {
+	// Tracy zone "ResolveShadows" lives in engine.cpp at the call site;
+	// PROFILE_FUNCTION() is a no-op here because typedefs.h disables Tracy under __CUDACC__.
 	PROFILE_FUNCTION();
 	
     const dim3 block_dim = dim3(4, 64);
@@ -255,6 +261,8 @@ __global__ void read_path(uint32 x, uint32 y, cudaSurfaceObject_t surface, uint3
 
 uint3 DAGTracer::get_path(uint32 posX, uint32 posY)
 {
+	// Tracy zone "GetPath" lives in engine.cpp at the call site;
+	// PROFILE_FUNCTION() is a no-op here because typedefs.h disables Tracy under __CUDACC__.
 	PROFILE_FUNCTION();
 	
     if (headLess) return {};

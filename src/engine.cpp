@@ -584,16 +584,19 @@ void Engine::tick()
 	}
 
 	double pathsTime = 0;
-	switch (config.currentDag)
 	{
-	case EDag::BasicDagUncompressedColors:
-	case EDag::BasicDagCompressedColors:
-	case EDag::BasicDagColorErrors:
-		pathsTime = tracer->resolve_paths(view, dagInfo, basicDag, lodPixelThreshold);
-		break;
-	case EDag::HashDag:
-		pathsTime = tracer->resolve_paths(view, dagInfo, hashDag, lodPixelThreshold);
-		break;
+		PROFILE_SCOPE("ResolvePaths");
+		switch (config.currentDag)
+		{
+		case EDag::BasicDagUncompressedColors:
+		case EDag::BasicDagCompressedColors:
+		case EDag::BasicDagColorErrors:
+			pathsTime = tracer->resolve_paths(view, dagInfo, basicDag, lodPixelThreshold);
+			break;
+		case EDag::HashDag:
+			pathsTime = tracer->resolve_paths(view, dagInfo, hashDag, lodPixelThreshold);
+			break;
+		}
 	}
 	statsRecorder.report("paths", pathsTime);
 
@@ -605,7 +608,10 @@ void Engine::tick()
 
     if (replayReader.is_empty())
     {
-        config.path = tracer->get_path(posX, posY);
+        {
+            PROFILE_SCOPE("GetPath");
+            config.path = tracer->get_path(posX, posY);
+        }
 #if RECORD_TOOL_OVERLAY
         replayWriter.add_action<ReplayActionSetToolParameters>(config.path, config.copySourcePath, config.copyDestPath, config.radius, uint32(config.tool));
 #endif
@@ -621,29 +627,33 @@ void Engine::tick()
 		config.copySourcePath,
 		config.copyDestPath
 	};
-	switch (config.currentDag)
 	{
-	case EDag::BasicDagUncompressedColors:
-		colorsTime = tracer->resolve_colors(basicDag, basicDagUncompressedColors, config.debugColors,
-		                                    debugColorsIndexLevel, toolInfo);
-		break;
-	case EDag::BasicDagCompressedColors:
-		colorsTime = tracer->resolve_colors(basicDag, basicDagCompressedColors, config.debugColors, debugColorsIndexLevel,
-		                                    toolInfo);
-		break;
-	case EDag::BasicDagColorErrors:
-		colorsTime = tracer->resolve_colors(basicDag, basicDagColorErrors, config.debugColors,
-		                                    debugColorsIndexLevel, toolInfo);
-		break;
-	case EDag::HashDag:
-		colorsTime = tracer->resolve_colors(hashDag, hashDagColors, config.debugColors, debugColorsIndexLevel, toolInfo);
-		break;
+		PROFILE_SCOPE("ResolveColors");
+		switch (config.currentDag)
+		{
+		case EDag::BasicDagUncompressedColors:
+			colorsTime = tracer->resolve_colors(basicDag, basicDagUncompressedColors, config.debugColors,
+												debugColorsIndexLevel, toolInfo);
+			break;
+		case EDag::BasicDagCompressedColors:
+			colorsTime = tracer->resolve_colors(basicDag, basicDagCompressedColors, config.debugColors, debugColorsIndexLevel,
+												toolInfo);
+			break;
+		case EDag::BasicDagColorErrors:
+			colorsTime = tracer->resolve_colors(basicDag, basicDagColorErrors, config.debugColors,
+												debugColorsIndexLevel, toolInfo);
+			break;
+		case EDag::HashDag:
+			colorsTime = tracer->resolve_colors(hashDag, hashDagColors, config.debugColors, debugColorsIndexLevel, toolInfo);
+			break;
+		}
 	}
 	statsRecorder.report("colors", colorsTime);
 
 	double shadowsTime = 0;
     if (shadows && ENABLE_SHADOWS)
     {
+        PROFILE_SCOPE("ResolveShadows");
         switch (config.currentDag)
         {
             case EDag::BasicDagUncompressedColors:

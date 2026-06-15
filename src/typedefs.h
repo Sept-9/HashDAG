@@ -753,8 +753,8 @@ HOST_DEVICE typename TypeForBits<Bits>::Type cast_bits(U value)
 #error "FORCE_ENABLE_TRACY = 1 but TRACY_ENABLE undefined"
 #endif
 
-#if defined(TRACY_ENABLE) && (!BENCHMARK || FORCE_ENABLE_TRACY)
-#include "Tracy.hpp"
+#if defined(TRACY_ENABLE) && (!BENCHMARK || FORCE_ENABLE_TRACY) && !defined(__CUDACC__)
+#include "tracy/Tracy.hpp"
 
 #define PROFILE_SCOPEF(Format, ...) \
 	ZoneScoped; \

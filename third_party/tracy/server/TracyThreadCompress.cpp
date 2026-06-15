@@ -18,15 +18,15 @@ void ThreadCompress::InitZero()
     m_threadExpand.push_back( 0 );
 }
 
-void ThreadCompress::Load( FileRead& f, int fileVer )
+void ThreadCompress::Load( FileRead& f )
 {
     assert( m_threadExpand.empty() );
     assert( m_threadMap.empty() );
 
     uint64_t sz;
-    if( fileVer >= FileVersion( 0, 4, 4 ) )
+    f.Read( sz );
+    if( sz != 0 )
     {
-        f.Read( sz );
         m_threadExpand.reserve_and_use( sz );
         f.Read( m_threadExpand.data(), sizeof( uint64_t ) * sz );
         m_threadMap.reserve( sz );
@@ -35,19 +35,13 @@ void ThreadCompress::Load( FileRead& f, int fileVer )
             m_threadMap.emplace( m_threadExpand[i], i );
         }
     }
-    else
-    {
-        f.Read( sz );
-        m_threadExpand.reserve( sz );
-        m_threadExpand.push_back( 0 );
-    }
 }
 
 void ThreadCompress::Save( FileWrite& f ) const
 {
     uint64_t sz = m_threadExpand.size();
     f.Write( &sz, sizeof( sz ) );
-    f.Write( m_threadExpand.data(), sz * sizeof( uint64_t ) );
+    if( sz != 0 ) f.Write( m_threadExpand.data(), sz * sizeof( uint64_t ) );
 }
 
 uint16_t ThreadCompress::CompressThreadReal( uint64_t thread )

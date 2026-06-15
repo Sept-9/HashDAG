@@ -5,39 +5,23 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "tracy_flat_hash_map.hpp"
+#define XXH_INLINE_ALL
+#include "tracy_xxhash.h"
 
 namespace tracy
 {
 namespace charutil
 {
 
-static inline uint32_t hash( const char* str )
+static inline size_t hash( const char* str )
 {
-    uint32_t hash = 5381;
-    int c;
-
-    while( ( c = *str++ ) != 0 )
-    {
-        hash = ( ( hash << 5 ) + hash ) ^ c;
-    }
-
-    return hash;
+    const auto sz = strlen( str );
+    return XXH3_64bits( str, sz );
 }
 
-static inline uint32_t hash( const char* str, size_t sz )
+static inline size_t hash( const char* str, size_t sz )
 {
-    uint32_t hash = 5381;
-    int c;
-
-    while( sz > 0 )
-    {
-        c = *str++;
-        hash = ( ( hash << 5 ) + hash ) ^ c;
-        sz--;
-    }
-
-    return hash;
+    return XXH3_64bits( str, sz );
 }
 
 struct Hasher
@@ -46,11 +30,6 @@ struct Hasher
     {
         return hash( key );
     }
-};
-
-struct HasherPOT : public Hasher
-{
-    typedef tracy::power_of_two_hash_policy hash_policy;
 };
 
 struct Comparator
@@ -80,11 +59,6 @@ struct StringKey
         {
             return hash( key.ptr, key.sz );
         }
-    };
-
-    struct HasherPOT : public Hasher
-    {
-        typedef tracy::power_of_two_hash_policy hash_policy;
     };
 
     struct Comparator

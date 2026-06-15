@@ -4,21 +4,24 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "../common/TracyForceInline.hpp"
-#include "tracy_flat_hash_map.hpp"
+#define XXH_INLINE_ALL
+#include "tracy_xxhash.h"
+
+#include "../public/common/TracyForceInline.hpp"
 #include "TracyCharUtil.hpp"
-#include "TracyMemory.hpp"
 #include "TracyEvent.hpp"
+#include "TracyMemory.hpp"
+#include "TracyShortPtr.hpp"
 
 namespace tracy
 {
 
-#pragma pack( 1 )
+#pragma pack( push, 1 )
 template<typename T>
 class VarArray
 {
 public:
-    VarArray( uint8_t size, const T* data )
+    VarArray( uint16_t size, const T* data )
         : m_size( size )
         , m_ptr( data )
     {
@@ -34,7 +37,7 @@ public:
     tracy_force_inline uint32_t get_hash() const { return m_hash; }
 
     tracy_force_inline bool empty() const { return m_size == 0; }
-    tracy_force_inline uint8_t size() const { return m_size; }
+    tracy_force_inline uint16_t size() const { return m_size; }
 
     tracy_force_inline const T* data() const { return m_ptr; };
 
@@ -49,32 +52,19 @@ public:
 private:
     tracy_force_inline void CalcHash();
 
-    uint8_t m_size;
+    uint16_t m_size;
     uint32_t m_hash;
-    const T* m_ptr;
+    const short_ptr<T> m_ptr;
 };
-#pragma pack()
+#pragma pack( pop )
+
+enum { VarArraySize = sizeof( VarArray<int> ) };
+
 
 template<typename T>
 inline void VarArray<T>::CalcHash()
 {
-    T hash = 5381;
-    for( uint8_t i=0; i<m_size; i++ )
-    {
-        hash = ( ( hash << 5 ) + hash ) ^ m_ptr[i];
-    }
-    m_hash = uint32_t( hash );
-}
-
-template<>
-inline void VarArray<CallstackFrameId>::CalcHash()
-{
-    uint64_t hash = 5381;
-    for( uint8_t i=0; i<m_size; i++ )
-    {
-        hash = ( ( hash << 5 ) + hash ) ^ m_ptr[i].data;
-    }
-    m_hash = uint32_t( hash );
+    m_hash = uint32_t( XXH3_64bits( m_ptr.get(), m_size * sizeof( T ) ) );
 }
 
 template<typename T>
@@ -91,12 +81,6 @@ struct VarArrayHasher
     {
         return arr->get_hash();
     }
-};
-
-template<typename T>
-struct VarArrayHasherPOT : public VarArrayHasher<T>
-{
-    typedef tracy::power_of_two_hash_policy hash_policy;
 };
 
 template<typename T>

@@ -2,12 +2,12 @@
 #define __TRACYMEMORY_HPP__
 
 #include <atomic>
-#include <stdlib.h>
+#include <stdint.h>
 
 namespace tracy
 {
 
-extern std::atomic<size_t> memUsage;
+extern std::atomic<int64_t> memUsage;
 
 }
 

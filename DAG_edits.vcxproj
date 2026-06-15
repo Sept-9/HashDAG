@@ -76,7 +76,7 @@
     <ClInclude Include="src\video.h" />
     <ClInclude Include="third_party\fontstash\include\fontstash.h" />
     <ClInclude Include="third_party\fontstash\include\stb_truetype.h" />
-    <ClInclude Include="third_party\tracy\Tracy.hpp" />
+    <ClInclude Include="third_party\tracy\public\tracy\Tracy.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dags\hash_dag\hash_dag_factory.cpp" />
@@ -93,7 +93,7 @@
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\stats.cpp" />
     <ClCompile Include="src\video.cpp" />
-    <ClCompile Include="third_party\tracy\TracyClient.cpp" />
+    <ClCompile Include="third_party\tracy\public\TracyClient.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -158,11 +158,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>src;third_party/fontstash/include;third_party/tracy;$(IncludePath)</IncludePath>
+    <IncludePath>src;third_party/fontstash/include;third_party/tracy/public;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>src;third_party/fontstash/include;third_party/tracy;$(IncludePath)</IncludePath>
+    <IncludePath>src;third_party/fontstash/include;third_party/tracy/public;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
