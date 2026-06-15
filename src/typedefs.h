@@ -1,5 +1,4 @@
-#pragma once
-
+﻿#pragma once
 #include "script_definitions.h"
 
 /** Config: If true, will disable all the stuff we don't want when recording benchmarks

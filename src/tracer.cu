@@ -607,6 +607,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
         float3 color = ColorUtils::rgb888_to_float3(colorInt);
 
         color = color * clamp(0.5f + light, 0.f, 1.f);
+		//color = color * light;
 
         color = applyFog(
                 color,
@@ -617,7 +618,42 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
         setColorImpl(color);
     };
+	const auto setBRDFColor = [&](float light, double distance, double3 direction, double3 normal, bool isShadow)
+		{
+			const float3 L = sun_direction();
+			const float3 V = make_float3( - normalize(direction));
+			const float3 H = normalize(L + V);
+			const float3 N = make_float3(normal);
+			const uint32 colorInt = surf2Dread<uint32>(params.colorsSurface, pixel.x * sizeof(uint32), pixel.y);
+			float3 albedo = ColorUtils::rgb888_to_float3(colorInt);
+			// Lambert
+			float diffuse = max(0.f, dot(N, L));
 
+			// Blinn-Phong
+			float specular = pow(max(0.f, dot(N, H)), 32.f);
+
+			float3 ambient = albedo * 0.1f;
+			float3 diffuseC = albedo * diffuse * 0.8f;
+			float3 specularC = make_float3(1.f) * specular * 0.3f;
+
+			if(isShadow)
+			{
+				diffuseC = make_float3(0);
+				specularC = make_float3(0);
+			}
+			float3 color = ambient + diffuseC + specularC;
+			//color = color * clamp(0.5f + light, 0.f, 1.f);
+			//color = color * light;
+
+			color = applyFog(
+				color,
+				distance,
+				direction,
+				params.cameraPosition,
+				params.fogDensity);
+
+			setColorImpl(color);
+		};
     const float3 rayOrigin = make_float3(Path::load(pixel.x, pixel.y, params.pathsSurface).path);
     const double3 cameraRayDirection = normalize(params.rayMin + pixel.x * params.rayDDx + (imageHeight - 1 - pixel.y) * params.rayDDy - params.cameraPosition);
 
@@ -656,7 +692,15 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
     if (isShadowed)
     {
-        setColor(0, distance, nv);
+#if PER_VOXEL_FACE_SHADING
+		const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + 0.5));
+		const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
+		const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
+		setBRDFColor(0, distance, nv, normal, true);
+#else
+		setColor(0, distance, nv);
+#endif
+		
     }
     else
     {
@@ -664,7 +708,8 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
         const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + 0.5));
         const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
         const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
-        setColor(max(0.f, dot(make_float3(normal), sun_direction())), distance, nv);
+        //setColor(max(0.f, dot(make_float3(normal), sun_direction())), distance, nv);
+		setBRDFColor(1, distance, nv, normal, false);
 #else
         setColor(1, distance, nv);
 #endif

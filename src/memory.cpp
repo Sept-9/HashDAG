@@ -200,9 +200,16 @@ void* Memory::malloc_impl(size_t size, const char* name, EMemoryType type)
         {
             error = cudaMallocManaged(&ptr, size);
             if (MEM_ADVISE_READ_MOSTLY)
-            {
+            { 
                 // Huge performance improvements when reading
+#if CUDART_VERSION >= 12000
+                cudaMemLocation location = {};
+                location.type = cudaMemLocationTypeDevice;
+                location.id = 0;
+                CUDA_CHECKED_CALL cudaMemAdvise(ptr, size, cudaMemAdviseSetReadMostly, location);
+#else
                 CUDA_CHECKED_CALL cudaMemAdvise(ptr, size, cudaMemAdviseSetReadMostly, 0);
+#endif
             }
         }
         else
