@@ -20,7 +20,7 @@ public:
 	}
 
 	template<typename TDAG>
-	float resolve_paths(const CameraView& camera, const DAGInfo& dagInfo, const TDAG& dag);
+	float resolve_paths(const CameraView& camera, const DAGInfo& dagInfo, const TDAG& dag, float lodPixelThreshold = 0.f);
 	template<typename TDAG, typename TDAGColors>
 	float resolve_colors(const TDAG& dag, const TDAGColors& colors, EDebugColors debugColors, uint32 debugColorsIndexLevel, ToolInfo toolInfo);
 	template<typename TDAG>

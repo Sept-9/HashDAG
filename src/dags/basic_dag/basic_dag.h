@@ -59,6 +59,9 @@ struct BasicDAGColorsBase : BaseDAGColors
 		check(false);
 		return 0;
 	}
+	// LOD: BasicDAG has no color tree, so no precomputed averages exist.
+	HOST_DEVICE uint32 get_node_average_color(uint32 /*index*/) const { return 0; }
+	HOST_DEVICE bool has_node_averages() const { return false; }
 	HOST_DEVICE uint64 get_leaves_count(uint32 level, uint32 node) const
 	{
 		const uint32 upperBits = node >> 8;
@@ -223,6 +226,9 @@ struct BasicDAGColorErrors : BaseDAGColors
 	{
 		return compressedColors.get_leaves_count(level, node);
 	}
+	// LOD: see comment in BasicDAGColorsBase.
+	HOST_DEVICE uint32 get_node_average_color(uint32 /*index*/) const { return 0; }
+	HOST_DEVICE bool has_node_averages() const { return false; }
 	HOST_DEVICE ColorLeaf get_leaf(uint32 index) const
 	{
 		check(false);

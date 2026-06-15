@@ -276,6 +276,17 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
             fogDensity += 1;
             printf("Fog density: %f\n", fogDensity);
         }
+        if (key == GLFW_KEY_RIGHT_BRACKET)
+        {
+            lodPixelThreshold = (lodPixelThreshold <= 0.f) ? 0.5f : lodPixelThreshold * 1.4142136f;
+            printf("LOD pixel threshold: %f\n", lodPixelThreshold);
+        }
+        if (key == GLFW_KEY_LEFT_BRACKET)
+        {
+            lodPixelThreshold /= 1.4142136f;
+            if (lodPixelThreshold < 0.05f) lodPixelThreshold = 0.f;
+            printf("LOD pixel threshold: %f%s\n", lodPixelThreshold, lodPixelThreshold == 0.f ? " (LOD disabled)" : "");
+        }
         if (key == GLFW_KEY_H)
         {
         	showUI = !showUI;
@@ -578,10 +589,10 @@ void Engine::tick()
 	case EDag::BasicDagUncompressedColors:
 	case EDag::BasicDagCompressedColors:
 	case EDag::BasicDagColorErrors:
-		pathsTime = tracer->resolve_paths(view, dagInfo, basicDag);
+		pathsTime = tracer->resolve_paths(view, dagInfo, basicDag, lodPixelThreshold);
 		break;
 	case EDag::HashDag:
-		pathsTime = tracer->resolve_paths(view, dagInfo, hashDag);
+		pathsTime = tracer->resolve_paths(view, dagInfo, hashDag, lodPixelThreshold);
 		break;
 	}
 	statsRecorder.report("paths", pathsTime);

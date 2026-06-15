@@ -175,6 +175,10 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 	cache.childMask = Utils::child_mask(dag.get_node(0, cache.index));
 	cache.visitMask = cache.childMask & compute_intersection_mask<true>(0, path, dag, rayOrigin, rayDirection, rayDirectionInverse);
 
+	// LOD: level at which the traversal terminates. dag.levels means "full descent, hit a 1-voxel"
+	// (the original behaviour). Set to 0 on background pixels, or a smaller value when LOD kicks in.
+	uint32 hitLevel = dag.levels;
+
 	// Traverse DAG
 	for (;;)
 	{
@@ -190,6 +194,7 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 			if (newLevel == 0 && !cache.visitMask)
 			{
 				path = Path(0, 0, 0);
+				hitLevel = 0;
 				break;
 			}
 
@@ -213,6 +218,27 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 			if (level == dag.levels)
 			{
 				break;
+			}
+
+			// LOD: stop here if this node already projects to fewer than the configured pixel
+			// threshold. We compute the ray's entry t (slab test) to the freshly-descended node;
+			// since rayDirection is unit-length, that t equals the world-space camera distance.
+			if (traceParams.lodScale > 0.f)
+			{
+				const uint32 shift = dag.levels - level;
+				const float voxelSize = float(1u << shift);
+				const float radius = voxelSize * 0.5f;
+				const float3 nodeCenter = make_float3(radius) + path.as_position(shift);
+				const float3 cRelOrig = nodeCenter - rayOrigin;
+				const float3 tmidLod = cRelOrig * rayDirectionInverse;
+				const float3 slabRadLod = radius * abs(rayDirectionInverse);
+				const float3 pminLod = tmidLod - slabRadLod;
+				const float tminLod = max(max(pminLod), 0.f);
+				if (voxelSize < tminLod * traceParams.lodScale)
+				{
+					hitLevel = level;
+					break;
+				}
 			}
 
 			// Are we in an internal node?
@@ -248,7 +274,7 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 		}
 	}
 
-	path.store(pixel.x, imageHeight - 1 - pixel.y, traceParams.pathsSurface);
+	path.store_with_level(pixel.x, imageHeight - 1 - pixel.y, traceParams.pathsSurface, hitLevel);
 }
 
 template<typename TDAG, typename TDAGColors>
@@ -266,7 +292,10 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 		surf2Dwrite(color, traceParams.colorsSurface, (int)sizeof(uint32) * pixel.x, pixel.y, cudaBoundaryModeClamp);
 	};
 
-	const Path path = Path::load(pixel.x, pixel.y, traceParams.pathsSurface);
+	// LOD: hitLevel is stored in the 4th uint of the pathsSurface. Equals dag.levels for
+	// non-LOD pixels (full descent to a 1-voxel), or a smaller level when LOD stopped early.
+	uint32 hitLevel = dag.levels;
+	const Path path = Path::load_with_level(pixel.x, pixel.y, traceParams.pathsSurface, hitLevel);
 	if (path.is_null())
     {
         setColorImpl(ColorUtils::float3_to_rgb888(make_float3(187, 242, 250) / 255.f));
@@ -290,6 +319,44 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
         uint32 b = (path.path.x ^ path.path.y ^ path.path.z) & 0x1;
         setColor(ColorUtils::float3_to_rgb888(make_float3(1, b, 1.f - b)));
     };
+
+	const uint32 colorTreeLevels = colors.get_color_tree_levels();
+	const bool lodMode = (hitLevel < dag.levels);
+
+	// LOD-A: LOD stopped strictly above the color leaf level → fetch the precomputed average
+	// from the corresponding color tree internal node and return immediately. Only meaningful
+	// when the color tree actually exists (HashDAG); BasicDAG sets colorTreeLevels == 0 so
+	// this branch is dead there.
+	//
+	// Note we use `<` (not `<=`) because at level == colorTreeLevels the color tree pointer
+	// is a *leaf* index (into `leaves[]` / `offsets[]`), not an internal-node index, and we
+	// don't store averages for leaves. The leaf-level case is handled by the main loop using
+	// the first block's (min+max)/2 instead.
+	if (lodMode && hitLevel < colorTreeLevels && colors.has_node_averages())
+	{
+		uint32 colorNodeIndexLod = 0;
+		bool validPath = true;
+		for (uint32 lv = 1; lv <= hitLevel; ++lv)
+		{
+			const uint8 c = path.child_index(lv, dag.levels);
+			colorNodeIndexLod = colors.get_child_index(lv - 1, colorNodeIndexLod, c);
+			// A zero child index past the root means the path doesn't actually exist in the
+			// color tree (e.g. on freshly-edited regions that haven't allocated color nodes).
+			if (lv < hitLevel && colorNodeIndexLod == 0)
+			{
+				validPath = false;
+				break;
+			}
+		}
+		if (!validPath)
+		{
+			invalidColor();
+			return;
+		}
+		const uint32 avg = colors.get_node_average_color(colorNodeIndexLod);
+		setColor(avg);
+		return;
+	}
 
     uint64 nof_leaves = 0;
 	uint32 debugColorsIndex = 0;
@@ -396,6 +463,13 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 					nof_leaves += Utils::popcll(leaf.to_64());
 				}
 			}
+			// LOD: if we're stopping at leaf_level(), nof_leaves now points to the start
+			// of this leaf-level node and is the offset we use to pick a representative
+			// block; skip the per-bit refinement (which requires the full path).
+			if (lodMode && hitLevel <= level)
+			{
+				break;
+			}
 			const uint32 childIndex = dag.get_child_index(level - 1, nodeIndex, childMask, child);
 			const Leaf leaf = dag.get_leaf(childIndex);
 			const uint8 leafBitIndex =
@@ -426,6 +500,13 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 				}
 			}
 			nodeIndex = dag.get_child_index(level - 1, nodeIndex, childMask, child);
+
+			// LOD: stop here when we've reached the LOD level. nof_leaves at this point
+			// is the offset of this LOD node's first surface voxel within the color leaf.
+			if (lodMode && level >= hitLevel)
+			{
+				break;
+			}
 		}
 	}
 
@@ -436,6 +517,17 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 	}
 
 	auto compressedColor = colorLeaf.get_color(nof_leaves);
+
+	// LOD: in LOD mode we don't have an exact per-voxel weight, so we represent the LOD node
+	// by the block's (min+max)/2 (or its single colour for bitsPerWeight == 0 blocks).
+	// This piggy-backs on the BC1-style clustering the color compression already does.
+	// For uncompressed colour types `get_lod_average()` just returns the stored colour.
+	if (lodMode)
+	{
+		setColor(ColorUtils::float3_to_rgb888(compressedColor.get_lod_average()));
+		return;
+	}
+
 	uint32 color =
 		traceParams.debugColors == EDebugColors::ColorBits
 		? compressedColor.get_debug_hash()
@@ -654,16 +746,21 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
 			setColorImpl(color);
 		};
-    const float3 rayOrigin = make_float3(Path::load(pixel.x, pixel.y, params.pathsSurface).path);
+    // LOD: hitLevel is encoded in the 4th uint of pathsSurface. When LOD stopped early the
+    // hit position represents the lower-left corner of a multi-voxel node rather than a 1-voxel.
+    // dag.levels means full descent (1x1x1).
+    uint32 hitLevel = dag.levels;
+    const float3 rayOrigin = make_float3(Path::load_with_level(pixel.x, pixel.y, params.pathsSurface, hitLevel).path);
     const double3 cameraRayDirection = normalize(params.rayMin + pixel.x * params.rayDDx + (imageHeight - 1 - pixel.y) * params.rayDDy - params.cameraPosition);
 
 #if EXACT_SHADOWS || PER_VOXEL_FACE_SHADING
+    const double voxelSize = double(1u << (dag.levels - hitLevel));
     const double3 rayOriginDouble = make_double3(rayOrigin);
     const double3 hitPosition = ray_box_intersection(
             params.cameraPosition,
             cameraRayDirection,
             rayOriginDouble,
-            rayOriginDouble + 1);
+            rayOriginDouble + voxelSize);
 #endif
 
 #if EXACT_SHADOWS
@@ -693,7 +790,9 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
     if (isShadowed)
     {
 #if PER_VOXEL_FACE_SHADING
-		const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + 0.5));
+		// LOD: voxel center is at rayOriginDouble + voxelSize*0.5, not (+0.5) which would
+		// only be correct for 1x1x1 voxels.
+		const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + voxelSize * 0.5));
 		const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
 		const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
 		setBRDFColor(0, distance, nv, normal, true);
@@ -705,7 +804,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
     else
     {
 #if PER_VOXEL_FACE_SHADING
-        const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + 0.5));
+        const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + voxelSize * 0.5));
         const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
         const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
         //setColor(max(0.f, dot(make_float3(normal), sun_direction())), distance, nv);

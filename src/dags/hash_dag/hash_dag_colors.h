@@ -15,10 +15,12 @@ public:
 #define nodes nodes_GPU
 #define leaves leaves_GPU
 #define offsets offsets_GPU
+#define nodeAverages nodeAverages_GPU
 #else
 #define nodes nodes_CPU
 #define leaves leaves_CPU
 #define offsets offsets_CPU
+#define nodeAverages nodeAverages_CPU
 #endif
 
 	HOST_DEVICE uint32 get_color_tree_levels() const
@@ -33,6 +35,22 @@ public:
 	HOST_DEVICE uint32 get_child_index(uint32 level, uint32 index, uint8 child) const
 	{
 		return nodes[index + child];
+	}
+
+	// LOD: precomputed average color (RGB888) for a color tree internal node.
+	// `index` is the first-slot index of the node (always multiple of 8).
+	// Used when the LOD early-terminates above the color leaf level.
+	// NOTE: averages are computed at build time and NOT maintained across edits.
+	HOST_DEVICE uint32 get_node_average_color(uint32 index) const
+	{
+		if (!nodeAverages.is_valid()) return 0;
+		const uint32 slot = index >> 3;
+		if (!nodeAverages.is_valid_index(slot)) return 0;
+		return nodeAverages[slot];
+	}
+	HOST_DEVICE bool has_node_averages() const
+	{
+		return nodeAverages.is_valid();
 	}
 	HOST_DEVICE ColorLeaf get_leaf(uint32 index) const
 	{
@@ -61,6 +79,7 @@ public:
 #undef nodes
 #undef leaves
 #undef offsets
+#undef nodeAverages
 
 private:
 	DynamicArray<uint32> nodes_GPU; // Leaves are indices to leaves if top bit is 1, else offsets
@@ -71,6 +90,11 @@ private:
 	DynamicArray<uint32> nodes_CPU;
 	DynamicArray<ColorLeaf> leaves_CPU;
 	DynamicArray<uint64> offsets_CPU;
+
+	// Parallel to nodes_*: one RGB888 average per color tree internal node.
+	// Indexed by (colorNodeIndex / 8).
+	DynamicArray<uint32> nodeAverages_GPU;
+	DynamicArray<uint32> nodeAverages_CPU;
 
 public:
     HOST uint32 allocate_interior_node()
@@ -109,6 +133,11 @@ public:
         {
             // offsets are never edited
             offsets_CPU.copy_to_gpu_flexible(offsets_GPU);
+            // nodeAverages: built once at construction, not maintained across edits.
+            if (nodeAverages_CPU.is_valid())
+            {
+                nodeAverages_CPU.copy_to_gpu_flexible(nodeAverages_GPU);
+            }
         }
     }
     HOST void upload_leaf_index_to_gpu_async(uint32 leafIndex)
@@ -131,6 +160,8 @@ public:
         leaves_GPU.free();
         offsets_CPU.free();
         offsets_GPU.free();
+        nodeAverages_CPU.free();
+        nodeAverages_GPU.free();
     }
 
     HOST void check_ready_for_rt() const
@@ -211,6 +242,8 @@ struct HashColorsBuilder
 	};
 	std::vector<uint32> nodes;
 	std::vector<BuildLeaf> leaves;
+	// LOD: one RGB888 average per color tree internal node (parallel to `nodes`, size = nodes.size() / 8).
+	std::vector<uint32> nodeAverages;
 
 	HOST void build(HashDAGColors& tree, const CompressedColorLeaf& globalLeaf) const
 	{
@@ -242,6 +275,18 @@ struct HashColorsBuilder
         for (auto& leaf : leaves)
         {
             tree.offsets_CPU[offsetsCounter++] = leaf.offset;
+        }
+
+        // LOD: copy nodeAverages into the live tree (if populated by the factory).
+        if (!nodeAverages.empty())
+        {
+            checkAlways(nodeAverages.size() == nodes.size() / 8);
+            tree.nodeAverages_CPU = DynamicArray<uint32>::allocate(
+                "hash colors node averages", nodeAverages.size(), EMemoryType::CPU);
+            for (uint64 i = 0; i < nodeAverages.size(); ++i)
+            {
+                tree.nodeAverages_CPU[i] = nodeAverages[i];
+            }
         }
 
         tree.upload_to_gpu(true);

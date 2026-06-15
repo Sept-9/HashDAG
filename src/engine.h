@@ -134,6 +134,9 @@ private:
     bool shadows = true;
     float shadowBias = 1;
     float fogDensity = 0;
+    // LOD: stop DAG descent when a node projects to fewer pixels than this.
+    // 0 disables LOD entirely; 1.0 means "stop once the node is sub-pixel".
+    float lodPixelThreshold = 0.f;
 	bool showUI = true;
 	float swirlPeriod = 100;
 	bool enableSwirl = true;

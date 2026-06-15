@@ -71,7 +71,8 @@ DAGTracer::~DAGTracer()
 inline Tracer::TracePathsParams get_trace_params(
 	const CameraView& camera, 
 	uint32 levels,
-	const DAGInfo& dagInfo)
+	const DAGInfo& dagInfo,
+	float lodPixelThreshold = 0.f)
 {
 	const double3 position  = make_double3(camera.position);
 	const double3 direction = make_double3(camera.forward());
@@ -109,12 +110,27 @@ inline Tracer::TracePathsParams get_trace_params(
 	params.rayDDx = dx;
 	params.rayDDy = dy;
 
+	// LOD: per-pixel angular size in DAG units (vertical).
+	// pixelAngularSize ≈ |dy| / |screen-center to camera|, valid in the small-angle regime
+	// which the rendering pipeline already assumes (it builds a planar virtual screen).
+	if (lodPixelThreshold > 0.f)
+	{
+		const double3 screenCenter =
+			finalBottomLeft +
+			(double(imageWidth) * 0.5) * dx +
+			(double(imageHeight) * 0.5) * dy;
+		const double3 toCenter = screenCenter - finalPosition;
+		const double centerDist = length(toCenter);
+		const double pixelAngularSize = (centerDist > 0.0) ? (length(dy) / centerDist) : 0.0;
+		params.lodScale = float(pixelAngularSize * double(lodPixelThreshold));
+	}
+
 	return params;
 }
 
 
 template<typename TDAG>
-float DAGTracer::resolve_paths(const CameraView& camera, const DAGInfo& dagInfo, const TDAG& dag)
+float DAGTracer::resolve_paths(const CameraView& camera, const DAGInfo& dagInfo, const TDAG& dag, float lodPixelThreshold)
 {
 	PROFILE_FUNCTION();
 	
@@ -122,7 +138,7 @@ float DAGTracer::resolve_paths(const CameraView& camera, const DAGInfo& dagInfo,
 	const dim3 grid_dim = dim3(imageWidth / block_dim.x + 1, imageHeight / block_dim.y + 1);
 
     if (!headLess) pathsBuffer.map_surface();
-	auto traceParams = get_trace_params(camera, dag.levels, dagInfo);
+	auto traceParams = get_trace_params(camera, dag.levels, dagInfo, lodPixelThreshold);
 	traceParams.pathsSurface = pathsBuffer.cudaSurface;
 
     CUDA_CHECK_ERROR();
@@ -218,8 +234,8 @@ float DAGTracer::resolve_shadows(const CameraView& camera, const DAGInfo& dagInf
 	return elapsed;
 }
 
-template float DAGTracer::resolve_paths<BasicDAG>(const CameraView&, const DAGInfo&, const BasicDAG&);
-template float DAGTracer::resolve_paths<HashDAG >(const CameraView&, const DAGInfo&, const HashDAG &);
+template float DAGTracer::resolve_paths<BasicDAG>(const CameraView&, const DAGInfo&, const BasicDAG&, float);
+template float DAGTracer::resolve_paths<HashDAG >(const CameraView&, const DAGInfo&, const HashDAG &, float);
 
 template float DAGTracer::resolve_shadows<BasicDAG>(const CameraView&, const DAGInfo&, const BasicDAG&, float, float);
 template float DAGTracer::resolve_shadows<HashDAG >(const CameraView&, const DAGInfo&, const HashDAG &, float, float);

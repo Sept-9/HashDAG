@@ -86,6 +86,12 @@ namespace Tracer
 		double3 rayDDx;
 		double3 rayDDy;
 
+		// LOD: world-space "pixel size per unit camera distance" times threshold.
+		// A node at camera distance `d` with edge length `s` covers s/(d*pixelAngularSize) pixels.
+		// LOD stops descending when s < d * lodScale, i.e. when the node projects to fewer
+		// than `lodPixelThreshold` pixels. lodScale == 0 disables LOD entirely.
+		float lodScale = 0.f;
+
 		// Out
 		cudaSurfaceObject_t pathsSurface;
 	};

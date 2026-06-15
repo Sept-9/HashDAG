@@ -75,6 +75,29 @@ public:
 		surf2Dwrite(make_uint4(path.x, path.y, path.z, 0), surface, x * sizeof(uint4), y);
 #endif
 	}
+	// LOD: store path together with the hit level into the 4th uint of the surface.
+	DEVICE void store_with_level(int32 x, int32 y, cudaSurfaceObject_t surface, uint32 hitLevel)
+	{
+#ifdef __CUDA_ARCH__
+		surf2Dwrite(make_uint4(path.x, path.y, path.z, hitLevel), surface, x * sizeof(uint4), y);
+#endif
+	}
+	// LOD: load path together with the hit level (4th uint in the surface).
+	DEVICE static Path load_with_level(int32 x, int32 y, cudaSurfaceObject_t surface, uint32& outHitLevel)
+	{
+#ifdef __CUDA_ARCH__
+		const uint4 raw = surf2Dread<uint4>(surface, x * sizeof(uint4), y);
+		Path p;
+		p.path = make_uint3(raw);
+		outHitLevel = raw.w;
+		return p;
+#else
+		(void)x; (void)y; (void)surface;
+		outHitLevel = 0;
+		check(false);
+		return {};
+#endif
+	}
 
 private:
 	HOST_DEVICE Path() {}

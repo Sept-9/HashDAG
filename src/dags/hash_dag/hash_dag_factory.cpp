@@ -98,32 +98,95 @@ uint32 create_hash_dag(
 	return finalIndex;
 }
 
+// LOD: sample K positions in [offset, offset+size) and average their per-block (min+max)/2
+// or single-color value. Returns RGB888 packed color, or 0 if size == 0.
+static uint32 sample_leaf_average_color(
+	const CompressedColorLeaf& globalLeaf,
+	uint64 offset,
+	uint64 size)
+{
+	if (size == 0) return 0;
+
+	constexpr int kMaxSamples = 8;
+	const int numSamples = (size < uint64(kMaxSamples)) ? int(size) : kMaxSamples;
+
+	float3 acc = make_float3(0.f);
+	int valid = 0;
+	for (int s = 0; s < numSamples; ++s)
+	{
+		// Centered samples: (s + 0.5) / numSamples maps to a position inside the range.
+		const uint64 absIdx = offset + (uint64(s) * size + size / 2) / uint64(numSamples);
+		if (!globalLeaf.is_valid_index(absIdx)) continue;
+
+		const CompressedColor cc = globalLeaf.get_color(absIdx);
+		float3 sample;
+		if (cc.bitsPerWeight == 0)
+		{
+			sample = ColorUtils::rgb101210_to_float3(cc.colorBits);
+		}
+		else
+		{
+			sample = 0.5f * (cc.get_min_color() + cc.get_max_color());
+		}
+		acc = acc + sample;
+		++valid;
+	}
+	if (valid == 0) return 0;
+	return ColorUtils::float3_to_rgb888(acc / float(valid));
+}
+
+// Recursive build, also computes a per-internal-node average color for LOD shading.
+// Returns the color tree index of this node; writes the subtree's voxel-count-weighted
+// average color into `outAvgColor`.
 uint32 create_hash_dag_colors(
 	const BasicDAG& sdag,
 	const BasicDAGCompressedColors& sdagcolors,
 	HashColorsBuilder& colorBuilder,
 	const uint32 level,
 	const uint32 index,
-	uint64 leavesCount)
+	uint64 leavesCount,
+	uint32& outAvgColor)
 {
 	const uint32 node = sdag.get_node(level, index);
 	const uint8 childMask = Utils::child_mask(node);
 	const uint32 colorIndex = (uint32)colorBuilder.nodes.size();
+	const uint32 nodeAvgSlot = (uint32)colorBuilder.nodeAverages.size();
 
 	check(C_colorTreeLevels < sdag.leaf_level());
+
+	// Reserve this node's average slot up-front so child recursions don't reorder it.
+	colorBuilder.nodeAverages.push_back(0);
+
+	// Use the global leaf in "absolute index" mode for direct sampling.
+	CompressedColorLeaf globalLeafAbs = sdagcolors.leaf;
+	globalLeafAbs.set_as_unique();
+
+	float3 accColor = make_float3(0.f);
+	uint64 accWeight = 0;
 
 	if (level == C_colorTreeLevels - 1)
 	{
 		for (uint8 i = 0; i < 8; i++)
 		{
-            colorBuilder.nodes.push_back((uint32)colorBuilder.leaves.size());
-            colorBuilder.leaves.emplace_back(HashColorsBuilder::BuildLeaf{ leavesCount });
+			colorBuilder.nodes.push_back((uint32)colorBuilder.leaves.size());
+			colorBuilder.leaves.emplace_back(HashColorsBuilder::BuildLeaf{ leavesCount });
+
+			uint64 childSize = 0;
 			if (childMask & (1u << i))
 			{
 				const uint32 childIndex = sdag.get_child_index(level, index, childMask, i);
 				const uint32 childNode = sdag.get_node(level + 1, childIndex);
-				leavesCount += sdagcolors.get_leaves_count(level + 1, childNode);
+				childSize = sdagcolors.get_leaves_count(level + 1, childNode);
 			}
+
+			if (childSize > 0)
+			{
+				const uint32 childAvg = sample_leaf_average_color(globalLeafAbs, leavesCount, childSize);
+				accColor = accColor + ColorUtils::rgb888_to_float3(childAvg) * float(childSize);
+				accWeight += childSize;
+			}
+
+			leavesCount += childSize;
 		}
 	}
 	else
@@ -137,15 +200,28 @@ uint32 create_hash_dag_colors(
 			if (childMask & (1u << i))
 			{
 				const uint32 childIndex = sdag.get_child_index(level, index, childMask, i);
-				const uint32 childColorIndex = create_hash_dag_colors(sdag, sdagcolors, colorBuilder, level + 1, childIndex, leavesCount);
+				uint32 childAvg = 0;
+				const uint32 childColorIndex = create_hash_dag_colors(
+					sdag, sdagcolors, colorBuilder, level + 1, childIndex, leavesCount, childAvg);
 				check(colorBuilder.nodes[colorIndex + i] == 0);
 				colorBuilder.nodes[colorIndex + i] = childColorIndex;
 
 				const uint32 childNode = sdag.get_node(level + 1, childIndex);
-				leavesCount += sdagcolors.get_leaves_count(level + 1, childNode);
+				const uint64 childSize = sdagcolors.get_leaves_count(level + 1, childNode);
+				if (childSize > 0)
+				{
+					accColor = accColor + ColorUtils::rgb888_to_float3(childAvg) * float(childSize);
+					accWeight += childSize;
+				}
+				leavesCount += childSize;
 			}
 		}
 	}
+
+	outAvgColor = (accWeight > 0)
+		? ColorUtils::float3_to_rgb888(accColor / float(accWeight))
+		: 0;
+	colorBuilder.nodeAverages[nodeAvgSlot] = outAvgColor;
 	return colorIndex;
 }
 
@@ -192,7 +268,8 @@ void HashDAGFactory::load_colors_from_DAG(
 	SCOPED_STATS("Creating hash dag colors");
 	
 	HashColorsBuilder colorBuilder;
-	const uint32 colorIndex =  create_hash_dag_colors(inDag, inDagColors, colorBuilder, 0, 0, 0);
+	uint32 rootAvg = 0;
+	const uint32 colorIndex = create_hash_dag_colors(inDag, inDagColors, colorBuilder, 0, 0, 0, rootAvg);
 	checkAlways(colorIndex == 0);
 	colorBuilder.build(outDagColors, inDagColors.leaf);
 }

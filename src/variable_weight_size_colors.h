@@ -81,6 +81,12 @@ struct UncompressedColor
 	{
 		return ColorUtils::rgb888_to_float3(color);
 	}
+	// LOD: for uncompressed colors the stored value already IS the representative colour,
+	// so the "block average" trivially collapses to itself.
+	HOST_DEVICE float3 get_lod_average() const
+	{
+		return ColorUtils::rgb888_to_float3(color);
+	}
 };
 
 struct CompressedColor
@@ -150,6 +156,20 @@ struct CompressedColor
 		else
 		{
 			return lerp(get_min_color(), get_max_color(), get_weight());
+		}
+	}
+	// LOD: representative colour for a BC1-style block (used when we don't have the per-voxel
+	// weight, e.g. partial-path LOD hits). Falls back to the single stored colour for
+	// uniform blocks (bitsPerWeight == 0).
+	HOST_DEVICE constexpr float3 get_lod_average() const
+	{
+		if (bitsPerWeight == 0)
+		{
+			return ColorUtils::rgb101210_to_float3(colorBits);
+		}
+		else
+		{
+			return 0.5f * (get_min_color() + get_max_color());
 		}
 	}
 };
