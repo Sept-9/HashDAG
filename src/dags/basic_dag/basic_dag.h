@@ -62,6 +62,11 @@ struct BasicDAGColorsBase : BaseDAGColors
 	// LOD: BasicDAG has no color tree, so no precomputed averages exist.
 	HOST_DEVICE uint32 get_node_average_color(uint32 /*index*/) const { return 0; }
 	HOST_DEVICE bool has_node_averages() const { return false; }
+	// LOD 3-axis coverage: BasicDAG has no color tree either. Return the "fully
+	// opaque" sentinel (0xFFFFFF) so callers that don't check has_node_coverage()
+	// still get a safe (no-blend) value.
+	HOST_DEVICE uint32 get_node_coverage(uint32 /*index*/) const { return 0xFFFFFFu; }
+	HOST_DEVICE bool has_node_coverage() const { return false; }
 	HOST_DEVICE uint64 get_leaves_count(uint32 level, uint32 node) const
 	{
 		const uint32 upperBits = node >> 8;
@@ -229,6 +234,8 @@ struct BasicDAGColorErrors : BaseDAGColors
 	// LOD: see comment in BasicDAGColorsBase.
 	HOST_DEVICE uint32 get_node_average_color(uint32 /*index*/) const { return 0; }
 	HOST_DEVICE bool has_node_averages() const { return false; }
+	HOST_DEVICE uint32 get_node_coverage(uint32 /*index*/) const { return 0xFFFFFFu; }
+	HOST_DEVICE bool has_node_coverage() const { return false; }
 	HOST_DEVICE ColorLeaf get_leaf(uint32 index) const
 	{
 		check(false);

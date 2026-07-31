@@ -2,6 +2,9 @@
 #include "dag_tracer.h"
 #include "serializer.h"
 
+#include <unordered_map>
+#include <algorithm>
+
 uint32 create_hash_dag(
 	const BasicDAG& sdag,
 	HashDAG& hdag,
@@ -135,6 +138,127 @@ static uint32 sample_leaf_average_color(
 	return ColorUtils::float3_to_rgb888(acc / float(valid));
 }
 
+// LOD: memoized recursive computation of the 3-axis projected coverage for a
+// geometry DAG subtree. Return value is packed as
+//   bits [ 0.. 7]: cov_x in 0..255
+//   bits [ 8..15]: cov_y in 0..255
+//   bits [16..23]: cov_z in 0..255
+// cov_axis = "fraction of the axis-perpendicular projected face of the subtree
+// that is covered by at least one surface voxel along that axis".
+using CoverageCache = std::unordered_map<uint64, uint32>;
+
+static uint32 pack_coverage(float cx, float cy, float cz)
+{
+	auto q = [](float f) -> uint32
+	{
+		const float c = std::max(0.f, std::min(1.f, f));
+		return uint32(c * 255.f + 0.5f) & 0xFFu;
+	};
+	return q(cx) | (q(cy) << 8) | (q(cz) << 16);
+}
+
+static void unpack_coverage(uint32 packed, float& cx, float& cy, float& cz)
+{
+	cx = float((packed >> 0)  & 0xFFu) / 255.f;
+	cy = float((packed >> 8)  & 0xFFu) / 255.f;
+	cz = float((packed >> 16) & 0xFFu) / 255.f;
+}
+
+static uint32 compute_dag_coverage(
+	const BasicDAG& sdag,
+	uint32 level,
+	uint32 index,
+	CoverageCache& cache)
+{
+	// Key on (level, index) — index alone is likely unique but level makes it
+	// unambiguous with essentially zero cost.
+	const uint64 key = (uint64(level) << 32) | uint64(index);
+	auto it = cache.find(key);
+	if (it != cache.end()) return it->second;
+
+	uint32 packed;
+
+	if (level == sdag.leaf_level())
+	{
+		// Base case: a Leaf packs 4x4x4 = 64 voxels into a 64-bit mask.
+		// Bit encoding for voxel (x,y,z) with x,y,z in [0,3]:
+		//   bit = ((x&2)<<4) | ((y&2)<<3) | ((z&2)<<2) | ((x&1)<<2) | ((y&1)<<1) | (z&1)
+		const Leaf leaf = sdag.get_leaf(index);
+		const uint64 mask = leaf.to_64();
+		auto bit_of = [](int x, int y, int z) -> int
+		{
+			return ((x & 2) << 4) | ((y & 2) << 3) | ((z & 2) << 2)
+			     | ((x & 1) << 2) | ((y & 1) << 1) | (z & 1);
+		};
+
+		int nX = 0, nY = 0, nZ = 0;
+		for (int y = 0; y < 4; ++y)
+			for (int z = 0; z < 4; ++z)
+			{
+				for (int x = 0; x < 4; ++x)
+					if (mask & (uint64(1) << bit_of(x, y, z))) { ++nX; break; }
+			}
+		for (int x = 0; x < 4; ++x)
+			for (int z = 0; z < 4; ++z)
+			{
+				for (int y = 0; y < 4; ++y)
+					if (mask & (uint64(1) << bit_of(x, y, z))) { ++nY; break; }
+			}
+		for (int x = 0; x < 4; ++x)
+			for (int y = 0; y < 4; ++y)
+			{
+				for (int z = 0; z < 4; ++z)
+					if (mask & (uint64(1) << bit_of(x, y, z))) { ++nZ; break; }
+			}
+		packed = pack_coverage(nX / 16.f, nY / 16.f, nZ / 16.f);
+	}
+	else
+	{
+		// Recursive case: combine 8 children's coverages. For each projection
+		// axis, the parent's projected face is 2x2 quadrants; each quadrant is
+		// the union of two children stacked along the projection axis. We use
+		// the independence assumption (union = 1 - (1-a)(1-b)) as the combining
+		// rule. The parent's coverage is the mean of the 4 quadrants.
+		const uint32 node = sdag.get_node(level, index);
+		const uint8 childMask = Utils::child_mask(node);
+
+		float qX[4] = { 0.f, 0.f, 0.f, 0.f };
+		float qY[4] = { 0.f, 0.f, 0.f, 0.f };
+		float qZ[4] = { 0.f, 0.f, 0.f, 0.f };
+
+		for (uint8 i = 0; i < 8; ++i)
+		{
+			if (!(childMask & (1u << i))) continue;
+			const uint32 childIndex = sdag.get_child_index(level, index, childMask, i);
+			const uint32 childCov = compute_dag_coverage(sdag, level + 1, childIndex, cache);
+			float ccx, ccy, ccz;
+			unpack_coverage(childCov, ccx, ccy, ccz);
+
+			// Path::descend maps child bit 2 -> x, bit 1 -> y, bit 0 -> z.
+			const uint32 xb = (i >> 2) & 1u;
+			const uint32 yb = (i >> 1) & 1u;
+			const uint32 zb = (i >> 0) & 1u;
+
+			// For X projection the quadrant is indexed by (yb, zb), etc.
+			const uint32 qxIdx = (yb << 1) | zb;
+			const uint32 qyIdx = (xb << 1) | zb;
+			const uint32 qzIdx = (xb << 1) | yb;
+
+			qX[qxIdx] = 1.f - (1.f - qX[qxIdx]) * (1.f - ccx);
+			qY[qyIdx] = 1.f - (1.f - qY[qyIdx]) * (1.f - ccy);
+			qZ[qzIdx] = 1.f - (1.f - qZ[qzIdx]) * (1.f - ccz);
+		}
+
+		const float aX = 0.25f * (qX[0] + qX[1] + qX[2] + qX[3]);
+		const float aY = 0.25f * (qY[0] + qY[1] + qY[2] + qY[3]);
+		const float aZ = 0.25f * (qZ[0] + qZ[1] + qZ[2] + qZ[3]);
+		packed = pack_coverage(aX, aY, aZ);
+	}
+
+	cache.emplace(key, packed);
+	return packed;
+}
+
 // Recursive build, also computes a per-internal-node average color for LOD shading.
 // Returns the color tree index of this node; writes the subtree's voxel-count-weighted
 // average color into `outAvgColor`.
@@ -142,6 +266,7 @@ uint32 create_hash_dag_colors(
 	const BasicDAG& sdag,
 	const BasicDAGCompressedColors& sdagcolors,
 	HashColorsBuilder& colorBuilder,
+	CoverageCache& covCache,
 	const uint32 level,
 	const uint32 index,
 	uint64 leavesCount,
@@ -151,11 +276,14 @@ uint32 create_hash_dag_colors(
 	const uint8 childMask = Utils::child_mask(node);
 	const uint32 colorIndex = (uint32)colorBuilder.nodes.size();
 	const uint32 nodeAvgSlot = (uint32)colorBuilder.nodeAverages.size();
+	const uint32 nodeCovSlot = (uint32)colorBuilder.nodeCoverage.size();
 
 	check(C_colorTreeLevels < sdag.leaf_level());
 
-	// Reserve this node's average slot up-front so child recursions don't reorder it.
+	// Reserve this node's average / coverage slots up-front so child recursions
+	// don't reorder them.
 	colorBuilder.nodeAverages.push_back(0);
+	colorBuilder.nodeCoverage.push_back(0xFFFFFFu);
 
 	// Use the global leaf in "absolute index" mode for direct sampling.
 	CompressedColorLeaf globalLeafAbs = sdagcolors.leaf;
@@ -202,7 +330,7 @@ uint32 create_hash_dag_colors(
 				const uint32 childIndex = sdag.get_child_index(level, index, childMask, i);
 				uint32 childAvg = 0;
 				const uint32 childColorIndex = create_hash_dag_colors(
-					sdag, sdagcolors, colorBuilder, level + 1, childIndex, leavesCount, childAvg);
+					sdag, sdagcolors, colorBuilder, covCache, level + 1, childIndex, leavesCount, childAvg);
 				check(colorBuilder.nodes[colorIndex + i] == 0);
 				colorBuilder.nodes[colorIndex + i] = childColorIndex;
 
@@ -222,6 +350,10 @@ uint32 create_hash_dag_colors(
 		? ColorUtils::float3_to_rgb888(accColor / float(accWeight))
 		: 0;
 	colorBuilder.nodeAverages[nodeAvgSlot] = outAvgColor;
+
+	// LOD: 3-axis coverage for this color tree internal node. Uses the memoized
+	// DAG-node coverage so shared subtrees are computed only once.
+	colorBuilder.nodeCoverage[nodeCovSlot] = compute_dag_coverage(sdag, level, index, covCache);
 	return colorIndex;
 }
 
@@ -268,9 +400,12 @@ void HashDAGFactory::load_colors_from_DAG(
 	SCOPED_STATS("Creating hash dag colors");
 	
 	HashColorsBuilder colorBuilder;
+	CoverageCache covCache;
 	uint32 rootAvg = 0;
-	const uint32 colorIndex = create_hash_dag_colors(inDag, inDagColors, colorBuilder, 0, 0, 0, rootAvg);
+	const uint32 colorIndex = create_hash_dag_colors(
+		inDag, inDagColors, colorBuilder, covCache, 0, 0, 0, rootAvg);
 	checkAlways(colorIndex == 0);
+	printf("\tLOD coverage cache: %zu unique DAG nodes\n", covCache.size());
 	colorBuilder.build(outDagColors, inDagColors.leaf);
 }
 

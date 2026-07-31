@@ -16,11 +16,13 @@ public:
 #define leaves leaves_GPU
 #define offsets offsets_GPU
 #define nodeAverages nodeAverages_GPU
+#define nodeCoverage nodeCoverage_GPU
 #else
 #define nodes nodes_CPU
 #define leaves leaves_CPU
 #define offsets offsets_CPU
 #define nodeAverages nodeAverages_CPU
+#define nodeCoverage nodeCoverage_CPU
 #endif
 
 	HOST_DEVICE uint32 get_color_tree_levels() const
@@ -52,6 +54,25 @@ public:
 	{
 		return nodeAverages.is_valid();
 	}
+
+	// LOD 3-axis coverage: packed 24-bit value per color tree internal node,
+	//   bits [ 0.. 7] = cov along X axis (0..255 = 0..1)
+	//   bits [ 8..15] = cov along Y axis
+	//   bits [16..23] = cov along Z axis
+	// The coverage measures the fraction of the subtree's projected face along
+	// each axis that is covered by any surface voxel. Used at render time for
+	// silhouette alpha-compositing when LOD stops above the color leaf level.
+	HOST_DEVICE uint32 get_node_coverage(uint32 index) const
+	{
+		if (!nodeCoverage.is_valid()) return 0xFFFFFFu;
+		const uint32 slot = index >> 3;
+		if (!nodeCoverage.is_valid_index(slot)) return 0xFFFFFFu;
+		return nodeCoverage[slot];
+	}
+	HOST_DEVICE bool has_node_coverage() const
+	{
+		return nodeCoverage.is_valid();
+	}
 	HOST_DEVICE ColorLeaf get_leaf(uint32 index) const
 	{
         if (Utils::has_flag(index))
@@ -80,6 +101,7 @@ public:
 #undef leaves
 #undef offsets
 #undef nodeAverages
+#undef nodeCoverage
 
 private:
 	DynamicArray<uint32> nodes_GPU; // Leaves are indices to leaves if top bit is 1, else offsets
@@ -95,6 +117,12 @@ private:
 	// Indexed by (colorNodeIndex / 8).
 	DynamicArray<uint32> nodeAverages_GPU;
 	DynamicArray<uint32> nodeAverages_CPU;
+
+	// Parallel to nodes_*: one packed 3-axis coverage per color tree internal
+	// node (see get_node_coverage() for the bit layout). Indexed by
+	// (colorNodeIndex / 8), same as nodeAverages_*.
+	DynamicArray<uint32> nodeCoverage_GPU;
+	DynamicArray<uint32> nodeCoverage_CPU;
 
 public:
     HOST uint32 allocate_interior_node()
@@ -138,6 +166,11 @@ public:
             {
                 nodeAverages_CPU.copy_to_gpu_flexible(nodeAverages_GPU);
             }
+            // nodeCoverage: same lifetime as nodeAverages.
+            if (nodeCoverage_CPU.is_valid())
+            {
+                nodeCoverage_CPU.copy_to_gpu_flexible(nodeCoverage_GPU);
+            }
         }
     }
     HOST void upload_leaf_index_to_gpu_async(uint32 leafIndex)
@@ -162,6 +195,8 @@ public:
         offsets_GPU.free();
         nodeAverages_CPU.free();
         nodeAverages_GPU.free();
+        nodeCoverage_CPU.free();
+        nodeCoverage_GPU.free();
     }
 
     HOST void check_ready_for_rt() const
@@ -244,6 +279,8 @@ struct HashColorsBuilder
 	std::vector<BuildLeaf> leaves;
 	// LOD: one RGB888 average per color tree internal node (parallel to `nodes`, size = nodes.size() / 8).
 	std::vector<uint32> nodeAverages;
+	// LOD: one packed 3-axis coverage per color tree internal node (same size / indexing as nodeAverages).
+	std::vector<uint32> nodeCoverage;
 
 	HOST void build(HashDAGColors& tree, const CompressedColorLeaf& globalLeaf) const
 	{
@@ -286,6 +323,18 @@ struct HashColorsBuilder
             for (uint64 i = 0; i < nodeAverages.size(); ++i)
             {
                 tree.nodeAverages_CPU[i] = nodeAverages[i];
+            }
+        }
+
+        // LOD: copy nodeCoverage in lockstep with nodeAverages.
+        if (!nodeCoverage.empty())
+        {
+            checkAlways(nodeCoverage.size() == nodes.size() / 8);
+            tree.nodeCoverage_CPU = DynamicArray<uint32>::allocate(
+                "hash colors node coverage", nodeCoverage.size(), EMemoryType::CPU);
+            for (uint64 i = 0; i < nodeCoverage.size(); ++i)
+            {
+                tree.nodeCoverage_CPU[i] = nodeCoverage[i];
             }
         }
 

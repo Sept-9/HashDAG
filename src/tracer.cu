@@ -367,6 +367,17 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 			return;
 		}
 		const uint32 avg = colors.get_node_average_color(colorNodeIndexLod);
+		// LOD: also fetch the 3-axis coverage for this node and stash it into
+		// the pathsSurface so trace_shadows can alpha-blend the LOD block with
+		// the fog background along the hit face's axis.
+		if (colors.has_node_coverage())
+		{
+			// trace_paths writes at (x, imageHeight-1-y) but trace_colors and
+			// trace_shadows both read at (x, y). We're rewriting the *same*
+			// texel that we just loaded, so use the load-side coordinate.
+			const uint32 cov = colors.get_node_coverage(colorNodeIndexLod);
+			Path::store_coverage_only(pixel.x, pixel.y, traceParams.pathsSurface, cov);
+		}
 		setColor(avg);
 		return;
 	}
@@ -723,7 +734,12 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
         setColorImpl(color);
     };
-	const auto setBRDFColor = [&](float light, double distance, double3 direction, double3 normal, bool isShadow)
+	// LOD: `alpha` controls silhouette softening for LOD-A hits. alpha == 1.f
+	// is the original opaque behaviour; alpha < 1.f blends the shaded voxel
+	// with the fog-attenuated sky ("what you'd see if this LOD block weren't
+	// here") before the final fog pass. See trace_colors for where the alpha
+	// comes from.
+	const auto setBRDFColor = [&](float light, double distance, double3 direction, double3 normal, bool isShadow, float alpha)
 		{
 			const float3 L = sun_direction();
 			const float3 V = make_float3( - normalize(direction));
@@ -750,6 +766,17 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			//color = color * clamp(0.5f + light, 0.f, 1.f);
 			//color = color * light;
 
+			// LOD alpha compositing: blend the shaded LOD voxel with the sky
+			// (which is the "background" we approximate seeing through the LOD
+			// node's transparency). applyFog is linear in its first argument,
+			// so blending BEFORE the fog pass is mathematically equivalent to
+			// (and one applyFog call cheaper than) blending after.
+			if (alpha < 1.f)
+			{
+				const float3 skyColor = make_float3(187.f, 242.f, 250.f) / 255.f;
+				color = alpha * color + (1.f - alpha) * skyColor;
+			}
+
 			color = applyFog(
 				color,
 				distance,
@@ -762,8 +789,12 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
     // LOD: hitLevel is encoded in the 4th uint of pathsSurface. When LOD stopped early the
     // hit position represents the lower-left corner of a multi-voxel node rather than a 1-voxel.
     // dag.levels means full descent (1x1x1).
+    // coveragePacked holds the 3-axis alpha (24 bits, 8 per axis) written by
+    // trace_colors when LOD-A engages; default 0xFFFFFF means "opaque hit".
     uint32 hitLevel = dag.levels;
-    const float3 rayOrigin = make_float3(Path::load_with_level(pixel.x, pixel.y, params.pathsSurface, hitLevel).path);
+    uint32 coveragePacked = 0xFFFFFFu;
+    const float3 rayOrigin = make_float3(
+        Path::load_with_level(pixel.x, pixel.y, params.pathsSurface, hitLevel, &coveragePacked).path);
     const double3 cameraRayDirection = normalize(params.rayMin + pixel.x * params.rayDDx + (imageHeight - 1 - pixel.y) * params.rayDDy - params.cameraPosition);
 
 #if EXACT_SHADOWS || PER_VOXEL_FACE_SHADING
@@ -800,6 +831,23 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
     const double distance = length(v);
     const double3 nv = v / distance;
 
+    // LOD: pick the alpha along whichever axis the hit face is oriented along.
+    // The normal below is always axis-aligned (one of ±e_x/y/z), so exactly one
+    // component of |normal| is 1 and the others are 0. For non-LOD or LOD-B
+    // pixels coveragePacked stays 0xFFFFFF => alpha == 1.f (no compositing).
+    const auto pick_alpha_from_normal = [&](const double3& normal) -> float
+    {
+        const float ax = float((coveragePacked >> 0)  & 0xFFu) / 255.f;
+        const float ay = float((coveragePacked >> 8)  & 0xFFu) / 255.f;
+        const float az = float((coveragePacked >> 16) & 0xFFu) / 255.f;
+        const double anx = fabs(normal.x);
+        const double any = fabs(normal.y);
+        const double anz = fabs(normal.z);
+        if (anx >= any && anx >= anz) return ax;
+        if (any >= anz)               return ay;
+        return az;
+    };
+
     if (isShadowed)
     {
 #if PER_VOXEL_FACE_SHADING
@@ -808,7 +856,8 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 		const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + voxelSize * 0.5));
 		const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
 		const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
-		setBRDFColor(0, distance, nv, normal, true);
+		const float alpha = pick_alpha_from_normal(normal);
+		setBRDFColor(0, distance, nv, normal, true, alpha);
 #else
 		setColor(0, distance, nv);
 #endif
@@ -821,7 +870,8 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
         const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
         const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
         //setColor(max(0.f, dot(make_float3(normal), sun_direction())), distance, nv);
-		setBRDFColor(1, distance, nv, normal, false);
+		const float alpha = pick_alpha_from_normal(normal);
+		setBRDFColor(1, distance, nv, normal, false, alpha);
 #else
         setColor(1, distance, nv);
 #endif
