@@ -50,7 +50,14 @@ int main(int argc, char** argv)
 	engine.basicDagColorErrors.uncompressedColors = engine.basicDagUncompressedColors;
 	engine.basicDagColorErrors.compressedColors = engine.basicDagCompressedColors;
 
-    //engine.basicDag.free();
+#if FREE_BASIC_DAG_AFTER_BUILD
+    {
+        const size_t gpuBefore = Memory::get_gpu_allocated_memory();
+        engine.basicDag.free();
+        printf("Freed BasicDAG geometry: %fMB of GPU memory reclaimed\n",
+               Utils::to_MB(gpuBefore - Memory::get_gpu_allocated_memory()));
+    }
+#endif
 
 	engine.init(HEADLESS);
 #if USE_NORMAL_DAG

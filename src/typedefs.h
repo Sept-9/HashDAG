@@ -455,6 +455,33 @@
 #define USE_NORMAL_DAG 0
 #endif
 
+/** Config: release the BasicDAG geometry once the HashDAG has been built
+ *
+ * The BasicDAG is only needed as a source to build the HashDAG from. Keeping it
+ * alive costs a second full copy of the geometry in (managed) GPU memory, which
+ * matters a lot on cards where the working set barely fits: once the driver has
+ * to evict part of it to system memory, every tracing kernel starts reading the
+ * DAG over PCIe and frame times collapse.
+ *
+ * Only the geometry is released. BasicDAGCompressedColors owns the color blocks
+ * that HashDAGColors::mainLeaf aliases, so it has to stay alive for the whole
+ * run.
+ *
+ * With this enabled the BasicDag* display modes cannot be rendered any more;
+ * Engine::is_dag_valid() reports them as invalid so CapsLock skips over them.
+ */
+#ifndef FREE_BASIC_DAG_AFTER_BUILD
+#define FREE_BASIC_DAG_AFTER_BUILD 1
+#endif
+
+#if FREE_BASIC_DAG_AFTER_BUILD && USE_NORMAL_DAG
+#	error "FREE_BASIC_DAG_AFTER_BUILD: USE_NORMAL_DAG renders from the BasicDAG, it cannot be freed"
+#endif
+
+#if FREE_BASIC_DAG_AFTER_BUILD && !LOAD_COMPRESSED_COLORS
+#	error "FREE_BASIC_DAG_AFTER_BUILD: the HashDAG is only built when LOAD_COMPRESSED_COLORS is set"
+#endif
+
 /** Config: Will record the tool position, radius and type in the replay
  */
 #ifndef RECORD_TOOL_OVERLAY
@@ -679,8 +706,8 @@ using EnclosedLeavesType = uint32;
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-constexpr uint32 imageWidth = 1920;
-constexpr uint32 imageHeight = 1080;
+constexpr uint32 imageWidth = 1280;
+constexpr uint32 imageHeight = 960;
 
 constexpr double windowScale = 1;
 constexpr uint32 windowWidth = uint32(imageWidth * windowScale);

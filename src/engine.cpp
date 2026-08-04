@@ -56,6 +56,17 @@ std::string tool_to_string(ETool tool)
 
 bool Engine::is_dag_valid(EDag dag) const
 {
+#if FREE_BASIC_DAG_AFTER_BUILD
+	// The BasicDAG geometry is released right after the HashDAG is built, so none
+	// of the BasicDag* modes can be traced. Reject them here rather than relying
+	// on basicDag.is_valid() alone, so the constraint survives any reordering of
+	// the startup sequence.
+	if (dag != EDag::HashDag)
+	{
+		return false;
+	}
+#endif
+
 	switch (dag)
 	{
 	case EDag::BasicDagUncompressedColors:
@@ -74,20 +85,26 @@ bool Engine::is_dag_valid(EDag dag) const
 
 void Engine::next_dag()
 {
-	do
+	// Bounded: with FREE_BASIC_DAG_AFTER_BUILD only one mode is ever valid, and an
+	// unbounded search would hang if that one were unavailable too.
+	const EDag initial = config.currentDag;
+	for (uint32 attempt = 0; attempt < CNumDags; attempt++)
 	{
 		config.currentDag = EDag((uint32(config.currentDag) + 1) % CNumDags);
+		if (is_dag_valid(config.currentDag)) return;
 	}
-	while (!is_dag_valid(config.currentDag));
+	config.currentDag = initial;
 }
 
 void Engine::previous_dag()
 {
-	do
+	const EDag initial = config.currentDag;
+	for (uint32 attempt = 0; attempt < CNumDags; attempt++)
 	{
 		config.currentDag = EDag(Utils::subtract_mod(uint32(config.currentDag), CNumDags));
+		if (is_dag_valid(config.currentDag)) return;
 	}
-	while (!is_dag_valid(config.currentDag));
+	config.currentDag = initial;
 }
 
 void Engine::set_dag(EDag dag)
@@ -205,6 +222,7 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
         }
         if (key == GLFW_KEY_CAPS_LOCK)
 		{
+			const EDag previousDag = config.currentDag;
 			if (state.keys[GLFW_KEY_LEFT_SHIFT])
 			{
 				previous_dag();
@@ -214,7 +232,14 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
 				next_dag();
 			}
 			const auto str = dag_to_string(config.currentDag);
-			printf("Current dag: %s\n", str.c_str());
+			if (config.currentDag == previousDag)
+			{
+				printf("Current dag: %s (no other dag available)\n", str.c_str());
+			}
+			else
+			{
+				printf("Current dag: %s\n", str.c_str());
+			}
 		}
 		if (key == GLFW_KEY_1)
 		{
