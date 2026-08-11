@@ -753,7 +753,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			// Blinn-Phong
 			float specular = pow(max(0.f, dot(N, H)), 32.f);
 
-			float3 ambient = albedo * 0.1f;
+			float3 ambient = albedo * 0.4f;
 			float3 diffuseC = albedo * diffuse * 0.8f;
 			float3 specularC = make_float3(1.f) * specular * 0.3f;
 
