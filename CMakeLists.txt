@@ -62,6 +62,7 @@ add_executable(DAG_edits_demo
         src/dag_tracer.h
         src/engine.cpp
         src/engine.h
+        src/lod_prefilter.h
         src/main.cpp
         src/path.h
         src/replay.cpp

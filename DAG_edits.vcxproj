@@ -60,6 +60,7 @@
     <ClInclude Include="src\gmath\Vector2.h" />
     <ClInclude Include="src\gmath\Vector3.h" />
     <ClInclude Include="src\hacky_profiler.hpp" />
+    <ClInclude Include="src\lod_prefilter.h" />
     <ClInclude Include="src\memory.h" />
     <ClInclude Include="src\path-avx.h" />
     <ClInclude Include="src\path.h" />

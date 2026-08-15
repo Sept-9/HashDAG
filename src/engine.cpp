@@ -1,9 +1,10 @@
-﻿#include "engine.h"
+#include "engine.h"
 #include "hacky_profiler.hpp"
 #include "shader.h"
 #include "utils.h"
 #include "memory.h"
 #include "dags/hash_dag/hash_dag_editors.h"
+#include "dags/hash_dag/hash_dag_factory.h"
 
 #include "glfont.h"
 
@@ -197,6 +198,12 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
 			if (config.currentDag == EDag::HashDag)
 			{
 				hashDag.remove_stale_nodes(hashDag.levels - 2);
+#if ENABLE_PREFILTERED_SHADING
+				// Prefiltered appearance: GC reassigns node indices, which are the keys of
+				// the prefilter table, so the whole table has to be rebuilt.
+				// 预滤波外观：GC 会重新分配节点下标，而下标正是预滤波表的键，因此整张表必须重建。
+				HashDAGFactory::build_prefilter(hashDag);
+#endif
 			}
 			undoRedo.free();
 		}

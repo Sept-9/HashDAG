@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "script_definitions.h"
 
 /** Config: If true, will disable all the stuff we don't want when recording benchmarks
@@ -429,6 +429,65 @@
  */
 #ifndef PER_VOXEL_FACE_SHADING
 #define PER_VOXEL_FACE_SHADING 0
+#endif
+
+/** Config: prefiltered LOD appearance (6-direction internal-relief histogram)
+ *
+ * When a ray stops early because of LOD, the node it stopped on stands in for a whole
+ * subtree of geometry. Shading it with the geometric normal of its bounding box throws
+ * away every sub-node orientation, which is what makes aggressive LOD look like flat
+ * plastic blocks. With this enabled, every DAG node gets a precomputed 6-bin histogram
+ * of the *internal* exposed face area along -X/+X/-Y/+Y/-Z/+Z (i.e. the relief that the
+ * bounding box does not already represent), stored in a side hash table keyed by DAG
+ * node index. The shading pass then blends the box normal with those six directions.
+ *
+ * Because the histogram is a pure function of a node's subtree, it deduplicates exactly
+ * like the geometry does and stays valid across edits.
+ *
+ * 配置：LOD 预滤波外观（6 方向"内部起伏"直方图）
+ *
+ * 光线因 LOD 提前终止时，终止所在的节点代表了它下面一整棵子树的几何。若只用该节点包围盒
+ * 的几何法线着色，子节点的所有朝向信息都被丢弃 —— 这正是激进 LOD 看起来像一块块塑料方块
+ * 的原因。开启本选项后，每个 DAG 节点会预计算一个 6 格直方图，记录 -X/+X/-Y/+Y/-Z/+Z 六
+ * 个方向上"内部"暴露面的面积（即包围盒本身无法表达的起伏部分），存放在以 DAG 节点下标为
+ * 键的旁路哈希表中。着色阶段把包围盒法线与这六个方向混合。
+ *
+ * 由于直方图是节点子树的纯函数，它与几何一样能被完全去重，并且在编辑后仍然有效。
+ */
+#ifndef ENABLE_PREFILTERED_SHADING
+#define ENABLE_PREFILTERED_SHADING 1
+#endif
+
+/** Config: shallowest DAG level for which a prefiltered histogram is stored
+ *
+ * Levels above this are so coarse that they are almost never a LOD hit; skipping them
+ * costs nothing but also saves nothing. Left at 1 by default.
+ *
+ * 配置：存储预滤波直方图的最浅 DAG 层级。比它更浅的层级几乎不会成为 LOD 命中点。
+ */
+#ifndef PREFILTER_MIN_LEVEL
+#define PREFILTER_MIN_LEVEL 1
+#endif
+
+/** Config: deepest DAG level for which a prefiltered histogram is stored
+ *
+ * MAX_LEVELS - 2 is the leaf level (a 4x4x4 block). The leaf level holds by far the most
+ * unique nodes, so lowering this by one is the cheapest way to cut the table's memory
+ * footprint if VRAM is tight — at the cost of losing prefiltering for the finest LOD hits.
+ *
+ * 配置：存储预滤波直方图的最深 DAG 层级。MAX_LEVELS - 2 是叶层（4x4x4 块）。叶层的唯一
+ * 节点数量远多于其它层，显存紧张时把这个值减 1 是最省显存的做法 —— 代价是最细一级的 LOD
+ * 命中点失去预滤波。
+ */
+#ifndef PREFILTER_MAX_LEVEL
+#define PREFILTER_MAX_LEVEL (MAX_LEVELS - 2)
+#endif
+
+// The prefiltered response replaces the per-face BRDF evaluation, so it only has
+// somewhere to plug in when per-voxel-face shading is on.
+// 预滤波响应替换的是逐面 BRDF 求值，因此只有在开启逐体素面着色时才有接入点。
+#if ENABLE_PREFILTERED_SHADING && !PER_VOXEL_FACE_SHADING
+#	error "ENABLE_PREFILTERED_SHADING requires PER_VOXEL_FACE_SHADING"
 #endif
 
 /** Config: find exact hit point to have exact shadows

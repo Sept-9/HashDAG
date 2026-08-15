@@ -34,6 +34,16 @@ struct BasicDAG : BaseDAG
 		return { data[index], data[index + 1] };
 	}
 
+#if ENABLE_PREFILTERED_SHADING
+	// Prefiltered appearance: only built for the HashDAG (the table is keyed by HashDAG
+	// virtual addresses). Returning "no relief" makes the tracer fall back to the plain
+	// box normal, i.e. exactly the original behaviour.
+	// 预滤波外观：只为 HashDAG 构建（表以 HashDAG 虚拟地址为键）。返回"无起伏"让 tracer
+	// 退回普通盒法线，也就是完全的原有行为。
+	HOST_DEVICE bool has_prefilter() const { return false; }
+	HOST_DEVICE uint32 get_prefilter(uint32 /*nodeIndex*/) const { return 0u; }
+#endif
+
 	HOST void print_stats() const
 	{
 		printf("Geometry data: %fMB\n", data.size_in_MB());

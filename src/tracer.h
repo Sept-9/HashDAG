@@ -94,6 +94,17 @@ namespace Tracer
 
 		// Out
 		cudaSurfaceObject_t pathsSurface;
+
+#if ENABLE_PREFILTERED_SHADING
+		// Prefiltered appearance: one packed 6-direction relief histogram per pixel, looked
+		// up while tracing (that is the only place the LOD node's index is at hand) and
+		// consumed by trace_shadows. Plain device memory, imageWidth * imageHeight uint32,
+		// written with the same y-flip as pathsSurface.
+		// 预滤波外观：每像素一个打包的 6 方向起伏直方图，在遍历时查表（那里才拿得到 LOD 节点
+		// 的下标），由 trace_shadows 消费。普通显存，imageWidth * imageHeight 个 uint32，
+		// 写入时使用与 pathsSurface 相同的 y 翻转。
+		uint32* prefilterBuffer = nullptr;
+#endif
 	};
 
 	template<typename TDAG>
@@ -133,6 +144,12 @@ namespace Tracer
 
         // In/Out
         cudaSurfaceObject_t colorsSurface;
+
+#if ENABLE_PREFILTERED_SHADING
+        // Prefiltered appearance: filled by trace_paths, see TracePathsParams.
+        // 预滤波外观：由 trace_paths 填充，见 TracePathsParams。
+        const uint32* prefilterBuffer = nullptr;
+#endif
     };
 
     template<typename TDAG>

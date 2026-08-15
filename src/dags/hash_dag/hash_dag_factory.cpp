@@ -259,6 +259,181 @@ static uint32 compute_dag_coverage(
 	return packed;
 }
 
+#if ENABLE_PREFILTERED_SHADING
+
+// Prefiltered appearance: build-time accumulator for one DAG node.
+//   area[d]     = exposed face area along direction d, with "outside the node is empty"
+//   boundary[d] = number of filled voxels in the node's own outermost slab along d
+// Both are additive over a node's children (up to the interface correction below), so the
+// whole thing is computed with one memoized bottom-up pass over the DAG.
+//
+// 预滤波外观：单个 DAG 节点的构建期累加器。
+//   area[d]     = 沿 d 方向的暴露面面积，约定"节点之外为空"
+//   boundary[d] = 节点自身沿 d 方向最外层薄片中的实心体素数
+// 两者对子节点都是可加的（需要下面的界面修正），因此整体只需一次记忆化的自下而上遍历。
+struct PrefilterNodeAreas
+{
+	float area[LodPrefilter::C_numDirections]     = { 0.f, 0.f, 0.f, 0.f, 0.f, 0.f };
+	float boundary[LodPrefilter::C_numDirections] = { 0.f, 0.f, 0.f, 0.f, 0.f, 0.f };
+};
+
+// Memoized on the node index. HashDAG node indices are globally unique across levels, so
+// the index alone is a complete key, and one entry per *unique* node means the cache size
+// matches the DAG's own deduplicated node count.
+// 以节点下标做记忆化。HashDAG 节点下标在所有层级上全局唯一，因此下标本身就是完整的键；
+// 每个"唯一"节点一条记录，意味着缓存大小与 DAG 去重后的节点数一致。
+using PrefilterCache = std::unordered_map<uint32, PrefilterNodeAreas>;
+
+static PrefilterNodeAreas compute_node_prefilter(
+	const HashDAG& dag,
+	uint32 level,
+	uint32 index,
+	PrefilterCache& cache,
+	std::vector<uint64>& outEntries)
+{
+	{
+		const auto it = cache.find(index);
+		if (it != cache.end()) return it->second;
+	}
+
+	PrefilterNodeAreas result;
+
+	if (level == dag.leaf_level())
+	{
+		// Base case: exact counts straight out of the 64-bit occupancy mask.
+		// 基础情形：直接从 64 bit 占用掩码精确计数。
+		LodPrefilter::leaf_face_areas(dag.get_leaf(index).to_64(), result.area, result.boundary);
+	}
+	else
+	{
+		const uint32 node = dag.get_node(level, index);
+		const uint8 childMask = Utils::child_mask(node);
+
+		PrefilterNodeAreas children[8];
+		bool present[8] = { false, false, false, false, false, false, false, false };
+
+		for (uint8 i = 0; i < 8; ++i)
+		{
+			if (!(childMask & (1u << i))) continue;
+			present[i] = true;
+			const uint32 childIndex = dag.get_child_index(level, index, childMask, i);
+			children[i] = compute_node_prefilter(dag, level + 1, childIndex, cache, outEntries);
+		}
+
+		// 1) Plain sum of the children's exposed areas.
+		//    第一步：把子节点的暴露面积直接相加。
+		for (uint8 i = 0; i < 8; ++i)
+		{
+			if (!present[i]) continue;
+			for (uint32 d = 0; d < LodPrefilter::C_numDirections; ++d)
+			{
+				result.area[d] += children[i].area[d];
+			}
+		}
+
+		// 2) Boundary slabs: only the four children that touch the parent's slab along a
+		//    given direction contribute to it. Child bit layout matches Path::descend:
+		//    bit 2 = x, bit 1 = y, bit 0 = z.
+		//    第二步：边界薄片。沿某个方向，只有贴着父节点该薄片的四个子节点才有贡献。
+		//    子节点位布局与 Path::descend 一致：bit 2 = x, bit 1 = y, bit 0 = z。
+		for (uint8 i = 0; i < 8; ++i)
+		{
+			if (!present[i]) continue;
+			for (uint32 axis = 0; axis < 3; ++axis)
+			{
+				const uint32 axisBit = 1u << (2 - axis);
+				const uint32 dir = axis * 2 + ((i & axisBit) ? 1u : 0u);
+				result.boundary[dir] += children[i].boundary[dir];
+			}
+		}
+
+		// 3) Interface correction. Each child was measured as if everything outside it were
+		//    empty, so the faces it has on a boundary it shares with a sibling were counted
+		//    even though that sibling may fill them in. For a pair of children stacked along
+		//    an axis we subtract the size of the intersection of the touching slabs, which we
+		//    approximate as |A|*|B|/slabArea (the same independence assumption the existing
+		//    coverage computation uses). This is exact whenever either slab is full or empty,
+		//    which covers the important solid / empty cases, and without it the plain sum
+		//    over-counts by roughly 2x per level.
+		//    第三步：界面修正。每个子节点都是按"自身之外全为空"来统计的，因此它在与兄弟节点
+		//    相邻的那个边界上的面也被计入了，而兄弟节点可能正好把它们填住。对沿某轴堆叠的一
+		//    对子节点，我们减去两个相接薄片的交集大小，并用 |A|*|B|/薄片面积 来近似（与现有
+		//    coverage 计算相同的独立性假设）。当任一薄片全满或全空时该近似是精确的，这覆盖了
+		//    重要的实心 / 空心情形；若不做这一步，直接求和会在每一层上多算大约 2 倍。
+		const float childEdge = float(1u << (dag.levels - level - 1));
+		const float childSlabArea = childEdge * childEdge;
+		for (uint32 axis = 0; axis < 3; ++axis)
+		{
+			const uint32 dirNeg = axis * 2 + 0;
+			const uint32 dirPos = axis * 2 + 1;
+			const uint32 axisBit = 1u << (2 - axis);
+
+			float occluded = 0.f;
+			for (uint8 i = 0; i < 8; ++i)
+			{
+				if (i & axisBit) continue;                  // only iterate the "low" children
+				const uint8 j = uint8(i | axisBit);         // its neighbour on the "high" side
+				if (!present[i] || !present[j]) continue;
+				occluded += children[i].boundary[dirPos] * children[j].boundary[dirNeg] / childSlabArea;
+			}
+			// The same intersection hides the low child's +axis faces and the high child's
+			// -axis faces. / 同一个交集同时挡住低侧子节点的 +axis 面和高侧子节点的 -axis 面。
+			result.area[dirPos] = std::max(0.f, result.area[dirPos] - occluded);
+			result.area[dirNeg] = std::max(0.f, result.area[dirNeg] - occluded);
+		}
+	}
+
+	// Emit the quantised *internal* relief for this node. Subtracting boundary[] removes the
+	// faces that lie on the node's own hull, which the bounding box normal already accounts
+	// for; what remains is exactly the relief the box normal cannot express.
+	// 输出该节点量化后的"内部"起伏。减去 boundary[] 去掉了位于节点自身外壳上的面 —— 那些面
+	// 已被包围盒法线表达；剩下的正是包围盒法线无法表达的起伏。
+	if (level >= uint32(PREFILTER_MIN_LEVEL) && level <= uint32(PREFILTER_MAX_LEVEL))
+	{
+		const float edge = float(1u << (dag.levels - level));
+		const float faceArea = edge * edge;
+
+		uint32 packed = 0;
+		for (uint32 d = 0; d < LodPrefilter::C_numDirections; ++d)
+		{
+			const float relief = (result.area[d] - result.boundary[d]) / faceArea;
+			packed |= LodPrefilter::pack_bin(LodPrefilter::quantise_bin(relief), d);
+		}
+		// Nodes with no relief are simply left out of the table: a miss and a zero histogram
+		// mean the same thing, so skipping them shrinks the table for free.
+		// 没有起伏的节点直接不入表：未命中与全零直方图含义相同，跳过它们可以白得一份瘦身。
+		if (packed != LodPrefilter::C_emptyHistogram)
+		{
+			outEntries.push_back((uint64(index) << 32) | uint64(packed));
+		}
+	}
+
+	cache.emplace(index, result);
+	return result;
+}
+
+void HashDAGFactory::build_prefilter(HashDAG& dag)
+{
+	PROFILE_FUNCTION();
+	SCOPED_STATS("Creating LOD prefilter table");
+
+	Stats stats;
+	stats.start_work("computing relief histograms");
+
+	PrefilterCache cache;
+	std::vector<uint64> entries;
+	compute_node_prefilter(dag, 0, dag.firstNodeIndex, cache, entries);
+
+	printf("\tLOD prefilter: visited %zu unique DAG nodes\n", cache.size());
+	cache.clear();
+
+	stats.start_work("building table");
+	dag.prefilter.build(entries);
+	dag.prefilter.print_stats(entries.size());
+}
+
+#endif // ~ ENABLE_PREFILTERED_SHADING
+
 // Recursive build, also computes a per-internal-node average color for LOD shading.
 // Returns the color tree index of this node; writes the subtree's voxel-count-weighted
 // average color into `outAvgColor`.
@@ -389,6 +564,13 @@ void HashDAGFactory::load_from_DAG(HashDAG& outDag, const BasicDAG& inDag, uint3
 
     stats.start_work("upload_to_gpu");
     outDag.data.upload_to_gpu();
+
+#if ENABLE_PREFILTERED_SHADING
+	// Prefiltered appearance: the histograms are a pure function of the geometry, so they
+	// are built here, right after the geometry is final.
+	// 预滤波外观：直方图是几何的纯函数，因此在几何定型之后立即在这里构建。
+	build_prefilter(outDag);
+#endif
 }
 
 void HashDAGFactory::load_colors_from_DAG(

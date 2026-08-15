@@ -39,5 +39,15 @@ private:
 	cudaArray* colorsArray = nullptr;
 
 	uint3* pathCache = nullptr;
+
+#if ENABLE_PREFILTERED_SHADING
+	// Prefiltered appearance: one packed 6-direction relief histogram per pixel, produced by
+	// trace_paths and consumed by trace_shadows. It is never displayed, so it is plain device
+	// memory rather than a GL-interop surface.
+	// 预滤波外观：每像素一个打包的 6 方向起伏直方图，由 trace_paths 产生、trace_shadows 消费。
+	// 它不会被显示，因此用普通显存而非 GL 互操作 surface。
+	uint32* prefilterBuffer = nullptr;
+#endif
+
 	cudaEvent_t eventBeg, eventEnd;
 };

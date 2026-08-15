@@ -179,6 +179,17 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 	// (the original behaviour). Set to 0 on background pixels, or a smaller value when LOD kicks in.
 	uint32 hitLevel = dag.levels;
 
+#if ENABLE_PREFILTERED_SHADING
+	// Prefiltered appearance: packed 6-direction relief histogram of the node this ray stops
+	// on. Stays 0 for background pixels, for full descents (where the geometry is exact) and
+	// for LOD nodes with no internal relief — in all three cases the shading pass must use
+	// the plain box normal, which is exactly what 0 tells it to do.
+	// 预滤波外观：本条光线终止所在节点的打包 6 方向起伏直方图。背景像素、完全下降到底（几何
+	// 精确）、以及没有内部起伏的 LOD 节点都保持为 0 —— 这三种情况着色阶段都必须使用普通盒
+	// 法线，而 0 正是这个含义。
+	uint32 prefilterPacked = LodPrefilter::C_emptyHistogram;
+#endif
+
 	// Traverse DAG
 	for (;;)
 	{
@@ -237,6 +248,22 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 				if (voxelSize < tminLod * traceParams.lodScale)
 				{
 					hitLevel = level;
+#if ENABLE_PREFILTERED_SHADING
+					// Prefiltered appearance: the node we are stopping on is child `nextChild`
+					// of the node cached at `level - 1`, so its index is one indirection away.
+					// cache.index is only maintained while its own level is above the leaf
+					// level, which holds for every level we can look up here (the deepest
+					// stored level is the leaf level itself).
+					// 预滤波外观：我们终止所在的节点是缓存在 `level - 1` 那个节点的第
+					// `nextChild` 个孩子，因此它的下标只差一次间接寻址。cache.index 仅在其自身
+					// 层级浅于叶层时才被维护，而这里能查表的每个层级都满足该条件（最深存储的
+					// 层级就是叶层本身）。
+					if (dag.has_prefilter() && level <= dag.leaf_level())
+					{
+						const uint32 lodNodeIndex = dag.get_child_index(level - 1, cache.index, cache.childMask, nextChild);
+						prefilterPacked = dag.get_prefilter(lodNodeIndex);
+					}
+#endif
 					break;
 				}
 			}
@@ -288,6 +315,16 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 		path.path.z <<= alignShift;
 	}
 	path.store_with_level(pixel.x, imageHeight - 1 - pixel.y, traceParams.pathsSurface, hitLevel);
+
+#if ENABLE_PREFILTERED_SHADING
+	// Same y-flip as store_with_level above: this pass writes flipped, the colour and shadow
+	// passes read unflipped.
+	// 与上面的 store_with_level 使用相同的 y 翻转：本阶段翻转写入，颜色与阴影阶段不翻转读取。
+	if (traceParams.prefilterBuffer)
+	{
+		traceParams.prefilterBuffer[(imageHeight - 1 - pixel.y) * imageWidth + pixel.x] = prefilterPacked;
+	}
+#endif
 }
 
 template<typename TDAG, typename TDAGColors>
@@ -786,6 +823,103 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
 			setColorImpl(color);
 		};
+#if ENABLE_PREFILTERED_SHADING
+	// Prefiltered appearance: same shading model as setBRDFColor, except that the single
+	// geometric normal is replaced by a weighted set of normals.
+	//
+	// A LOD node's apparent surface is split in two parts:
+	//   * the relief part — for every axis direction d the histogram stores how much
+	//     *internal* face area points along n_d, as a fraction of the node's own projected
+	//     face area. A direction can only be seen from the camera if dot(n_d, V) > 0, and
+	//     what the pixel sees of it is foreshortened by that same factor, so the weight of
+	//     direction d is relief[d] * max(0, dot(n_d, V)).
+	//   * the flat part — whatever fraction of the projected face the relief does not claim
+	//     is still a plain facet of the bounding box, shaded with the geometric box normal.
+	// The two are then normalised together, which makes the whole thing degrade gracefully:
+	// a node with an all-zero histogram gets weight 1 on the flat part and reproduces
+	// setBRDFColor bit for bit.
+	//
+	// 预滤波外观：着色模型与 setBRDFColor 相同，只是把单一几何法线换成一组加权法线。
+	//
+	// 一个 LOD 节点的表观表面被拆成两部分：
+	//   * 起伏部分 —— 直方图对每个坐标轴方向 d 记录了有多少"内部"面面积朝向 n_d，以节点自身
+	//     投影面面积为单位。只有 dot(n_d, V) > 0 的方向才可能被相机看到，而像素看到的量又被
+	//     同一个因子透视压缩，因此方向 d 的权重是 relief[d] * max(0, dot(n_d, V))。
+	//   * 平坦部分 —— 投影面上没被起伏占据的那部分仍然是包围盒的平面，用几何盒法线着色。
+	// 两部分一起归一化，使整套方案能平滑退化：直方图全零的节点会把权重 1 全给平坦部分，从而
+	// 逐位复现 setBRDFColor 的结果。
+	const auto setPrefilteredBRDFColor = [&](double distance, double3 direction, double3 boxNormal, uint32 packed, bool isShadow, float alpha)
+		{
+			const float3 L = sun_direction();
+			const float3 V = make_float3( - normalize(direction));
+			const float3 H = normalize(L + V);
+			const uint32 colorInt = surf2Dread<uint32>(params.colorsSurface, pixel.x * sizeof(uint32), pixel.y);
+			float3 albedo = ColorUtils::rgb888_to_float3(colorInt);
+
+			float weightSum = 0.f;
+			float diffuse = 0.f;
+			float specular = 0.f;
+
+			// Relief part / 起伏部分
+			for (uint32 d = 0; d < LodPrefilter::C_numDirections; ++d)
+			{
+				const float relief = LodPrefilter::bin_to_relief(LodPrefilter::unpack_bin(packed, d));
+				if (relief <= 0.f) continue;
+
+				const float3 N = LodPrefilter::direction_normal(d);
+				const float nDotV = dot(N, V);
+				if (nDotV <= 0.f) continue;
+
+				const float weight = relief * nDotV;
+				weightSum += weight;
+				diffuse += weight * max(0.f, dot(N, L));
+				specular += weight * pow(max(0.f, dot(N, H)), 32.f);
+			}
+
+			// Flat part / 平坦部分
+			{
+				const float weight = max(0.f, 1.f - weightSum);
+				const float3 N = make_float3(boxNormal);
+				weightSum += weight;
+				diffuse += weight * max(0.f, dot(N, L));
+				specular += weight * pow(max(0.f, dot(N, H)), 32.f);
+			}
+
+			if (weightSum > 0.f)
+			{
+				diffuse /= weightSum;
+				specular /= weightSum;
+			}
+
+			float3 ambient = albedo * 0.4f;
+			float3 diffuseC = albedo * diffuse * 0.8f;
+			float3 specularC = make_float3(1.f) * specular * 0.3f;
+
+			if (isShadow)
+			{
+				diffuseC = make_float3(0);
+				specularC = make_float3(0);
+			}
+			float3 color = ambient + diffuseC + specularC;
+
+			// Identical LOD alpha compositing to setBRDFColor.
+			// 与 setBRDFColor 完全相同的 LOD alpha 合成。
+			if (alpha < 1.f)
+			{
+				const float3 skyColor = make_float3(187.f, 242.f, 250.f) / 255.f;
+				color = alpha * color + (1.f - alpha) * skyColor;
+			}
+
+			color = applyFog(
+				color,
+				distance,
+				direction,
+				params.cameraPosition,
+				params.fogDensity);
+
+			setColorImpl(color);
+		};
+#endif
     // LOD: hitLevel is encoded in the 4th uint of pathsSurface. When LOD stopped early the
     // hit position represents the lower-left corner of a multi-voxel node rather than a 1-voxel.
     // dag.levels means full descent (1x1x1).
@@ -796,6 +930,14 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
     const float3 rayOrigin = make_float3(
         Path::load_with_level(pixel.x, pixel.y, params.pathsSurface, hitLevel, &coveragePacked).path);
     const double3 cameraRayDirection = normalize(params.rayMin + pixel.x * params.rayDDx + (imageHeight - 1 - pixel.y) * params.rayDDy - params.cameraPosition);
+
+#if ENABLE_PREFILTERED_SHADING
+    // Prefiltered appearance: written by trace_paths for this pixel. 0 means "no relief".
+    // 预滤波外观：由 trace_paths 为该像素写入。0 表示"无起伏"。
+    const uint32 prefilterPacked = params.prefilterBuffer
+        ? params.prefilterBuffer[pixel.y * imageWidth + pixel.x]
+        : LodPrefilter::C_emptyHistogram;
+#endif
 
 #if EXACT_SHADOWS || PER_VOXEL_FACE_SHADING
     const double voxelSize = double(1u << (dag.levels - hitLevel));
@@ -857,7 +999,11 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 		const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
 		const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
 		const float alpha = pick_alpha_from_normal(normal);
+#if ENABLE_PREFILTERED_SHADING
+		setPrefilteredBRDFColor(distance, nv, normal, prefilterPacked, true, alpha);
+#else
 		setBRDFColor(0, distance, nv, normal, true, alpha);
+#endif
 #else
 		setColor(0, distance, nv);
 #endif
@@ -871,7 +1017,11 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
         const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
         //setColor(max(0.f, dot(make_float3(normal), sun_direction())), distance, nv);
 		const float alpha = pick_alpha_from_normal(normal);
+#if ENABLE_PREFILTERED_SHADING
+		setPrefilteredBRDFColor(distance, nv, normal, prefilterPacked, false, alpha);
+#else
 		setBRDFColor(1, distance, nv, normal, false, alpha);
+#endif
 #else
         setColor(1, distance, nv);
 #endif

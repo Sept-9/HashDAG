@@ -40,6 +40,14 @@ DAGTracer::DAGTracer(bool headLess)
         pathCache = Memory::malloc<uint3>("path cache", sizeof(uint3), EMemoryType::GPU_Managed);
     }
 
+#if ENABLE_PREFILTERED_SHADING
+    // Prefiltered appearance: full-screen uint32 buffer shared between trace_paths and
+    // trace_shadows. / 预滤波外观：trace_paths 与 trace_shadows 共用的全屏 uint32 缓冲。
+    prefilterBuffer = Memory::malloc<uint32>(
+        "lod prefilter buffer", imageWidth * imageHeight * sizeof(uint32), EMemoryType::GPU_Malloc);
+    CUDA_CHECKED_CALL cudaMemset(prefilterBuffer, 0, imageWidth * imageHeight * sizeof(uint32));
+#endif
+
 	cudaEventCreate(&eventBeg);
 	cudaEventCreate(&eventEnd);
 }
@@ -63,6 +71,10 @@ DAGTracer::~DAGTracer()
 
         Memory::free(pathCache);
     }
+
+#if ENABLE_PREFILTERED_SHADING
+    Memory::free(prefilterBuffer);
+#endif
 
 	cudaEventDestroy(eventBeg);
 	cudaEventDestroy(eventEnd);
@@ -142,6 +154,9 @@ float DAGTracer::resolve_paths(const CameraView& camera, const DAGInfo& dagInfo,
     if (!headLess) pathsBuffer.map_surface();
 	auto traceParams = get_trace_params(camera, dag.levels, dagInfo, lodPixelThreshold);
 	traceParams.pathsSurface = pathsBuffer.cudaSurface;
+#if ENABLE_PREFILTERED_SHADING
+	traceParams.prefilterBuffer = prefilterBuffer;
+#endif
 
     CUDA_CHECK_ERROR();
 
@@ -221,6 +236,9 @@ float DAGTracer::resolve_shadows(const CameraView& camera, const DAGInfo& dagInf
             fogDensity,
             pathsBuffer.cudaSurface,
             colorsBuffer.cudaSurface
+#if ENABLE_PREFILTERED_SHADING
+            , prefilterBuffer
+#endif
     };
 
     CUDA_CHECK_ERROR();

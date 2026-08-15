@@ -10,6 +10,7 @@
 
 #include "path.h"
 #include "stats.h"
+#include "lod_prefilter.h"
 #include "dags/base_dag.h"
 #include "dags/hash_dag/hash_dag_globals.h"
 #include "dags/hash_dag/hash_table.h"
@@ -220,6 +221,27 @@ struct HashDAG : BaseDAG
     HashTable data;
     uint32 firstNodeIndex = 0;
 
+#if ENABLE_PREFILTERED_SHADING
+    // Prefiltered appearance: side table mapping a node index to its packed 6-direction
+    // relief histogram. Built by HashDAGFactory::build_prefilter().
+    // 预滤波外观：把节点下标映射到打包的 6 方向起伏直方图的旁路表。
+    // 由 HashDAGFactory::build_prefilter() 构建。
+    PrefilterTable prefilter;
+
+    HOST_DEVICE bool has_prefilter() const
+    {
+        return prefilter.is_valid();
+    }
+    // Returns LodPrefilter::C_emptyHistogram (0) when the node has no stored relief, which
+    // callers must read as "the geometric box normal is already correct".
+    // 节点没有存储起伏时返回 LodPrefilter::C_emptyHistogram (0)，调用方应理解为
+    // "几何盒法线本来就是正确的"。
+    HOST_DEVICE uint32 get_prefilter(uint32 nodeIndex) const
+    {
+        return prefilter.find(nodeIndex);
+    }
+#endif
+
     HOST_DEVICE bool is_valid() const
     {
         return data.is_valid();
@@ -248,6 +270,9 @@ struct HashDAG : BaseDAG
 #undef get_ptr
 	HOST void free()
     {
+#if ENABLE_PREFILTERED_SHADING
+        prefilter.free();
+#endif
 	    data.destroy();
     }
 
