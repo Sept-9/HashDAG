@@ -238,7 +238,7 @@
       <TargetMachinePlatform>64</TargetMachinePlatform>
       <Warning>InheritFromHost</Warning>
       <AdditionalCompilerOptions>/wd4668</AdditionalCompilerOptions>
-      <AdditionalOptions>-Xcompiler "/wd 4201 /wd 4099 /wd 4706 /wd4324 /wd4515 /wd4127 /wd4714" --expt-relaxed-constexpr --expt-extended-lambda %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Xcompiler "/utf-8 /wd 4201 /wd 4099 /wd 4706 /wd4324 /wd4515 /wd4127 /wd4714" --expt-relaxed-constexpr --expt-extended-lambda %(AdditionalOptions)</AdditionalOptions>
       <GenerateRelocatableDeviceCode>true</GenerateRelocatableDeviceCode>
     </CudaCompile>
     <CudaLink>
@@ -263,8 +263,7 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <ControlFlowGuard>false</ControlFlowGuard>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <AdditionalOptions>/utf-8</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
@@ -282,7 +281,7 @@
       <TargetMachinePlatform>64</TargetMachinePlatform>
       <Warning>InheritFromHost</Warning>
       <AdditionalCompilerOptions>/wd4668</AdditionalCompilerOptions>
-      <AdditionalOptions>-Xcompiler "/wd 4201 /wd 4099 /wd 4706 /wd4324 /wd4515 /wd4127 /wd4714" --expt-relaxed-constexpr --expt-extended-lambda %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-Xcompiler "/utf-8 /wd 4201 /wd 4099 /wd 4706 /wd4324 /wd4515 /wd4127 /wd4714" --expt-relaxed-constexpr --expt-extended-lambda %(AdditionalOptions)</AdditionalOptions>
     </CudaCompile>
     <CudaLink>
       <AdditionalDependencies>
