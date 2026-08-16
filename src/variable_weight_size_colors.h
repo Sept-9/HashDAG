@@ -160,8 +160,9 @@ struct CompressedColor
 	}
 	// LOD: representative colour for a BC1-style block (used when we don't have the per-voxel
 	// weight, e.g. partial-path LOD hits). Falls back to the single stored colour for
-	// uniform blocks (bitsPerWeight == 0).
-	HOST_DEVICE constexpr float3 get_lod_average() const
+	// uniform blocks (bitsPerWeight == 0). The return value is in storage space, so callers
+	// can hand it straight to float3_to_rgb888.
+	HOST_DEVICE float3 get_lod_average() const
 	{
 		if (bitsPerWeight == 0)
 		{
@@ -169,7 +170,8 @@ struct CompressedColor
 		}
 		else
 		{
-			return 0.5f * (get_min_color() + get_max_color());
+			return ColorUtils::from_linear(
+				0.5f * (ColorUtils::to_linear(get_min_color()) + ColorUtils::to_linear(get_max_color())));
 		}
 	}
 };

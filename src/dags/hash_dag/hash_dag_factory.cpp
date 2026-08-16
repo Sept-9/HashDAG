@@ -101,8 +101,9 @@ uint32 create_hash_dag(
 	return finalIndex;
 }
 
-// LOD: sample K positions in [offset, offset+size) and average their per-block (min+max)/2
-// or single-color value. Returns RGB888 packed color, or 0 if size == 0.
+// LOD: sample K positions in [offset, offset+size) and average their per-block representative
+// colour. The average is taken in linear space; the result is packed RGB888 in storage space,
+// or 0 if size == 0.
 static uint32 sample_leaf_average_color(
 	const CompressedColorLeaf& globalLeaf,
 	uint64 offset,
@@ -121,21 +122,12 @@ static uint32 sample_leaf_average_color(
 		const uint64 absIdx = offset + (uint64(s) * size + size / 2) / uint64(numSamples);
 		if (!globalLeaf.is_valid_index(absIdx)) continue;
 
-		const CompressedColor cc = globalLeaf.get_color(absIdx);
-		float3 sample;
-		if (cc.bitsPerWeight == 0)
-		{
-			sample = ColorUtils::rgb101210_to_float3(cc.colorBits);
-		}
-		else
-		{
-			sample = 0.5f * (cc.get_min_color() + cc.get_max_color());
-		}
-		acc = acc + sample;
+
+		acc = acc + ColorUtils::to_linear(globalLeaf.get_color(absIdx).get_lod_average());
 		++valid;
 	}
 	if (valid == 0) return 0;
-	return ColorUtils::float3_to_rgb888(acc / float(valid));
+	return ColorUtils::float3_to_rgb888(ColorUtils::from_linear(acc / float(valid)));
 }
 
 // LOD: memoized recursive computation of the 3-axis projected coverage for a
@@ -485,7 +477,7 @@ uint32 create_hash_dag_colors(
 			if (childSize > 0)
 			{
 				const uint32 childAvg = sample_leaf_average_color(globalLeafAbs, leavesCount, childSize);
-				accColor = accColor + ColorUtils::rgb888_to_float3(childAvg) * float(childSize);
+				accColor = accColor + ColorUtils::to_linear(ColorUtils::rgb888_to_float3(childAvg)) * float(childSize);
 				accWeight += childSize;
 			}
 
@@ -513,7 +505,7 @@ uint32 create_hash_dag_colors(
 				const uint64 childSize = sdagcolors.get_leaves_count(level + 1, childNode);
 				if (childSize > 0)
 				{
-					accColor = accColor + ColorUtils::rgb888_to_float3(childAvg) * float(childSize);
+					accColor = accColor + ColorUtils::to_linear(ColorUtils::rgb888_to_float3(childAvg)) * float(childSize);
 					accWeight += childSize;
 				}
 				leavesCount += childSize;
@@ -522,7 +514,7 @@ uint32 create_hash_dag_colors(
 	}
 
 	outAvgColor = (accWeight > 0)
-		? ColorUtils::float3_to_rgb888(accColor / float(accWeight))
+		? ColorUtils::float3_to_rgb888(ColorUtils::from_linear(accColor / float(accWeight)))
 		: 0;
 	colorBuilder.nodeAverages[nodeAvgSlot] = outAvgColor;
 

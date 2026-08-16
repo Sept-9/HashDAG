@@ -718,8 +718,8 @@ HOST_DEVICE float3 applyFog(float3 rgb,      // original color of the pixel
     double fogAmount = 1.0 - exp(-distance * fogDensity);
 #endif
     double sunAmount = 1.01f * max(dot(rayDir, make_double3(sun_direction())), 0.0);
-    float3 fogColor = lerp(make_float3(187, 242, 250) / 255.f, // blue
-                              make_float3(1.0f), // white
+    float3 fogColor = lerp(ColorUtils::to_linear(make_float3(187, 242, 250) / 255.f), // blue
+                              ColorUtils::to_linear(make_float3(1.0f)), // white
                               float(pow(sunAmount, 30.0)));
     return lerp(rgb, fogColor, clamp(float(fogAmount), 0.f, 1.f));
 }
@@ -751,13 +751,13 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
     const auto setColorImpl = [&](float3 color)
     {
-        const uint32 finalColor = ColorUtils::float3_to_rgb888(color);
+        const uint32 finalColor = ColorUtils::float3_to_rgb888(ColorUtils::from_linear(color));
         surf2Dwrite(finalColor, params.colorsSurface, (int)sizeof(uint32) * pixel.x, pixel.y, cudaBoundaryModeClamp);
     };
     const auto setColor = [&](float light, double distance, double3 direction)
     {
         const uint32 colorInt = surf2Dread<uint32>(params.colorsSurface, pixel.x * sizeof(uint32), pixel.y);
-        float3 color = ColorUtils::rgb888_to_float3(colorInt);
+        float3 color = ColorUtils::to_linear(ColorUtils::rgb888_to_float3(colorInt));
 
         color = color * clamp(0.5f + light, 0.f, 1.f);
 		//color = color * light;
@@ -783,7 +783,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			const float3 H = normalize(L + V);
 			const float3 N = make_float3(normal);
 			const uint32 colorInt = surf2Dread<uint32>(params.colorsSurface, pixel.x * sizeof(uint32), pixel.y);
-			float3 albedo = ColorUtils::rgb888_to_float3(colorInt);
+			float3 albedo = ColorUtils::to_linear(ColorUtils::rgb888_to_float3(colorInt));
 			// Lambert
 			float diffuse = max(0.f, dot(N, L));
 
@@ -808,11 +808,11 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			// node's transparency). applyFog is linear in its first argument,
 			// so blending BEFORE the fog pass is mathematically equivalent to
 			// (and one applyFog call cheaper than) blending after.
-			if (alpha < 1.f)
-			{
-				const float3 skyColor = make_float3(187.f, 242.f, 250.f) / 255.f;
-				color = alpha * color + (1.f - alpha) * skyColor;
-			}
+			//if (alpha < 1.f)
+			//{
+			//	const float3 skyColor = ColorUtils::to_linear(make_float3(187.f, 242.f, 250.f) / 255.f);
+			//	color = alpha * color + (1.f - alpha) * skyColor;
+			//}
 
 			color = applyFog(
 				color,
@@ -854,7 +854,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			const float3 V = make_float3( - normalize(direction));
 			const float3 H = normalize(L + V);
 			const uint32 colorInt = surf2Dread<uint32>(params.colorsSurface, pixel.x * sizeof(uint32), pixel.y);
-			float3 albedo = ColorUtils::rgb888_to_float3(colorInt);
+			float3 albedo = ColorUtils::to_linear(ColorUtils::rgb888_to_float3(colorInt));
 
 			float weightSum = 0.f;
 			float diffuse = 0.f;
@@ -904,11 +904,11 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
 			// Identical LOD alpha compositing to setBRDFColor.
 			// 与 setBRDFColor 完全相同的 LOD alpha 合成。
-			if (alpha < 1.f)
-			{
-				const float3 skyColor = make_float3(187.f, 242.f, 250.f) / 255.f;
-				color = alpha * color + (1.f - alpha) * skyColor;
-			}
+			//if (alpha < 1.f)
+			//{
+			//	const float3 skyColor = ColorUtils::to_linear(make_float3(187.f, 242.f, 250.f) / 255.f);
+			//	color = alpha * color + (1.f - alpha) * skyColor;
+			//}
 
 			color = applyFog(
 				color,

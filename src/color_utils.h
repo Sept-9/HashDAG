@@ -59,6 +59,44 @@ namespace ColorUtils
 			(uint32(b * 1023.0f) << 22);
 	}
 
+	// sRGB electro-optical transfer function and its inverse (IEC 61966-2-1).
+	// Not constexpr: they need pow().
+	// sRGB 光电转换函数及其逆（IEC 61966-2-1）。因为要用 pow()，所以不是 constexpr。
+	HOST_DEVICE float srgb_to_linear(float c)
+	{
+		return c <= 0.04045f ? c * (1.f / 12.92f) : powf((c + 0.055f) * (1.f / 1.055f), 2.4f);
+	}
+	HOST_DEVICE float linear_to_srgb(float c)
+	{
+		return c <= 0.0031308f ? c * 12.92f : 1.055f * powf(c, 1.f / 2.4f) - 0.055f;
+	}
+	HOST_DEVICE float3 srgb_to_linear(float3 c)
+	{
+		return make_vector3<float3>(srgb_to_linear(c.x), srgb_to_linear(c.y), srgb_to_linear(c.z));
+	}
+	HOST_DEVICE float3 linear_to_srgb(float3 c)
+	{
+		return make_vector3<float3>(linear_to_srgb(c.x), linear_to_srgb(c.y), linear_to_srgb(c.z));
+	}
+
+	
+	HOST_DEVICE float3 to_linear(float3 stored)
+	{
+#if LINEAR_SPACE_SHADING
+		return srgb_to_linear(stored);
+#else
+		return stored;
+#endif
+	}
+	HOST_DEVICE float3 from_linear(float3 linearColor)
+	{
+#if LINEAR_SPACE_SHADING
+		return linear_to_srgb(linearColor);
+#else
+		return linearColor;
+#endif
+	}
+
 	HOST_DEVICE constexpr uint32 rgb565_to_rgb888(uint16 rgb)
 	{
 		return float3_to_rgb888(rgb565_to_float3(rgb));
