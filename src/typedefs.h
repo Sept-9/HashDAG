@@ -443,6 +443,10 @@
 #define LINEAR_SPACE_COLOR_AVERAGING 0
 #endif
 
+#ifndef LOD_COLOR_SAMPLES
+#define LOD_COLOR_SAMPLES 4
+#endif
+
 /** Config: prefiltered LOD appearance (6-direction internal-relief histogram)
  */
 #ifndef ENABLE_PREFILTERED_SHADING

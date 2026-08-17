@@ -420,6 +420,9 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 	}
 
     uint64 nof_leaves = 0;
+#if LOD_COLOR_SAMPLES >= 2
+	uint64 lodVoxelCount = 0;
+#endif
 	uint32 debugColorsIndex = 0;
 
 	uint32 colorNodeIndex = 0;
@@ -529,10 +532,15 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 			// block; skip the per-bit refinement (which requires the full path).
 			if (lodMode && hitLevel <= level)
 			{
+#if LOD_COLOR_SAMPLES >= 2
+				const uint32 lodChildIndex = dag.get_child_index(level - 1, nodeIndex, childMask, child);
+				lodVoxelCount = Utils::popcll(dag.get_leaf(lodChildIndex).to_64());
+#endif
 				break;
 			}
 			const uint32 childIndex = dag.get_child_index(level - 1, nodeIndex, childMask, child);
 			const Leaf leaf = dag.get_leaf(childIndex);
+			const uint64 leafBits = leaf.to_64();
 			const uint8 leafBitIndex =
 				(((path.path.x & 0x1) == 0) ? 0 : 4) |
 				(((path.path.y & 0x1) == 0) ? 0 : 2) |
@@ -540,7 +548,14 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 				(((path.path.x & 0x2) == 0) ? 0 : 32) |
 				(((path.path.y & 0x2) == 0) ? 0 : 16) |
 				(((path.path.z & 0x2) == 0) ? 0 : 8);
-			nof_leaves += Utils::popcll(leaf.to_64() & ((uint64(1) << leafBitIndex) - 1));
+			nof_leaves += Utils::popcll(leafBits & ((uint64(1) << leafBitIndex) - 1));
+
+#if LOD_COLOR_SAMPLES >= 2
+			if (lodMode)
+			{
+				lodVoxelCount = Utils::popcll((leafBits >> leafBitIndex) & 0xFFull);
+			}
+#endif
 
 			break;
 		}
@@ -566,6 +581,12 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 			// is the offset of this LOD node's first surface voxel within the color leaf.
 			if (lodMode && level >= hitLevel)
 			{
+#if LOD_COLOR_SAMPLES >= 2
+				if (level >= colors.get_color_tree_levels())
+				{
+					lodVoxelCount = colors.get_leaves_count(level, dag.get_node(level, nodeIndex));
+				}
+#endif
 				break;
 			}
 		}
@@ -577,17 +598,38 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 		return;
 	}
 
-	auto compressedColor = colorLeaf.get_color(nof_leaves);
-
-	// LOD: in LOD mode we don't have an exact per-voxel weight, so we represent the LOD node
-	// by the block's (min+max)/2 (or its single colour for bitsPerWeight == 0 blocks).
-	// This piggy-backs on the BC1-style clustering the color compression already does.
-	// For uncompressed colour types `get_lod_average()` just returns the stored colour.
 	if (lodMode)
 	{
-		setColor(ColorUtils::float3_to_rgb888(compressedColor.get_lod_average()));
+#if LOD_COLOR_SAMPLES == 0
+		setColor(ColorUtils::float3_to_rgb888(colorLeaf.get_color(nof_leaves).get_lod_average()));
+#elif LOD_COLOR_SAMPLES == 1
+		setColor(ColorUtils::float3_to_rgb888(colorLeaf.get_color(nof_leaves).get_color()));
+#else
+		const int numSamples = (lodVoxelCount < uint64(LOD_COLOR_SAMPLES)) ? int(lodVoxelCount) : int(LOD_COLOR_SAMPLES);
+
+		float3 acc = make_float3(0.f);
+		int valid = 0;
+		for (int s = 0; s < numSamples; ++s)
+		{
+			const uint64 idx = nof_leaves + (uint64(s) * lodVoxelCount + lodVoxelCount / 2) / uint64(numSamples);
+			if (!colorLeaf.is_valid_index(idx)) continue;
+			acc = acc + ColorUtils::to_average_space(colorLeaf.get_color(idx).get_color());
+			++valid;
+		}
+
+		if (valid > 0)
+		{
+			setColor(ColorUtils::float3_to_rgb888(ColorUtils::from_average_space(acc / float(valid))));
+		}
+		else
+		{
+			setColor(ColorUtils::float3_to_rgb888(colorLeaf.get_color(nof_leaves).get_color()));
+		}
+#endif
 		return;
 	}
+
+	auto compressedColor = colorLeaf.get_color(nof_leaves);
 
 	uint32 color =
 		traceParams.debugColors == EDebugColors::ColorBits
