@@ -743,6 +743,74 @@ HOST_DEVICE float3 sun_direction()
     return normalize(make_float3(0.3f, 1.f, 0.5f));
 }
 
+#if USE_GGX_BRDF
+constexpr float C_invPi = 0.318309886183791f;
+constexpr float C_specularRoughness = 0.5f;
+constexpr float C_specularAlpha = C_specularRoughness * C_specularRoughness;
+constexpr float C_specularAlpha2 = C_specularAlpha * C_specularAlpha;
+constexpr float C_dielectricF0 = 0.04f;
+constexpr float C_sunIrradiance = 2.6f;
+constexpr float C_skyIrradiance = 1.26f;
+
+HOST_DEVICE float ggx_distribution(float nDotH)
+{
+	const float d = nDotH * nDotH * (C_specularAlpha2 - 1.f) + 1.f;
+	return C_specularAlpha2 * C_invPi / max(1e-8f, d * d);
+}
+
+HOST_DEVICE float smith_visibility(float nDotL, float nDotV)
+{
+	const float lambdaV = nDotL * sqrt(nDotV * nDotV * (1.f - C_specularAlpha2) + C_specularAlpha2);
+	const float lambdaL = nDotV * sqrt(nDotL * nDotL * (1.f - C_specularAlpha2) + C_specularAlpha2);
+	return 0.5f / max(1e-8f, lambdaV + lambdaL);
+}
+
+HOST_DEVICE float schlick_fresnel(float vDotH)
+{
+	const float m = clamp(1.f - vDotH, 0.f, 1.f);
+	const float m2 = m * m;
+	return C_dielectricF0 + (1.f - C_dielectricF0) * (m2 * m2 * m);
+}
+
+HOST_DEVICE float specular_lobe(float3 N, float3 V, float3 L, float3 H)
+{
+	const float nDotL = dot(N, L);
+	const float nDotV = dot(N, V);
+	if (nDotL <= 0.f || nDotV <= 0.f) return 0.f;
+	return ggx_distribution(max(0.f, dot(N, H))) * smith_visibility(nDotL, nDotV) * nDotL;
+}
+
+HOST_DEVICE float3 combine_shading(float3 albedo, float diffuse, float specular, float vDotH, bool isShadow)
+{
+	const float3 diffuseBRDF = albedo * C_invPi;
+
+	float3 color = diffuseBRDF * C_skyIrradiance;
+	if (!isShadow)
+	{
+		const float fresnel = schlick_fresnel(vDotH);
+		color = color + diffuseBRDF * ((1.f - fresnel) * diffuse * C_sunIrradiance);
+		color = color + make_float3(fresnel * specular * C_sunIrradiance);
+	}
+	return color;
+}
+#else
+HOST_DEVICE float specular_lobe(float3 N, float3 /*V*/, float3 /*L*/, float3 H)
+{
+	return pow(max(0.f, dot(N, H)), 32.f);
+}
+
+HOST_DEVICE float3 combine_shading(float3 albedo, float diffuse, float specular, float /*vDotH*/, bool isShadow)
+{
+	float3 color = albedo * 0.4f;
+	if (!isShadow)
+	{
+		color = color + albedo * diffuse * 0.8f;
+		color = color + make_float3(1.f) * specular * 0.3f;
+	}
+	return color;
+}
+#endif
+
 HOST_DEVICE float3 applyFog(float3 rgb,      // original color of the pixel
                             double distance, // camera to point distance
                             double3 rayDir,   // camera to point vector
@@ -829,19 +897,9 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			// Lambert
 			float diffuse = max(0.f, dot(N, L));
 
-			// Blinn-Phong
-			float specular = pow(max(0.f, dot(N, H)), 32.f);
+			float specular = specular_lobe(N, V, L, H);
 
-			float3 ambient = albedo * 0.4f;
-			float3 diffuseC = albedo * diffuse * 0.8f;
-			float3 specularC = make_float3(1.f) * specular * 0.3f;
-
-			if(isShadow)
-			{
-				diffuseC = make_float3(0);
-				specularC = make_float3(0);
-			}
-			float3 color = ambient + diffuseC + specularC;
+			float3 color = combine_shading(albedo, diffuse, specular, max(0.f, dot(V, H)), isShadow);
 			//color = color * clamp(0.5f + light, 0.f, 1.f);
 			//color = color * light;
 
@@ -915,7 +973,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 				const float weight = relief * nDotV;
 				weightSum += weight;
 				diffuse += weight * max(0.f, dot(N, L));
-				specular += weight * pow(max(0.f, dot(N, H)), 32.f);
+				specular += weight * specular_lobe(N, V, L, H);
 			}
 
 			// Flat part / 平坦部分
@@ -924,7 +982,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 				const float3 N = make_float3(boxNormal);
 				weightSum += weight;
 				diffuse += weight * max(0.f, dot(N, L));
-				specular += weight * pow(max(0.f, dot(N, H)), 32.f);
+				specular += weight * specular_lobe(N, V, L, H);
 			}
 
 			if (weightSum > 0.f)
@@ -933,16 +991,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 				specular /= weightSum;
 			}
 
-			float3 ambient = albedo * 0.4f;
-			float3 diffuseC = albedo * diffuse * 0.8f;
-			float3 specularC = make_float3(1.f) * specular * 0.3f;
-
-			if (isShadow)
-			{
-				diffuseC = make_float3(0);
-				specularC = make_float3(0);
-			}
-			float3 color = ambient + diffuseC + specularC;
+			float3 color = combine_shading(albedo, diffuse, specular, max(0.f, dot(V, H)), isShadow);
 
 			// Identical LOD alpha compositing to setBRDFColor.
 			// 与 setBRDFColor 完全相同的 LOD alpha 合成。

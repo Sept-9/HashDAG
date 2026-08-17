@@ -447,6 +447,10 @@
 #define LOD_COLOR_SAMPLES 4
 #endif
 
+#ifndef USE_GGX_BRDF
+#define USE_GGX_BRDF 1
+#endif
+
 /** Config: prefiltered LOD appearance (6-direction internal-relief histogram)
  */
 #ifndef ENABLE_PREFILTERED_SHADING
