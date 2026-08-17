@@ -437,6 +437,12 @@
 #define LINEAR_SPACE_SHADING 1
 #endif
 
+/** Config: space in which LOD colour averages are computed
+ */
+#ifndef LINEAR_SPACE_COLOR_AVERAGING
+#define LINEAR_SPACE_COLOR_AVERAGING 0
+#endif
+
 /** Config: prefiltered LOD appearance (6-direction internal-relief histogram)
  */
 #ifndef ENABLE_PREFILTERED_SHADING

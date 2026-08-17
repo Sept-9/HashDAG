@@ -79,7 +79,9 @@ namespace ColorUtils
 		return make_vector3<float3>(linear_to_srgb(c.x), linear_to_srgb(c.y), linear_to_srgb(c.z));
 	}
 
-	
+	// Storage space <-> shading space. Used by the BRDF, the fog mix and anything else that
+	// multiplies or adds light.
+	// 存储空间 <-> 着色空间。供 BRDF、雾混合以及其它一切对光做乘加的地方使用。
 	HOST_DEVICE float3 to_linear(float3 stored)
 	{
 #if LINEAR_SPACE_SHADING
@@ -94,6 +96,28 @@ namespace ColorUtils
 		return linear_to_srgb(linearColor);
 #else
 		return linearColor;
+#endif
+	}
+
+	// Storage space <-> LOD-averaging space. Deliberately a separate knob from the shading
+	// space: see LINEAR_SPACE_COLOR_AVERAGING for why the perceptual (identity) choice wins
+	// visually even though the linear one is radiometrically correct.
+	// 存储空间 <-> LOD 求平均空间。有意与着色空间分开：见 LINEAR_SPACE_COLOR_AVERAGING，那里
+	// 说明了为什么线性平均在辐射度量上正确、但感知（恒等）平均在视觉上更好。
+	HOST_DEVICE float3 to_average_space(float3 stored)
+	{
+#if LINEAR_SPACE_COLOR_AVERAGING
+		return srgb_to_linear(stored);
+#else
+		return stored;
+#endif
+	}
+	HOST_DEVICE float3 from_average_space(float3 averaged)
+	{
+#if LINEAR_SPACE_COLOR_AVERAGING
+		return linear_to_srgb(averaged);
+#else
+		return averaged;
 #endif
 	}
 

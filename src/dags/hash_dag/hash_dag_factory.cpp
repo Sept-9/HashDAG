@@ -102,8 +102,8 @@ uint32 create_hash_dag(
 }
 
 // LOD: sample K positions in [offset, offset+size) and average their per-block representative
-// colour. The average is taken in linear space; the result is packed RGB888 in storage space,
-// or 0 if size == 0.
+// colour. The average is taken in the LOD-averaging space (see LINEAR_SPACE_COLOR_AVERAGING);
+// the result is packed RGB888 in storage space, or 0 if size == 0.
 static uint32 sample_leaf_average_color(
 	const CompressedColorLeaf& globalLeaf,
 	uint64 offset,
@@ -123,11 +123,11 @@ static uint32 sample_leaf_average_color(
 		if (!globalLeaf.is_valid_index(absIdx)) continue;
 
 
-		acc = acc + ColorUtils::to_linear(globalLeaf.get_color(absIdx).get_lod_average());
+		acc = acc + ColorUtils::to_average_space(globalLeaf.get_color(absIdx).get_lod_average());
 		++valid;
 	}
 	if (valid == 0) return 0;
-	return ColorUtils::float3_to_rgb888(ColorUtils::from_linear(acc / float(valid)));
+	return ColorUtils::float3_to_rgb888(ColorUtils::from_average_space(acc / float(valid)));
 }
 
 // LOD: memoized recursive computation of the 3-axis projected coverage for a
@@ -477,7 +477,7 @@ uint32 create_hash_dag_colors(
 			if (childSize > 0)
 			{
 				const uint32 childAvg = sample_leaf_average_color(globalLeafAbs, leavesCount, childSize);
-				accColor = accColor + ColorUtils::to_linear(ColorUtils::rgb888_to_float3(childAvg)) * float(childSize);
+				accColor = accColor + ColorUtils::to_average_space(ColorUtils::rgb888_to_float3(childAvg)) * float(childSize);
 				accWeight += childSize;
 			}
 
@@ -505,7 +505,7 @@ uint32 create_hash_dag_colors(
 				const uint64 childSize = sdagcolors.get_leaves_count(level + 1, childNode);
 				if (childSize > 0)
 				{
-					accColor = accColor + ColorUtils::to_linear(ColorUtils::rgb888_to_float3(childAvg)) * float(childSize);
+					accColor = accColor + ColorUtils::to_average_space(ColorUtils::rgb888_to_float3(childAvg)) * float(childSize);
 					accWeight += childSize;
 				}
 				leavesCount += childSize;
@@ -514,7 +514,7 @@ uint32 create_hash_dag_colors(
 	}
 
 	outAvgColor = (accWeight > 0)
-		? ColorUtils::float3_to_rgb888(ColorUtils::from_linear(accColor / float(accWeight)))
+		? ColorUtils::float3_to_rgb888(ColorUtils::from_average_space(accColor / float(accWeight)))
 		: 0;
 	colorBuilder.nodeAverages[nodeAvgSlot] = outAvgColor;
 

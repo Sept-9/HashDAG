@@ -170,8 +170,14 @@ struct CompressedColor
 		}
 		else
 		{
-			return ColorUtils::from_linear(
-				0.5f * (ColorUtils::to_linear(get_min_color()) + ColorUtils::to_linear(get_max_color())));
+
+			const float3 lo = get_min_color();
+			const float3 hi = get_max_color();
+			const float3 mid = 0.5f * (lo + hi);
+			return ColorUtils::from_average_space(
+				(1.f / 6.f) * (ColorUtils::to_average_space(lo)
+					+ 4.f * ColorUtils::to_average_space(mid)
+					+ ColorUtils::to_average_space(hi)));
 		}
 	}
 };
