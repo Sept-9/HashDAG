@@ -451,6 +451,10 @@
 #define USE_GGX_BRDF 1
 #endif
 
+#ifndef PREFILTER_ROUGHNESS_FROM_VARIANCE
+#define PREFILTER_ROUGHNESS_FROM_VARIANCE 1
+#endif
+
 /** Config: prefiltered LOD appearance (6-direction internal-relief histogram)
  */
 #ifndef ENABLE_PREFILTERED_SHADING

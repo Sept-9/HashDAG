@@ -743,25 +743,27 @@ HOST_DEVICE float3 sun_direction()
     return normalize(make_float3(0.3f, 1.f, 0.5f));
 }
 
-#if USE_GGX_BRDF
-constexpr float C_invPi = 0.318309886183791f;
 constexpr float C_specularRoughness = 0.5f;
 constexpr float C_specularAlpha = C_specularRoughness * C_specularRoughness;
 constexpr float C_specularAlpha2 = C_specularAlpha * C_specularAlpha;
+
+#if USE_GGX_BRDF
+constexpr float C_invPi = 0.318309886183791f;
 constexpr float C_dielectricF0 = 0.04f;
 constexpr float C_sunIrradiance = 2.6f;
 constexpr float C_skyIrradiance = 1.26f;
+constexpr float C_normalVarianceScale = 1.f;
 
-HOST_DEVICE float ggx_distribution(float nDotH)
+HOST_DEVICE float ggx_distribution(float nDotH, float alpha2)
 {
-	const float d = nDotH * nDotH * (C_specularAlpha2 - 1.f) + 1.f;
-	return C_specularAlpha2 * C_invPi / max(1e-8f, d * d);
+	const float d = nDotH * nDotH * (alpha2 - 1.f) + 1.f;
+	return alpha2 * C_invPi / max(1e-8f, d * d);
 }
 
-HOST_DEVICE float smith_visibility(float nDotL, float nDotV)
+HOST_DEVICE float smith_visibility(float nDotL, float nDotV, float alpha2)
 {
-	const float lambdaV = nDotL * sqrt(nDotV * nDotV * (1.f - C_specularAlpha2) + C_specularAlpha2);
-	const float lambdaL = nDotV * sqrt(nDotL * nDotL * (1.f - C_specularAlpha2) + C_specularAlpha2);
+	const float lambdaV = nDotL * sqrt(nDotV * nDotV * (1.f - alpha2) + alpha2);
+	const float lambdaL = nDotV * sqrt(nDotL * nDotL * (1.f - alpha2) + alpha2);
 	return 0.5f / max(1e-8f, lambdaV + lambdaL);
 }
 
@@ -772,12 +774,12 @@ HOST_DEVICE float schlick_fresnel(float vDotH)
 	return C_dielectricF0 + (1.f - C_dielectricF0) * (m2 * m2 * m);
 }
 
-HOST_DEVICE float specular_lobe(float3 N, float3 V, float3 L, float3 H)
+HOST_DEVICE float specular_lobe(float3 N, float3 V, float3 L, float3 H, float alpha2)
 {
 	const float nDotL = dot(N, L);
 	const float nDotV = dot(N, V);
 	if (nDotL <= 0.f || nDotV <= 0.f) return 0.f;
-	return ggx_distribution(max(0.f, dot(N, H))) * smith_visibility(nDotL, nDotV) * nDotL;
+	return ggx_distribution(max(0.f, dot(N, H)), alpha2) * smith_visibility(nDotL, nDotV, alpha2) * nDotL;
 }
 
 HOST_DEVICE float3 combine_shading(float3 albedo, float diffuse, float specular, float vDotH, bool isShadow)
@@ -794,7 +796,7 @@ HOST_DEVICE float3 combine_shading(float3 albedo, float diffuse, float specular,
 	return color;
 }
 #else
-HOST_DEVICE float specular_lobe(float3 N, float3 /*V*/, float3 /*L*/, float3 H)
+HOST_DEVICE float specular_lobe(float3 N, float3 /*V*/, float3 /*L*/, float3 H, float /*alpha2*/)
 {
 	return pow(max(0.f, dot(N, H)), 32.f);
 }
@@ -897,7 +899,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			// Lambert
 			float diffuse = max(0.f, dot(N, L));
 
-			float specular = specular_lobe(N, V, L, H);
+			float specular = specular_lobe(N, V, L, H, C_specularAlpha2);
 
 			float3 color = combine_shading(albedo, diffuse, specular, max(0.f, dot(V, H)), isShadow);
 			//color = color * clamp(0.5f + light, 0.f, 1.f);
@@ -956,9 +958,15 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			const uint32 colorInt = surf2Dread<uint32>(params.colorsSurface, pixel.x * sizeof(uint32), pixel.y);
 			float3 albedo = ColorUtils::to_linear(ColorUtils::rgb888_to_float3(colorInt));
 
+			const float3 boxN = make_float3(boxNormal);
+
 			float weightSum = 0.f;
 			float diffuse = 0.f;
 			float specular = 0.f;
+
+#if USE_GGX_BRDF && PREFILTER_ROUGHNESS_FROM_VARIANCE
+			float momentAlongBoxAxis = 0.f;
+#endif
 
 			// Relief part / 起伏部分
 			for (uint32 d = 0; d < LodPrefilter::C_numDirections; ++d)
@@ -973,23 +981,46 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 				const float weight = relief * nDotV;
 				weightSum += weight;
 				diffuse += weight * max(0.f, dot(N, L));
-				specular += weight * specular_lobe(N, V, L, H);
+#if USE_GGX_BRDF && PREFILTER_ROUGHNESS_FROM_VARIANCE
+				const float axisAlignment = dot(N, boxN);
+				momentAlongBoxAxis += weight * axisAlignment * axisAlignment;
+#else
+				specular += weight * specular_lobe(N, V, L, H, C_specularAlpha2);
+#endif
 			}
 
 			// Flat part / 平坦部分
 			{
 				const float weight = max(0.f, 1.f - weightSum);
-				const float3 N = make_float3(boxNormal);
 				weightSum += weight;
-				diffuse += weight * max(0.f, dot(N, L));
-				specular += weight * specular_lobe(N, V, L, H);
+				diffuse += weight * max(0.f, dot(boxN, L));
+#if USE_GGX_BRDF && PREFILTER_ROUGHNESS_FROM_VARIANCE
+				momentAlongBoxAxis += weight;
+#else
+				specular += weight * specular_lobe(boxN, V, L, H, C_specularAlpha2);
+#endif
 			}
 
 			if (weightSum > 0.f)
 			{
 				diffuse /= weightSum;
+#if !(USE_GGX_BRDF && PREFILTER_ROUGHNESS_FROM_VARIANCE)
 				specular /= weightSum;
+#endif
 			}
+
+#if USE_GGX_BRDF && PREFILTER_ROUGHNESS_FROM_VARIANCE
+			float alpha2 = C_specularAlpha2;
+			if (weightSum > 0.f)
+			{
+				const float sAxis = clamp(momentAlongBoxAxis / weightSum, 0.f, 1.f);
+				alpha2 = clamp(
+					C_specularAlpha2 + C_normalVarianceScale * (1.f - sAxis),
+					C_specularAlpha2,
+					1.f);
+			}
+			specular = specular_lobe(boxN, V, L, H, alpha2);
+#endif
 
 			float3 color = combine_shading(albedo, diffuse, specular, max(0.f, dot(V, H)), isShadow);
 
