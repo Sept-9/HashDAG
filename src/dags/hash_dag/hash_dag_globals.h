@@ -11,14 +11,6 @@ constexpr uint32 C_pageSize = PAGE_SIZE;
 constexpr uint32 C_maxNumberOfLevels = MAX_LEVELS;
 constexpr uint32 C_leafLevel = C_maxNumberOfLevels - 2;
 
-// C_colorTreeLevels is the shallowest level that stores a voxel count, and so the one
-// enclosing the most; levels above it leave the field at zero.
-// C_colorTreeLevels 是最浅的会存体素数的层级，也就是包含体素最多的那一层；更浅的层级把该
-// 字段留作 0。
-static_assert(
-	(uint64(1) << (3 * (C_leafLevel + 2 - C_colorTreeLevels))) <= uint64(Utils::C_nodeVoxelCountMask),
-	"the voxel count field is too small");
-
 constexpr uint32 C_bucketSizeForTopLevels = BUCKETS_SIZE_FOR_TOP_LEVELS;
 constexpr uint32 C_bucketSizeForLowLevels = BUCKETS_SIZE_FOR_LOW_LEVELS;
 constexpr uint32 C_pagesPerBucketForTopLevels = C_bucketSizeForTopLevels / C_pageSize;

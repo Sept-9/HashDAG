@@ -130,6 +130,127 @@ static uint32 sample_leaf_average_color(
 	return ColorUtils::float3_to_rgb888(ColorUtils::from_average_space(acc / float(valid)));
 }
 
+// LOD: memoized recursive computation of the 3-axis projected coverage for a
+// geometry DAG subtree. Return value is packed as
+//   bits [ 0.. 7]: cov_x in 0..255
+//   bits [ 8..15]: cov_y in 0..255
+//   bits [16..23]: cov_z in 0..255
+// cov_axis = "fraction of the axis-perpendicular projected face of the subtree
+// that is covered by at least one surface voxel along that axis".
+using CoverageCache = std::unordered_map<uint64, uint32>;
+
+static uint32 pack_coverage(float cx, float cy, float cz)
+{
+	auto q = [](float f) -> uint32
+	{
+		const float c = std::max(0.f, std::min(1.f, f));
+		return uint32(c * 255.f + 0.5f) & 0xFFu;
+	};
+	return q(cx) | (q(cy) << 8) | (q(cz) << 16);
+}
+
+static void unpack_coverage(uint32 packed, float& cx, float& cy, float& cz)
+{
+	cx = float((packed >> 0)  & 0xFFu) / 255.f;
+	cy = float((packed >> 8)  & 0xFFu) / 255.f;
+	cz = float((packed >> 16) & 0xFFu) / 255.f;
+}
+
+static uint32 compute_dag_coverage(
+	const BasicDAG& sdag,
+	uint32 level,
+	uint32 index,
+	CoverageCache& cache)
+{
+	// Key on (level, index) — index alone is likely unique but level makes it
+	// unambiguous with essentially zero cost.
+	const uint64 key = (uint64(level) << 32) | uint64(index);
+	auto it = cache.find(key);
+	if (it != cache.end()) return it->second;
+
+	uint32 packed;
+
+	if (level == sdag.leaf_level())
+	{
+		// Base case: a Leaf packs 4x4x4 = 64 voxels into a 64-bit mask.
+		// Bit encoding for voxel (x,y,z) with x,y,z in [0,3]:
+		//   bit = ((x&2)<<4) | ((y&2)<<3) | ((z&2)<<2) | ((x&1)<<2) | ((y&1)<<1) | (z&1)
+		const Leaf leaf = sdag.get_leaf(index);
+		const uint64 mask = leaf.to_64();
+		auto bit_of = [](int x, int y, int z) -> int
+		{
+			return ((x & 2) << 4) | ((y & 2) << 3) | ((z & 2) << 2)
+			     | ((x & 1) << 2) | ((y & 1) << 1) | (z & 1);
+		};
+
+		int nX = 0, nY = 0, nZ = 0;
+		for (int y = 0; y < 4; ++y)
+			for (int z = 0; z < 4; ++z)
+			{
+				for (int x = 0; x < 4; ++x)
+					if (mask & (uint64(1) << bit_of(x, y, z))) { ++nX; break; }
+			}
+		for (int x = 0; x < 4; ++x)
+			for (int z = 0; z < 4; ++z)
+			{
+				for (int y = 0; y < 4; ++y)
+					if (mask & (uint64(1) << bit_of(x, y, z))) { ++nY; break; }
+			}
+		for (int x = 0; x < 4; ++x)
+			for (int y = 0; y < 4; ++y)
+			{
+				for (int z = 0; z < 4; ++z)
+					if (mask & (uint64(1) << bit_of(x, y, z))) { ++nZ; break; }
+			}
+		packed = pack_coverage(nX / 16.f, nY / 16.f, nZ / 16.f);
+	}
+	else
+	{
+		// Recursive case: combine 8 children's coverages. For each projection
+		// axis, the parent's projected face is 2x2 quadrants; each quadrant is
+		// the union of two children stacked along the projection axis. We use
+		// the independence assumption (union = 1 - (1-a)(1-b)) as the combining
+		// rule. The parent's coverage is the mean of the 4 quadrants.
+		const uint32 node = sdag.get_node(level, index);
+		const uint8 childMask = Utils::child_mask(node);
+
+		float qX[4] = { 0.f, 0.f, 0.f, 0.f };
+		float qY[4] = { 0.f, 0.f, 0.f, 0.f };
+		float qZ[4] = { 0.f, 0.f, 0.f, 0.f };
+
+		for (uint8 i = 0; i < 8; ++i)
+		{
+			if (!(childMask & (1u << i))) continue;
+			const uint32 childIndex = sdag.get_child_index(level, index, childMask, i);
+			const uint32 childCov = compute_dag_coverage(sdag, level + 1, childIndex, cache);
+			float ccx, ccy, ccz;
+			unpack_coverage(childCov, ccx, ccy, ccz);
+
+			// Path::descend maps child bit 2 -> x, bit 1 -> y, bit 0 -> z.
+			const uint32 xb = (i >> 2) & 1u;
+			const uint32 yb = (i >> 1) & 1u;
+			const uint32 zb = (i >> 0) & 1u;
+
+			// For X projection the quadrant is indexed by (yb, zb), etc.
+			const uint32 qxIdx = (yb << 1) | zb;
+			const uint32 qyIdx = (xb << 1) | zb;
+			const uint32 qzIdx = (xb << 1) | yb;
+
+			qX[qxIdx] = 1.f - (1.f - qX[qxIdx]) * (1.f - ccx);
+			qY[qyIdx] = 1.f - (1.f - qY[qyIdx]) * (1.f - ccy);
+			qZ[qzIdx] = 1.f - (1.f - qZ[qzIdx]) * (1.f - ccz);
+		}
+
+		const float aX = 0.25f * (qX[0] + qX[1] + qX[2] + qX[3]);
+		const float aY = 0.25f * (qY[0] + qY[1] + qY[2] + qY[3]);
+		const float aZ = 0.25f * (qZ[0] + qZ[1] + qZ[2] + qZ[3]);
+		packed = pack_coverage(aX, aY, aZ);
+	}
+
+	cache.emplace(key, packed);
+	return packed;
+}
+
 #if ENABLE_PREFILTERED_SHADING
 
 // Prefiltered appearance: build-time accumulator for one DAG node.
@@ -155,23 +276,16 @@ struct PrefilterNodeAreas
 // 每个"唯一"节点一条记录，意味着缓存大小与 DAG 去重后的节点数一致。
 using PrefilterCache = std::unordered_map<uint32, PrefilterNodeAreas>;
 
-// Everything the bottom-up pass carries along, bundled so the recursion keeps a short
-// signature. / 自下而上遍历需要携带的全部状态，打包在一起以保持递归签名简短。
-struct PrefilterBuild
-{
-	PrefilterCache cache;
-	uint64 numPass[3] = { 0, 0, 0 };
-};
-
 static PrefilterNodeAreas compute_node_prefilter(
-	HashDAG& dag,
+	const HashDAG& dag,
 	uint32 level,
 	uint32 index,
-	PrefilterBuild& build)
+	PrefilterCache& cache,
+	std::vector<uint64>& outEntries)
 {
 	{
-		const auto it = build.cache.find(index);
-		if (it != build.cache.end()) return it->second;
+		const auto it = cache.find(index);
+		if (it != cache.end()) return it->second;
 	}
 
 	PrefilterNodeAreas result;
@@ -195,7 +309,7 @@ static PrefilterNodeAreas compute_node_prefilter(
 			if (!(childMask & (1u << i))) continue;
 			present[i] = true;
 			const uint32 childIndex = dag.get_child_index(level, index, childMask, i);
-			children[i] = compute_node_prefilter(dag, level + 1, childIndex, build);
+			children[i] = compute_node_prefilter(dag, level + 1, childIndex, cache, outEntries);
 		}
 
 		// 1) Plain sum of the children's exposed areas.
@@ -229,14 +343,15 @@ static PrefilterNodeAreas compute_node_prefilter(
 		//    empty, so the faces it has on a boundary it shares with a sibling were counted
 		//    even though that sibling may fill them in. For a pair of children stacked along
 		//    an axis we subtract the size of the intersection of the touching slabs, which we
-		//    approximate as |A|*|B|/slabArea (an independence assumption). This is exact
-		//    whenever either slab is full or empty, which covers the important solid / empty
-		//    cases, and without it the plain sum over-counts by roughly 2x per level.
+		//    approximate as |A|*|B|/slabArea (the same independence assumption the existing
+		//    coverage computation uses). This is exact whenever either slab is full or empty,
+		//    which covers the important solid / empty cases, and without it the plain sum
+		//    over-counts by roughly 2x per level.
 		//    第三步：界面修正。每个子节点都是按"自身之外全为空"来统计的，因此它在与兄弟节点
 		//    相邻的那个边界上的面也被计入了，而兄弟节点可能正好把它们填住。对沿某轴堆叠的一
-		//    对子节点，我们减去两个相接薄片的交集大小，并用 |A|*|B|/薄片面积 来近似（独立性
-		//    假设）。当任一薄片全满或全空时该近似是精确的，这覆盖了重要的实心 / 空心情形；
-		//    若不做这一步，直接求和会在每一层上多算大约 2 倍。
+		//    对子节点，我们减去两个相接薄片的交集大小，并用 |A|*|B|/薄片面积 来近似（与现有
+		//    coverage 计算相同的独立性假设）。当任一薄片全满或全空时该近似是精确的，这覆盖了
+		//    重要的实心 / 空心情形；若不做这一步，直接求和会在每一层上多算大约 2 倍。
 		const float childEdge = float(1u << (dag.levels - level - 1));
 		const float childSlabArea = childEdge * childEdge;
 		for (uint32 axis = 0; axis < 3; ++axis)
@@ -260,10 +375,6 @@ static PrefilterNodeAreas compute_node_prefilter(
 		}
 	}
 
-	const float edge = float(1u << (dag.levels - level));
-	const float faceArea = edge * edge;
-	uint32 packed = LodPrefilter::C_emptyHistogram;
-
 	// Emit the quantised *internal* relief for this node. Subtracting boundary[] removes the
 	// faces that lie on the node's own hull, which the bounding box normal already accounts
 	// for; what remains is exactly the relief the box normal cannot express.
@@ -271,51 +382,46 @@ static PrefilterNodeAreas compute_node_prefilter(
 	// 已被包围盒法线表达；剩下的正是包围盒法线无法表达的起伏。
 	if (level >= uint32(PREFILTER_MIN_LEVEL) && level <= uint32(PREFILTER_MAX_LEVEL))
 	{
+		const float edge = float(1u << (dag.levels - level));
+		const float faceArea = edge * edge;
+
+		uint32 packed = 0;
 		for (uint32 d = 0; d < LodPrefilter::C_numDirections; ++d)
 		{
 			const float relief = (result.area[d] - result.boundary[d]) / faceArea;
-			packed |= LodPrefilter::pack_bin(LodPrefilter::quantise_bin(relief, d), d);
+			packed |= LodPrefilter::pack_bin(LodPrefilter::quantise_bin(relief), d);
 		}
-
-#if ENABLE_COVERAGE_AWARE_LOD
-		for (uint32 axis = 0; axis < LodPrefilter::C_numAxes; ++axis)
+		// Nodes with no relief are simply left out of the table: a miss and a zero histogram
+		// mean the same thing, so skipping them shrinks the table for free.
+		// 没有起伏的节点直接不入表：未命中与全零直方图含义相同，跳过它们可以白得一份瘦身。
+		if (packed != LodPrefilter::C_emptyHistogram)
 		{
-			const float coverage = 0.5f * (result.area[axis * 2] + result.area[axis * 2 + 1]) / faceArea;
-			const bool pass = coverage < LodPrefilter::C_coverageThreshold;
-			packed = LodPrefilter::pack_pass_axis(packed, axis, pass);
-			if (pass) ++build.numPass[axis];
+			outEntries.push_back((uint64(index) << 32) | uint64(packed));
 		}
-#endif
 	}
 
-	dag.set_prefilter(level, index, packed);
-
-	build.cache.emplace(index, result);
+	cache.emplace(index, result);
 	return result;
 }
 
 void HashDAGFactory::build_prefilter(HashDAG& dag)
 {
 	PROFILE_FUNCTION();
-	SCOPED_STATS("Creating inline LOD prefilter");
+	SCOPED_STATS("Creating LOD prefilter table");
 
 	Stats stats;
 	stats.start_work("computing relief histograms");
 
-	PrefilterBuild build;
-	compute_node_prefilter(dag, 0, dag.firstNodeIndex, build);
+	PrefilterCache cache;
+	std::vector<uint64> entries;
+	compute_node_prefilter(dag, 0, dag.firstNodeIndex, cache, entries);
 
-	const size_t numNodes = build.cache.size();
-	printf("\tLOD prefilter: visited %zu unique DAG nodes, %.3fMB inline\n",
-		numNodes, Utils::to_MB(numNodes * sizeof(uint32)));
-	build.cache.clear();
+	printf("\tLOD prefilter: visited %zu unique DAG nodes\n", cache.size());
+	cache.clear();
 
-#if ENABLE_COVERAGE_AWARE_LOD
-	printf(
-		"\tCoverage pass X/Y/Z: %" PRIu64 " / %" PRIu64 " / %" PRIu64 " (threshold %.2f)\n",
-		build.numPass[0], build.numPass[1], build.numPass[2],
-		double(LodPrefilter::C_coverageThreshold));
-#endif
+	stats.start_work("building table");
+	dag.prefilter.build(entries);
+	dag.prefilter.print_stats(entries.size());
 }
 
 #endif // ~ ENABLE_PREFILTERED_SHADING
@@ -327,6 +433,7 @@ uint32 create_hash_dag_colors(
 	const BasicDAG& sdag,
 	const BasicDAGCompressedColors& sdagcolors,
 	HashColorsBuilder& colorBuilder,
+	CoverageCache& covCache,
 	const uint32 level,
 	const uint32 index,
 	uint64 leavesCount,
@@ -336,11 +443,14 @@ uint32 create_hash_dag_colors(
 	const uint8 childMask = Utils::child_mask(node);
 	const uint32 colorIndex = (uint32)colorBuilder.nodes.size();
 	const uint32 nodeAvgSlot = (uint32)colorBuilder.nodeAverages.size();
+	const uint32 nodeCovSlot = (uint32)colorBuilder.nodeCoverage.size();
 
 	check(C_colorTreeLevels < sdag.leaf_level());
 
-	// Reserve this node's average slot up-front so child recursions don't reorder it.
+	// Reserve this node's average / coverage slots up-front so child recursions
+	// don't reorder them.
 	colorBuilder.nodeAverages.push_back(0);
+	colorBuilder.nodeCoverage.push_back(0xFFFFFFu);
 
 	// Use the global leaf in "absolute index" mode for direct sampling.
 	CompressedColorLeaf globalLeafAbs = sdagcolors.leaf;
@@ -387,7 +497,7 @@ uint32 create_hash_dag_colors(
 				const uint32 childIndex = sdag.get_child_index(level, index, childMask, i);
 				uint32 childAvg = 0;
 				const uint32 childColorIndex = create_hash_dag_colors(
-					sdag, sdagcolors, colorBuilder, level + 1, childIndex, leavesCount, childAvg);
+					sdag, sdagcolors, colorBuilder, covCache, level + 1, childIndex, leavesCount, childAvg);
 				check(colorBuilder.nodes[colorIndex + i] == 0);
 				colorBuilder.nodes[colorIndex + i] = childColorIndex;
 
@@ -407,6 +517,10 @@ uint32 create_hash_dag_colors(
 		? ColorUtils::float3_to_rgb888(ColorUtils::from_average_space(accColor / float(accWeight)))
 		: 0;
 	colorBuilder.nodeAverages[nodeAvgSlot] = outAvgColor;
+
+	// LOD: 3-axis coverage for this color tree internal node. Uses the memoized
+	// DAG-node coverage so shared subtrees are computed only once.
+	colorBuilder.nodeCoverage[nodeCovSlot] = compute_dag_coverage(sdag, level, index, covCache);
 	return colorIndex;
 }
 
@@ -440,13 +554,15 @@ void HashDAGFactory::load_from_DAG(HashDAG& outDag, const BasicDAG& inDag, uint3
 	outDag.pool = outDag.data.gpuPool;
 #endif
 
-#if ENABLE_PREFILTERED_SHADING
-	// Fill the inline prefilter words before uploading the DAG.
-	build_prefilter(outDag);
-#endif
-
     stats.start_work("upload_to_gpu");
     outDag.data.upload_to_gpu();
+
+#if ENABLE_PREFILTERED_SHADING
+	// Prefiltered appearance: the histograms are a pure function of the geometry, so they
+	// are built here, right after the geometry is final.
+	// 预滤波外观：直方图是几何的纯函数，因此在几何定型之后立即在这里构建。
+	build_prefilter(outDag);
+#endif
 }
 
 void HashDAGFactory::load_colors_from_DAG(
@@ -458,10 +574,12 @@ void HashDAGFactory::load_colors_from_DAG(
 	SCOPED_STATS("Creating hash dag colors");
 	
 	HashColorsBuilder colorBuilder;
+	CoverageCache covCache;
 	uint32 rootAvg = 0;
 	const uint32 colorIndex = create_hash_dag_colors(
-		inDag, inDagColors, colorBuilder, 0, 0, 0, rootAvg);
+		inDag, inDagColors, colorBuilder, covCache, 0, 0, 0, rootAvg);
 	checkAlways(colorIndex == 0);
+	printf("\tLOD coverage cache: %zu unique DAG nodes\n", covCache.size());
 	colorBuilder.build(outDagColors, inDagColors.leaf);
 }
 

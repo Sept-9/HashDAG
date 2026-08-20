@@ -15,11 +15,11 @@ namespace HashDagUtils
         else
         {
             uint32 count = 0;
-            for (uint32 child = 1; child < Utils::child_data_size(nodePtr[0]); child++)
+            for (uint32 child = 1; child < Utils::total_size(nodePtr[0]); child++)
             {
                 count += count_children(hashTable, level + 1, levels, nodePtr[child]);
             }
-            checkEqual(count, Utils::voxel_count(nodePtr[0]));
+            checkEqual(count, nodePtr[0] >> 8u);
             return count;
         }
     }

@@ -362,7 +362,7 @@ struct HashDagEdits
                 if (level < leafLevel)
                 {
                     const uint32* nodePtr = hashTable.get_sys_ptr(level, nodeIndex);
-                    return Utils::voxel_count(nodePtr[0]);
+                    return nodePtr[0] >> 8;
                 }
                 else
                 {
@@ -423,7 +423,7 @@ struct HashDagEdits
             {
                 if (level < leafLevel)
                 {
-                    checkEqual(Utils::voxel_count(hashTable.get_sys_ptr(level, parameters.hashTable.get_full_node_index(level))[0]), numVoxelsInFullNode);
+                    checkEqual(hashTable.get_sys_ptr(level, parameters.hashTable.get_full_node_index(level))[0] >> 8, numVoxelsInFullNode);
                 }
 #if EDITS_ENABLE_COLORS
                 if (nodeIndex != C_InvalidNodeIndex)
@@ -602,14 +602,14 @@ struct HashDagEdits
                 childrenChanged |= childNodeIndex != newChildNodeIndex;
                 newChildren[child] = newChildNodeIndex;
             }
-            checkf(newNodeCount <= Utils::C_nodeVoxelCountMask, "%u subnodes, can't store it in the node. Need to decrease the size of the color leaves.", newNodeCount);
+            checkf(newNodeCount < (1u << 24), "%u subnodes, can't store it in the node. Need to decrease the size of the color leaves.", newNodeCount);
 
             // If nothing changed, keep the same index
             if (!childrenChanged)
             {
                 if (nodeIndex != C_InvalidNodeIndex)
                 {
-                    checkEqual(Utils::voxel_count(nodePtr[0]), newNodeCount);
+                    checkEqual(nodePtr[0] >> 8u, newNodeCount);
                     checkEqual(newNodeCount, HashDagUtils::count_children(hashTable, level, levels, nodeIndex));
                 }
                 return { nodeIndex, newNodeCount };

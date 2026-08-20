@@ -2,6 +2,7 @@
 
 #include "typedefs.h"
 #include "utils.h"
+#include "array.h"
 #include "cuda_math.h"
 
 #if ENABLE_PREFILTERED_SHADING
@@ -48,32 +49,42 @@
  *
  * PACKING / 打包格式
  * ------------------
- * One uint32 per node. X/Y use 5-bit bins, Z uses 4-bit bins, and bits 28..30 are pass-X/Y/Z.
+ * One uint32 per node. relief[d] = clamp((A[d] - B[d]) / S^2, 0, 1) quantised to 5 bits.
  * Clamping at 1 is physically motivated: once the relief area equals the node's own
  * projected face area, adding more area cannot make more of it visible (self-occlusion).
  *
  *   bits [ 0.. 4] : -X    bits [ 5.. 9] : +X
  *   bits [10..14] : -Y    bits [15..19] : +Y
- *   bits [20..23] : -Z    bits [24..27] : +Z
- *   bits [28..30] : pass X/Y/Z    bit 31 : free
+ *   bits [20..24] : -Z    bits [25..29] : +Z
+ *   bits [30..31] : reserved (intended for a future ambient-occlusion term)
  *
- * 每节点一个 uint32：X/Y 各 5 bit，Z 各 4 bit，bits 28..30 为 X/Y/Z 通过位。
+ * 每个节点一个 uint32。relief[d] = clamp((A[d] - B[d]) / S^2, 0, 1)，量化为 5 bit。
+ * 在 1 处截断有物理依据：一旦起伏面积达到节点自身的投影面面积，再多的面积也不会更多地被
+ * 看见（自遮挡）。bits [30..31] 预留给后续的环境光遮蔽项。
  *
- * The packed word is stored at the end of each HashDAG node.
+ * WHERE IT LIVES / 存在哪里
+ * -------------------------
+ * In a side hash table keyed by DAG node index (see PrefilterTable below), *not* inline in
+ * the nodes. This keeps the node layout, the hashing and the edit code completely
+ * untouched, at the cost of one hash probe per LOD-terminated ray.
+ *
+ * 放在以 DAG 节点下标为键的旁路哈希表中（见下方 PrefilterTable），而不是内联进节点。这样
+ * 节点布局、哈希函数和编辑代码完全不用改动，代价是每条 LOD 终止的光线多一次哈希探测。
  */
 namespace LodPrefilter
 {
 	// Direction slot order: 0 = -X, 1 = +X, 2 = -Y, 3 = +Y, 4 = -Z, 5 = +Z.
 	// 方向槽位顺序：0 = -X, 1 = +X, 2 = -Y, 3 = +Y, 4 = -Z, 5 = +Z。
 	constexpr uint32 C_numDirections = 6;
-	constexpr uint32 C_numAxes = 3;
+	constexpr uint32 C_binBits = 5;
+	constexpr uint32 C_binMax = (1u << C_binBits) - 1u;
 
-	constexpr uint32 C_passShift = 28;
-
-	// A packed value of 0 falls back to the geometric box normal.
+	// A packed value of 0 means "no internal relief", which is also what a table miss
+	// returns. Both cases want the same thing: use the geometric box normal.
+	// 打包值为 0 表示"没有内部起伏"，查表未命中也返回它。两种情况都希望使用几何盒法线。
 	constexpr uint32 C_emptyHistogram = 0u;
 
-	constexpr float C_coverageThreshold = PREFILTER_COVERAGE_THRESHOLD;
+	static_assert(C_numDirections * C_binBits <= 32, "histogram does not fit in a uint32");
 
 	// --- Bit twiddling on the 4x4x4 leaf mask -------------------------------------
 	// A Leaf packs 4x4x4 voxels into 64 bits. The bit index of voxel (x,y,z) is
@@ -144,53 +155,22 @@ namespace LodPrefilter
 
 	// relief01 is the relief area divided by the node's own projected face area.
 	// relief01 是起伏面积除以节点自身的投影面面积。
-	HOST_DEVICE uint32 bin_bits(uint32 dir)
-	{
-		return dir < 4 ? 5u : 4u;
-	}
-	HOST_DEVICE uint32 bin_shift(uint32 dir)
-	{
-		return dir < 4 ? dir * 5u : 20u + (dir - 4u) * 4u;
-	}
-	HOST_DEVICE uint32 bin_max(uint32 dir)
-	{
-		return (1u << bin_bits(dir)) - 1u;
-	}
-	HOST_DEVICE uint32 quantise_bin(float relief01, uint32 dir)
+	HOST_DEVICE uint32 quantise_bin(float relief01)
 	{
 		const float clamped = (relief01 < 0.f) ? 0.f : ((relief01 > 1.f) ? 1.f : relief01);
-		const uint32 maxBin = bin_max(dir);
-		return uint32(clamped * float(maxBin) + 0.5f) & maxBin;
+		return uint32(clamped * float(C_binMax) + 0.5f) & C_binMax;
 	}
 	HOST_DEVICE uint32 pack_bin(uint32 bin, uint32 dir)
 	{
-		return (bin & bin_max(dir)) << bin_shift(dir);
+		return (bin & C_binMax) << (dir * C_binBits);
 	}
 	HOST_DEVICE uint32 unpack_bin(uint32 packed, uint32 dir)
 	{
-		return (packed >> bin_shift(dir)) & bin_max(dir);
+		return (packed >> (dir * C_binBits)) & C_binMax;
 	}
-	HOST_DEVICE float bin_to_relief(uint32 bin, uint32 dir)
+	HOST_DEVICE float bin_to_relief(uint32 bin)
 	{
-		return float(bin) / float(bin_max(dir));
-	}
-
-	// --- Coverage-aware LOD -------------------------------------------------------
-
-	HOST_DEVICE uint32 pack_pass_axis(uint32 packed, uint32 axis, bool pass)
-	{
-		const uint32 bit = 1u << (C_passShift + axis);
-		return pass ? packed | bit : packed & ~bit;
-	}
-	HOST_DEVICE bool pass_axis(uint32 packed, uint32 axis)
-	{
-		return (packed & (1u << (C_passShift + axis))) != 0u;
-	}
-	HOST_DEVICE uint32 dominant_axis(float3 direction)
-	{
-		const float3 a = abs(direction);
-		if (a.x >= a.y && a.x >= a.z) return 0;
-		return a.y >= a.z ? 1 : 2;
+		return float(bin) * (1.f / float(C_binMax));
 	}
 
 	// Outward normal of a direction slot. / 方向槽位对应的外向法线。
@@ -203,5 +183,125 @@ namespace LodPrefilter
 		return make_float3(0.f, 0.f, sign);
 	}
 }
+
+/**
+ * Side hash table: DAG node index -> packed 6-direction relief histogram.
+ * 旁路哈希表：DAG 节点下标 -> 打包的 6 方向起伏直方图。
+ *
+ * Open addressing with linear probing, power-of-two capacity, load factor <= 0.5. One
+ * slot is a single uint64 so a probe is one 8-byte load:
+ *   slot = (nodeIndex << 32) | packedHistogram
+ *
+ * HashDAG node indices are *virtual addresses* produced by HashDagUtils::make_ptr. They
+ * are globally unique across levels (each level owns a disjoint range of the address
+ * space) and always strictly below C_totalVirtualAddresses, which a static_assert in
+ * hash_dag_globals.h keeps below UINT32_MAX. 0xFFFFFFFF can therefore never be a real
+ * key, so an all-ones slot is a safe "empty" marker.
+ *
+ * 开放寻址 + 线性探测，容量为 2 的幂，装载因子 <= 0.5。一个槽位就是一个 uint64，因此一次
+ * 探测只需一次 8 字节读取：slot = (nodeIndex << 32) | packedHistogram
+ *
+ * HashDAG 的节点下标是 HashDagUtils::make_ptr 产生的"虚拟地址"，在所有层级上全局唯一（每
+ * 层独占一段互不相交的地址空间），并且严格小于 C_totalVirtualAddresses —— hash_dag_globals.h
+ * 中的 static_assert 保证它小于 UINT32_MAX。因此 0xFFFFFFFF 永远不会是真实的键，全 1 的
+ * 槽位可以安全地作为"空"标记。
+ */
+struct PrefilterTable
+{
+	static constexpr uint64 C_emptySlot = ~uint64(0);
+	// Hard probe cap so a malformed table can never spin a warp forever. The builder
+	// asserts that no insertion needs more than this.
+	// 硬性探测上限，保证损坏的表不会让 warp 死转。构建时会断言没有插入超过这个次数。
+	static constexpr uint32 C_maxProbes = 64;
+
+	StaticArray<uint64> slots_CPU;
+	StaticArray<uint64> slots_GPU;
+	// capacity - 1; also doubles as the "table exists" flag (a built table is never empty).
+	// capacity - 1；同时兼作"表已存在"的标志（已构建的表容量不会为 0）。
+	uint32 capacityMask = 0;
+
+	HOST_DEVICE bool is_valid() const
+	{
+		return capacityMask != 0;
+	}
+
+	HOST_DEVICE uint32 find(uint32 nodeIndex) const
+	{
+#ifdef __CUDA_ARCH__
+		const uint64* __restrict__ slots = slots_GPU.data();
+#else
+		const uint64* __restrict__ slots = slots_CPU.data();
+#endif
+		if (!slots) return LodPrefilter::C_emptyHistogram;
+
+		uint32 slot = Utils::murmurhash32(nodeIndex) & capacityMask;
+		for (uint32 probe = 0; probe < C_maxProbes; ++probe)
+		{
+			const uint64 entry = slots[slot];
+			if (entry == C_emptySlot) break; // empty slot => the key is not in the table
+			if (uint32(entry >> 32) == nodeIndex) return uint32(entry);
+			slot = (slot + 1) & capacityMask;
+		}
+		return LodPrefilter::C_emptyHistogram;
+	}
+
+	// entries[i] = (nodeIndex << 32) | packedHistogram, in any order, no duplicate keys.
+	// entries[i] = (节点下标 << 32) | 打包直方图，顺序任意，键不重复。
+	HOST void build(const std::vector<uint64>& entries)
+	{
+		PROFILE_FUNCTION();
+		free(); // rebuilding is allowed (e.g. after a GC pass reshuffles node indices)
+		if (entries.empty()) return;
+
+		uint64 capacity = 1024;
+		while (capacity < entries.size() * 2) capacity <<= 1;
+		checkAlways(capacity <= (uint64(1) << 32));
+
+		slots_CPU = StaticArray<uint64>::allocate("lod prefilter table", capacity, EMemoryType::CPU);
+		for (uint64 i = 0; i < capacity; ++i) slots_CPU[i] = C_emptySlot;
+
+		capacityMask = uint32(capacity - 1);
+
+		for (uint64 entry : entries)
+		{
+			const uint32 key = uint32(entry >> 32);
+			uint32 slot = Utils::murmurhash32(key) & capacityMask;
+			uint32 probe = 0;
+			while (slots_CPU[slot] != C_emptySlot)
+			{
+				checkAlways(uint32(slots_CPU[slot] >> 32) != key); // duplicate key
+				slot = (slot + 1) & capacityMask;
+				++probe;
+				checkfAlways(probe < C_maxProbes, "prefilter table probe run too long: %u", probe);
+			}
+			slots_CPU[slot] = entry;
+		}
+
+		slots_GPU = slots_CPU.create_gpu();
+	}
+
+	HOST void free()
+	{
+		if (slots_CPU.is_valid()) slots_CPU.free();
+		if (slots_GPU.is_valid()) slots_GPU.free();
+		capacityMask = 0;
+	}
+
+	HOST void print_stats(uint64 numEntries) const
+	{
+		if (!is_valid())
+		{
+			printf("\tLOD prefilter table: empty\n");
+			return;
+		}
+		const uint64 capacity = uint64(capacityMask) + 1;
+		printf(
+			"\tLOD prefilter table: %" PRIu64 " entries in %" PRIu64 " slots (%.0f%% load)\n"
+			"\t\tlevels [%u, %u], %fMB on the CPU + %fMB on the GPU\n",
+			numEntries, capacity, 100.0 * double(numEntries) / double(capacity),
+			uint32(PREFILTER_MIN_LEVEL), uint32(PREFILTER_MAX_LEVEL),
+			slots_CPU.size_in_MB(), slots_GPU.size_in_MB());
+	}
+};
 
 #endif // ~ ENABLE_PREFILTERED_SHADING

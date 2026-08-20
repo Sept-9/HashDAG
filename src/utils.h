@@ -57,29 +57,9 @@ namespace Utils
 	{
 		return node & 0xff;
 	}
-	constexpr uint32 C_prefilterWords = ENABLE_PREFILTERED_SHADING ? 1u : 0u;
-	HOST_DEVICE uint32 child_data_size(uint32 node)
-	{
-		return Utils::popc(Utils::child_mask(node)) + 1;
-	}
 	HOST_DEVICE uint32 total_size(uint32 node)
 	{
-		return child_data_size(node) + C_prefilterWords;
-	}
-	HOST_DEVICE uint32 prefilter_offset(uint32 node)
-	{
-		return child_data_size(node);
-	}
-	HOST_DEVICE constexpr uint32 leaf_size()
-	{
-		return 2u + C_prefilterWords;
-	}
-	constexpr uint32 C_nodeVoxelCountShift = 8;
-	constexpr uint32 C_nodeVoxelCountMask = 0x00FFFFFFu;
-
-	HOST_DEVICE uint32 voxel_count(uint32 node)
-	{
-		return (node >> C_nodeVoxelCountShift) & C_nodeVoxelCountMask;
+		return Utils::popc(Utils::child_mask(node)) + 1;;
 	}
 	HOST_DEVICE uint32 child_offset(uint8 childMask, uint8 child)
 	{
