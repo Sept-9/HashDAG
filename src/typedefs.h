@@ -472,18 +472,26 @@
 #define PREFILTER_MIN_LEVEL 1
 #endif
 
-/** Config: deepest DAG level for which a prefiltered histogram is stored
- *
- * MAX_LEVELS - 2 is the leaf level (a 4x4x4 block). The leaf level holds by far the most
- * unique nodes, so lowering this by one is the cheapest way to cut the table's memory
- * footprint if VRAM is tight — at the cost of losing prefiltering for the finest LOD hits.
- *
- * 配置：存储预滤波直方图的最深 DAG 层级。MAX_LEVELS - 2 是叶层（4x4x4 块）。叶层的唯一
- * 节点数量远多于其它层，显存紧张时把这个值减 1 是最省显存的做法 —— 代价是最细一级的 LOD
- * 命中点失去预滤波。
- */
+/** Config: deepest DAG level whose inline prefilter word is populated. */
 #ifndef PREFILTER_MAX_LEVEL
 #define PREFILTER_MAX_LEVEL (MAX_LEVELS - 2)
+#endif
+
+// Coverage-aware LOD uses three axis pass bits stored in the inline prefilter word.
+#ifndef ENABLE_COVERAGE_AWARE_LOD
+#define ENABLE_COVERAGE_AWARE_LOD 1
+#endif
+
+#ifndef PREFILTER_COVERAGE_THRESHOLD
+#define PREFILTER_COVERAGE_THRESHOLD 0.35f
+#endif
+
+#ifndef PREFILTER_MAX_COVERAGE_DESCENT
+#define PREFILTER_MAX_COVERAGE_DESCENT 5
+#endif
+
+#if ENABLE_COVERAGE_AWARE_LOD && !ENABLE_PREFILTERED_SHADING
+#	error "ENABLE_COVERAGE_AWARE_LOD requires ENABLE_PREFILTERED_SHADING (build_prefilter computes the flag)"
 #endif
 
 // The prefiltered response replaces the per-face BRDF evaluation, so it only has

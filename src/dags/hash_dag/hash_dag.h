@@ -221,27 +221,6 @@ struct HashDAG : BaseDAG
     HashTable data;
     uint32 firstNodeIndex = 0;
 
-#if ENABLE_PREFILTERED_SHADING
-    // Prefiltered appearance: side table mapping a node index to its packed 6-direction
-    // relief histogram. Built by HashDAGFactory::build_prefilter().
-    // 预滤波外观：把节点下标映射到打包的 6 方向起伏直方图的旁路表。
-    // 由 HashDAGFactory::build_prefilter() 构建。
-    PrefilterTable prefilter;
-
-    HOST_DEVICE bool has_prefilter() const
-    {
-        return prefilter.is_valid();
-    }
-    // Returns LodPrefilter::C_emptyHistogram (0) when the node has no stored relief, which
-    // callers must read as "the geometric box normal is already correct".
-    // 节点没有存储起伏时返回 LodPrefilter::C_emptyHistogram (0)，调用方应理解为
-    // "几何盒法线本来就是正确的"。
-    HOST_DEVICE uint32 get_prefilter(uint32 nodeIndex) const
-    {
-        return prefilter.find(nodeIndex);
-    }
-#endif
-
     HOST_DEVICE bool is_valid() const
     {
         return data.is_valid();
@@ -267,12 +246,23 @@ struct HashDAG : BaseDAG
         const uint32* node = get_ptr(leaf_level(), index);
         return { node[0], node[1] };
     }
+#if ENABLE_PREFILTERED_SHADING
+    HOST_DEVICE bool has_prefilter() const { return true; }
+    HOST_DEVICE uint32 get_prefilter(uint32 level, uint32 index, uint32 header = 0) const
+    {
+        if (level == leaf_level()) return *get_ptr(level, index + 2);
+        if (header == 0) header = *get_ptr(level, index);
+        return *get_ptr(level, index + Utils::prefilter_offset(header));
+    }
+    HOST void set_prefilter(uint32 level, uint32 index, uint32 packed)
+    {
+        uint32* node = data.get_sys_ptr(level, index);
+        node[level == leaf_level() ? 2 : Utils::prefilter_offset(node[0])] = packed;
+    }
+#endif
 #undef get_ptr
 	HOST void free()
     {
-#if ENABLE_PREFILTERED_SHADING
-        prefilter.free();
-#endif
 	    data.destroy();
     }
 
@@ -455,7 +445,7 @@ public:
                 for (uint32 nodeIndex : validNodes[level])
                 {
                     const uint32* node = data.get_sys_ptr(level, nodeIndex);
-                    for (uint32 offset = 1; offset < Utils::total_size(node[0]); offset++)
+                    for (uint32 offset = 1; offset < Utils::child_data_size(node[0]); offset++)
                     {
                         validNodes[level + 1].emplace(node[offset]);
                     }
@@ -481,7 +471,7 @@ public:
                 for (uint32 nodeIndex : validNodes[level])
                 {
                     uint32* node = data.get_sys_ptr(level, nodeIndex);
-                    const uint32 nodeSize = isLeaf ? 2 : Utils::total_size(node[0]);
+                    const uint32 nodeSize = isLeaf ? 2 : Utils::child_data_size(node[0]);
 
                     // Update children indices
                     if (level != maxLevel)
@@ -547,7 +537,7 @@ public:
                     else
                     {
                         const uint32* nodePtr = &tempNodes[mapValue];
-                        const uint32 nodeSize = Utils::total_size(nodePtr[0]);
+                        const uint32 nodeSize = Utils::child_data_size(nodePtr[0]);
                         const uint32 hash = HashDagUtils::hash_interior(nodeSize, nodePtr);
 #if USE_BLOOM_FILTER
                         BloomFilter filter;
@@ -565,6 +555,7 @@ public:
             stats.start_work("check_nodes");
             check_nodes();
         }
+
         const double memoryUsageAfterGC = data.get_virtual_used_size(false);
         printf("Virtual memory used Before: %fMB; After: %fMB; Saved: %fMB\n", memoryUsageBeforeGC, memoryUsageAfterGC, memoryUsageBeforeGC - memoryUsageAfterGC);
 
@@ -593,7 +584,7 @@ public:
             {
                 const uint32* node = data.get_sys_ptr(level, nodeIndex);
                 memoryUsageWithGC += Utils::to_MB(Utils::total_size(node[0]) * sizeof(uint32));
-                for (uint32 offset = 1; offset < Utils::total_size(node[0]); offset++)
+                for (uint32 offset = 1; offset < Utils::child_data_size(node[0]); offset++)
                 {
                     validNodes[level + 1].emplace(node[offset]);
                 }
@@ -604,7 +595,7 @@ public:
         }
 
         memoryUsageWithoutGC += Utils::to_MB(data.get_level_size(C_leafLevel) * sizeof(uint32));
-        memoryUsageWithGC += Utils::to_MB(validNodes[C_leafLevel].size() * 2 * sizeof(uint32));
+        memoryUsageWithGC += Utils::to_MB(validNodes[C_leafLevel].size() * Utils::leaf_size() * sizeof(uint32));
 
         statsRecorder.report("GC freed memory level " + std::to_string(C_leafLevel), memoryUsageWithoutGC - memoryUsageWithGC);
         statsRecorder.report("GC freed memory leaf level", memoryUsageWithoutGC - memoryUsageWithGC);
@@ -628,7 +619,7 @@ public:
                 const uint32* ptr = data.get_sys_ptr(level, index);
                 if (level != leaf_level())
                 {
-                    for (uint32 offset = 1; offset < Utils::total_size(ptr[0]); offset++)
+                    for (uint32 offset = 1; offset < Utils::child_data_size(ptr[0]); offset++)
                     {
                         newQueuedIndices.emplace(ptr[offset]);
                     }
@@ -639,7 +630,7 @@ public:
                 }
                 if (C_colorTreeLevels <= level && level < leaf_level())
                 {
-                    checkEqual(ptr[0] >> 8u, HashDagUtils::count_children(data, level, levels, index));
+                    checkEqual(Utils::voxel_count(ptr[0]), HashDagUtils::count_children(data, level, levels, index));
                 }
             }
             queuedIndices = std::move(newQueuedIndices);
