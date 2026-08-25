@@ -35,13 +35,8 @@ struct BasicDAG : BaseDAG
 	}
 
 #if ENABLE_PREFILTERED_SHADING
-	// Prefiltered appearance: only built for the HashDAG (the table is keyed by HashDAG
-	// virtual addresses). Returning "no relief" makes the tracer fall back to the plain
-	// box normal, i.e. exactly the original behaviour.
-	// 预滤波外观：只为 HashDAG 构建（表以 HashDAG 虚拟地址为键）。返回"无起伏"让 tracer
-	// 退回普通盒法线，也就是完全的原有行为。
 	HOST_DEVICE bool has_prefilter() const { return false; }
-	HOST_DEVICE uint32 get_prefilter(uint32 /*nodeIndex*/) const { return 0u; }
+	HOST_DEVICE uint32 get_prefilter(uint32 /*level*/, uint32 /*nodeIndex*/, uint32 /*header*/ = 0) const { return 0u; }
 #endif
 
 	HOST void print_stats() const
@@ -72,11 +67,6 @@ struct BasicDAGColorsBase : BaseDAGColors
 	// LOD: BasicDAG has no color tree, so no precomputed averages exist.
 	HOST_DEVICE uint32 get_node_average_color(uint32 /*index*/) const { return 0; }
 	HOST_DEVICE bool has_node_averages() const { return false; }
-	// LOD 3-axis coverage: BasicDAG has no color tree either. Return the "fully
-	// opaque" sentinel (0xFFFFFF) so callers that don't check has_node_coverage()
-	// still get a safe (no-blend) value.
-	HOST_DEVICE uint32 get_node_coverage(uint32 /*index*/) const { return 0xFFFFFFu; }
-	HOST_DEVICE bool has_node_coverage() const { return false; }
 	HOST_DEVICE uint64 get_leaves_count(uint32 level, uint32 node) const
 	{
 		const uint32 upperBits = node >> 8;
@@ -244,8 +234,6 @@ struct BasicDAGColorErrors : BaseDAGColors
 	// LOD: see comment in BasicDAGColorsBase.
 	HOST_DEVICE uint32 get_node_average_color(uint32 /*index*/) const { return 0; }
 	HOST_DEVICE bool has_node_averages() const { return false; }
-	HOST_DEVICE uint32 get_node_coverage(uint32 /*index*/) const { return 0xFFFFFFu; }
-	HOST_DEVICE bool has_node_coverage() const { return false; }
 	HOST_DEVICE ColorLeaf get_leaf(uint32 index) const
 	{
 		check(false);

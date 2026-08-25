@@ -199,10 +199,9 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
 			{
 				hashDag.remove_stale_nodes(hashDag.levels - 2);
 #if ENABLE_PREFILTERED_SHADING
-				// Prefiltered appearance: GC reassigns node indices, which are the keys of
-				// the prefilter table, so the whole table has to be rebuilt.
-				// 预滤波外观：GC 会重新分配节点下标，而下标正是预滤波表的键，因此整张表必须重建。
+				// GC recreates nodes with empty inline prefilters.
 				HashDAGFactory::build_prefilter(hashDag);
+				hashDag.data.full_upload_to_gpu();
 #endif
 			}
 			undoRedo.free();

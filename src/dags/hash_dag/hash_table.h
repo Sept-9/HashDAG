@@ -198,6 +198,7 @@ public:
         PROFILE_FUNCTION_SLOW();
 
         constexpr uint32 level = C_leafLevel;
+		constexpr uint32 leafSize = Utils::leaf_size();
         checkEqual(level, inLevel);
 
         // Iterate over the pages
@@ -219,8 +220,9 @@ public:
             {
 #if ENABLE_CHECKS
                 uint32 const* sysPtr = get_sys_ptr(level, pageVirtualPtr);
-                uint32 const eind = std::min(bucketSize, pindex + C_pageSize);
-                for (uint32 index = pindex; index < eind; index += 2, sysPtr += 2)
+                const uint32 rawEnd = std::min(bucketSize, pindex + C_pageSize);
+                const uint32 eind = pindex + ((rawEnd - pindex) / leafSize) * leafSize;
+                for (uint32 index = pindex; index < eind; index += leafSize, sysPtr += leafSize)
                 {
                     check(sysPtr == get_sys_ptr(level, HashDagUtils::make_ptr(level, bucket, index)));
 
@@ -243,7 +245,7 @@ public:
             prefetch_page(page + 1);
 #endif // ~ ALTERNATE_NODEFN_LEAFPAGE_PREFETCH
 
-#if ALTERNATE_NODEFN_AVX_LEAFSEARCH
+#if ALTERNATE_NODEFN_AVX_LEAFSEARCH && !ENABLE_PREFILTERED_SHADING
             if (pindex + C_pageSize <= bucketSize)
             {
                 auto const search = leafsearch_avx(nodeBits, sysPtr);
@@ -252,12 +254,13 @@ public:
             }
             else
             {
-                uint32 const eind = bucketSize;
+                const uint32 rawEnd = bucketSize;
 #else
             {
-                uint32 const eind = std::min(bucketSize, pindex + C_pageSize);
+                const uint32 rawEnd = std::min(bucketSize, pindex + C_pageSize);
 #endif
-                for (uint32 index = pindex; index < eind; index += 2, sysPtr += 2)
+                const uint32 eind = pindex + ((rawEnd - pindex) / leafSize) * leafSize;
+                for (uint32 index = pindex; index < eind; index += leafSize, sysPtr += leafSize)
                 {
                     check(sysPtr == get_sys_ptr(level, HashDagUtils::make_ptr(level, bucket, index)));
 
@@ -273,6 +276,15 @@ public:
         return 0xFFFFFFFF;
 	}
 
+    // The trailing prefilter word is not part of node identity.
+    HOST static bool nodes_are_identical(
+            const uint32* __restrict__ node,
+            const uint32* __restrict__ stored,
+            const uint32 nodeSize)
+    {
+        return 0 == std::memcmp(node, stored, nodeSize * sizeof(uint32));
+    }
+
     HOST uint32 find_interior_node_in_bucket(
             const uint32 bucketSize,
             const uint32 level,
@@ -282,7 +294,8 @@ public:
     {
         PROFILE_FUNCTION_SLOW();
 
-        check(Utils::total_size(node[0]) > 0);
+        checkEqual(Utils::child_data_size(node[0]), nodeSize);
+		const uint32 storedNodeSize = nodeSize + Utils::C_prefilterWords;
 
         // Iterate over the pages
         auto const baseVirtualPtr = HashDagUtils::make_ptr(level, bucket, 0);
@@ -305,15 +318,15 @@ public:
                 uint32 const* sysPtr = get_sys_ptr(level, pageVirtualPtr);
 
                 uint32 pageEndIndex = std::min(bucketSize, pindex + C_pageSize);
-                if (pindex + nodeSize < pageEndIndex)
+                if (pindex + storedNodeSize <= pageEndIndex)
                 {
-                    pageEndIndex -= nodeSize;
+                    pageEndIndex -= storedNodeSize;
 
-                    for (uint32 index = pindex; index < pageEndIndex;)
+                    for (uint32 index = pindex; index <= pageEndIndex;)
                     {
                         check(sysPtr == get_sys_ptr(level, HashDagUtils::make_ptr(level, bucket, index)));
 
-                        check(0 != std::memcmp(node, sysPtr, nodeSize * sizeof(uint32)));
+                        check(!nodes_are_identical(node, sysPtr, nodeSize));
 
                         auto const nodeLength = Utils::total_size(*sysPtr);
                         index += nodeLength;
@@ -328,10 +341,10 @@ public:
             uint32 const* sysPtr = get_sys_ptr(level, pageVirtualPtr);
 
             uint32 pageEndIndex = std::min(bucketSize, pindex + C_pageSize);
-            if (pindex + nodeSize >= pageEndIndex)
+            if (pindex + storedNodeSize > pageEndIndex)
                 return 0xFFFFFFFF;
 
-            pageEndIndex -= nodeSize;
+            pageEndIndex -= storedNodeSize;
 
 #if BLOOM_FILTER_PREFETCH
             bloom_filter_prefetch( page+1 );
@@ -340,11 +353,11 @@ public:
             prefetch_page( page+1 );
 #endif // ~ ALTERNATE_NODEFN_INTPAGE_PREFETCH
 
-            for (uint32 index = pindex; index < pageEndIndex;)
+            for (uint32 index = pindex; index <= pageEndIndex;)
             {
                 check(sysPtr == get_sys_ptr(level, HashDagUtils::make_ptr(level, bucket, index)));
 
-                if (0 == std::memcmp(node, sysPtr, nodeSize * sizeof(uint32)))
+                if (nodes_are_identical(node, sysPtr, nodeSize))
                     return baseVirtualPtr + index;
 
                 auto const nodeLength = Utils::total_size(*sysPtr);
@@ -364,9 +377,8 @@ public:
     {
         PROFILE_FUNCTION_SLOW();
 
-        static_assert(C_pageSize % 2 == 0, "add_leaf_node(): page size must be multiple of two");
-
         constexpr uint32 level = C_leafLevel;
+		constexpr uint32 leafSize = Utils::leaf_size();
         checkEqual(level, inLevel);
 
         auto const bucket = HashDagUtils::get_bucket_from_hash(level, hash);
@@ -374,8 +386,12 @@ public:
         auto* const bucketSizePtr = get_bucket_size_ptr(level, bucket);
         auto bucketSize = *bucketSizePtr;
 
-        uint32 const ptr = HashDagUtils::make_ptr(level, bucket, bucketSize);
-        uint32 const page = HashDagUtils::get_page(ptr);
+        const uint32 pageSpaceLeft = C_pageSize - (bucketSize % C_pageSize);
+        if (pageSpaceLeft < leafSize)
+            bucketSize += pageSpaceLeft;
+
+        const uint32 ptr = HashDagUtils::make_ptr(level, bucket, bucketSize);
+        const uint32 page = HashDagUtils::get_page(ptr);
 
 #if HAS_PAGE_TABLE
         // New Page?
@@ -387,9 +403,12 @@ public:
 
 		// Append node
         std::memcpy(get_sys_ptr(level, ptr), &leaf, sizeof(uint64));
+#if ENABLE_PREFILTERED_SHADING
+		get_sys_ptr(level, ptr)[2] = 0u;
+#endif
 
         // Edit the bucket size _after_ copying the node
-        *bucketSizePtr = bucketSize + 2;
+        *bucketSizePtr = bucketSize + leafSize;
         checkInf(*bucketSizePtr, HashDagUtils::get_bucket_size(level));
 
 #if USE_BLOOM_FILTER
@@ -407,6 +426,8 @@ public:
         PROFILE_FUNCTION_SLOW();
 
         check(nodeSize > 1);
+		checkEqual(Utils::child_data_size(node[0]), nodeSize);
+		const uint32 storedNodeSize = nodeSize + Utils::C_prefilterWords;
 
         auto const bucket = HashDagUtils::get_bucket_from_hash(level, hash);
 
@@ -417,7 +438,7 @@ public:
         uint32 ptr, page;
         // Make sure the node is in a single page
         auto const pageSpaceLeft = C_pageSize - (bucketSize % C_pageSize);
-        if (C_pageSize == pageSpaceLeft || pageSpaceLeft < nodeSize)
+        if (C_pageSize == pageSpaceLeft || pageSpaceLeft < storedNodeSize)
         {
             // Update bucket size to include the page boundary
             if (C_pageSize != pageSpaceLeft)
@@ -426,7 +447,7 @@ public:
 #if TRACK_PAGE_PADDING
             if (C_pageSize != pageSpaceLeft)
             {
-                check(1 <= pageSpaceLeft && pageSpaceLeft < 9);
+				check(1 <= pageSpaceLeft && pageSpaceLeft < 10);
                 cpuData.pagePaddingWastedMemory.fetch_add(pageSpaceLeft);
             }
 #endif // ~ TRACK_PAGE_PADDING
@@ -455,9 +476,12 @@ public:
 		{
 			sysPtr[index] = node[index];
 		}
+#if ENABLE_PREFILTERED_SHADING
+		sysPtr[nodeSize] = 0u;
+#endif
 
         // Edit the bucket size _after_ copying the node
-        *bucketSizePtr = bucketSize + nodeSize;
+        *bucketSizePtr = bucketSize + storedNodeSize;
 		checkf(*bucketSizePtr < HashDagUtils::get_bucket_size(level), "Bucket size on level %u too low! Current size: %u; Required: >%u\n", level, HashDagUtils::get_bucket_size(level), *bucketSizePtr);
 
 #if USE_BLOOM_FILTER
@@ -550,10 +574,7 @@ public:
 #if ENABLE_CHECKS
 		{
             const uint32* nodePtr = get_sys_ptr(level, result);
-            for (uint32 index = 0; index < nodeSize; index++)
-            {
-                check(nodePtr[index] == node[index]);
-            }
+            check(nodes_are_identical(node, nodePtr, nodeSize));
 		}
 #endif
 		return result;

@@ -16,13 +16,25 @@ DEVICE uint8 next_child(uint8 order, uint8 mask)
 	return 0;
 }
 
-template<bool isRoot, typename TDAG>
-DEVICE uint8 compute_intersection_mask(
+// The part of the traversal test that only depends on the node's bounding box. Split out of
+// compute_intersection_mask so that a caller which already needs `tmin` (the LOD test) can reuse
+// it instead of recomputing the identical slab test one line earlier.
+// 遍历测试中只依赖节点包围盒的那一部分。从 compute_intersection_mask 里拆出来，好让本来就
+// 需要 tmin 的调用方（LOD 判据）直接复用，而不必在它前一行把完全相同的 slab test 再算一遍。
+struct NodeSlab
+{
+	float3 centerRelativeToRay;
+	float3 tmid;
+	float tmin;
+	float tmax;
+};
+
+template<typename TDAG>
+DEVICE NodeSlab compute_node_slab(
 	uint32 level,
 	const Path& path,
 	const TDAG& dag,
 	const float3& rayOrigin,
-	const float3& rayDirection,
 	const float3& rayDirectionInverted)
 {
 	// Find node center = .5 * (boundsMin + boundsMax) + .5f
@@ -31,23 +43,36 @@ DEVICE uint8 compute_intersection_mask(
 	const float radius = float(1u << (shift - 1));
 	const float3 center = make_float3(radius) + path.as_position(shift);
 
-	const float3 centerRelativeToRay = center - rayOrigin;
+	NodeSlab slab;
+	slab.centerRelativeToRay = center - rayOrigin;
 
 	// Ray intersection with axis-aligned planes centered on the node
 	// => rayOrg + tmid * rayDir = center
-	const float3 tmid = centerRelativeToRay * rayDirectionInverted;
+	slab.tmid = slab.centerRelativeToRay * rayDirectionInverted;
 
 	// t-values for where the ray intersects the slabs centered on the node
 	// and extending to the side of the node
-	float tmin, tmax;
 	{
 		const float3 slabRadius = radius * abs(rayDirectionInverted);
-		const float3 pmin = tmid - slabRadius;
-		tmin = max(max(pmin), .0f);
+		const float3 pmin = slab.tmid - slabRadius;
+		slab.tmin = max(max(pmin), .0f);
 
-		const float3 pmax = tmid + slabRadius;
-		tmax = min(pmax);
+		const float3 pmax = slab.tmid + slabRadius;
+		slab.tmax = min(pmax);
 	}
+
+	return slab;
+}
+
+template<bool isRoot>
+DEVICE uint8 compute_intersection_mask(
+	const NodeSlab& slab,
+	const float3& rayDirection)
+{
+	const float3 centerRelativeToRay = slab.centerRelativeToRay;
+	const float3 tmid = slab.tmid;
+	const float tmin = slab.tmin;
+	const float tmax = slab.tmax;
 
 	// Check if we actually hit the root node
 	// This test may not be entirely safe due to float precision issues.
@@ -135,6 +160,22 @@ DEVICE uint8 compute_intersection_mask(
 	return intersectionMask;
 }
 
+// Convenience overload for the call sites that have no use for the slab's t-values.
+// 为那些用不到 slab t 值的调用点提供的便捷重载。
+template<bool isRoot, typename TDAG>
+DEVICE uint8 compute_intersection_mask(
+	uint32 level,
+	const Path& path,
+	const TDAG& dag,
+	const float3& rayOrigin,
+	const float3& rayDirection,
+	const float3& rayDirectionInverted)
+{
+	return compute_intersection_mask<isRoot>(
+		compute_node_slab(level, path, dag, rayOrigin, rayDirectionInverted),
+		rayDirection);
+}
+
 struct StackEntry
 {
 	uint32 index;
@@ -190,6 +231,10 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 	uint32 prefilterPacked = LodPrefilter::C_emptyHistogram;
 #endif
 
+#if ENABLE_COVERAGE_AWARE_LOD
+	uint32 coverageDescentBudget = uint32(PREFILTER_MAX_COVERAGE_DESCENT);
+#endif
+
 	// Traverse DAG
 	for (;;)
 	{
@@ -231,49 +276,63 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 				break;
 			}
 
+			// Resolve the node we just descended into, once: the LOD test below and the
+			// descent further down both need its index and its header word. cache.index is
+			// only maintained above the leaf level, which bounds how deep an index can be
+			// resolved at all; below that the geometry lives in cachedLeaf instead.
+			// 一次性解析刚下降进入的这个节点：下面的 LOD 判据和再下面的下降都需要它的下标与
+			// 头字。cache.index 仅在叶层以上被维护，这限定了下标最深能解析到哪一层；再往下
+			// 几何存放在 cachedLeaf 中。
+			const bool isInteriorNode = level < dag.leaf_level();
+			const bool hasChildIndex = level <= dag.leaf_level();
+			const uint32 childIndex = hasChildIndex
+				? dag.get_child_index(level - 1, cache.index, cache.childMask, nextChild)
+				: 0u;
+			const uint32 childHeader = isInteriorNode ? dag.get_node(level, childIndex) : 0u;
+
+			// Slab test for the node we just descended into. Computed once here and handed to
+			// compute_intersection_mask below, so the LOD test costs no arithmetic of its own.
+			// 刚下降进入的这个节点的 slab 测试。在这里只算一次，然后交给下面的
+			// compute_intersection_mask 复用，因此 LOD 判据本身不产生任何额外算术开销。
+			const NodeSlab slab = compute_node_slab(level, path, dag, rayOrigin, rayDirectionInverse);
+
 			// LOD: stop here if this node already projects to fewer than the configured pixel
-			// threshold. We compute the ray's entry t (slab test) to the freshly-descended node;
-			// since rayDirection is unit-length, that t equals the world-space camera distance.
+			// threshold. slab.tmin is the ray's entry t into the node; since rayDirection is
+			// unit-length, that t equals the world-space camera distance.
 			if (traceParams.lodScale > 0.f)
 			{
-				const uint32 shift = dag.levels - level;
-				const float voxelSize = float(1u << shift);
-				const float radius = voxelSize * 0.5f;
-				const float3 nodeCenter = make_float3(radius) + path.as_position(shift);
-				const float3 cRelOrig = nodeCenter - rayOrigin;
-				const float3 tmidLod = cRelOrig * rayDirectionInverse;
-				const float3 slabRadLod = radius * abs(rayDirectionInverse);
-				const float3 pminLod = tmidLod - slabRadLod;
-				const float tminLod = max(max(pminLod), 0.f);
-				if (voxelSize < tminLod * traceParams.lodScale)
+				const float voxelSize = float(1u << (dag.levels - level));
+				if (voxelSize < slab.tmin * traceParams.lodScale)
 				{
-					hitLevel = level;
+					uint32 lodPrefilter = 0u;
 #if ENABLE_PREFILTERED_SHADING
-					// Prefiltered appearance: the node we are stopping on is child `nextChild`
-					// of the node cached at `level - 1`, so its index is one indirection away.
-					// cache.index is only maintained while its own level is above the leaf
-					// level, which holds for every level we can look up here (the deepest
-					// stored level is the leaf level itself).
-					// 预滤波外观：我们终止所在的节点是缓存在 `level - 1` 那个节点的第
-					// `nextChild` 个孩子，因此它的下标只差一次间接寻址。cache.index 仅在其自身
-					// 层级浅于叶层时才被维护，而这里能查表的每个层级都满足该条件（最深存储的
-					// 层级就是叶层本身）。
-					if (dag.has_prefilter() && level <= dag.leaf_level())
-					{
-						const uint32 lodNodeIndex = dag.get_child_index(level - 1, cache.index, cache.childMask, nextChild);
-						prefilterPacked = dag.get_prefilter(lodNodeIndex);
-					}
+					if (dag.has_prefilter() && hasChildIndex)
+						lodPrefilter = dag.get_prefilter(level, childIndex, childHeader);
 #endif
-					break;
+#if ENABLE_COVERAGE_AWARE_LOD
+					const uint32 viewAxis = LodPrefilter::dominant_axis(rayDirection);
+					if (coverageDescentBudget > 0 && LodPrefilter::pass_axis(lodPrefilter, viewAxis))
+					{
+						--coverageDescentBudget;
+					}
+					else
+#endif
+					{
+						hitLevel = level;
+#if ENABLE_PREFILTERED_SHADING
+						prefilterPacked = lodPrefilter;
+#endif
+						break;
+					}
 				}
 			}
 
 			// Are we in an internal node?
-			if (level < dag.leaf_level())
+			if (isInteriorNode)
 			{
-				cache.index = dag.get_child_index(level - 1, cache.index, cache.childMask, nextChild);
-				cache.childMask = Utils::child_mask(dag.get_node(level, cache.index));
-				cache.visitMask = cache.childMask &	compute_intersection_mask<false>(level, path, dag, rayOrigin, rayDirection, rayDirectionInverse);
+				cache.index = childIndex;
+				cache.childMask = Utils::child_mask(childHeader);
+				cache.visitMask = cache.childMask &	compute_intersection_mask<false>(slab, rayDirection);
 			}
 			else
 			{
@@ -285,8 +344,7 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 
 				if (level == dag.leaf_level())
 				{
-					const uint32 addr = dag.get_child_index(level - 1, cache.index, cache.childMask, nextChild);
-					cachedLeaf = dag.get_leaf(addr);
+					cachedLeaf = dag.get_leaf(childIndex);
 					childMask = cachedLeaf.get_first_child_mask();
 				}
 				else
@@ -296,7 +354,7 @@ __global__ void Tracer::trace_paths(const TracePathsParams traceParams, const TD
 
 				// No need to set the index for bottom nodes
 				cache.childMask = childMask;
-				cache.visitMask = cache.childMask & compute_intersection_mask<false>(level, path, dag, rayOrigin, rayDirection, rayDirectionInverse);
+				cache.visitMask = cache.childMask & compute_intersection_mask<false>(slab, rayDirection);
 			}
 		}
 	}
@@ -404,17 +462,6 @@ __global__ void Tracer::trace_colors(const TraceColorsParams traceParams, const 
 			return;
 		}
 		const uint32 avg = colors.get_node_average_color(colorNodeIndexLod);
-		// LOD: also fetch the 3-axis coverage for this node and stash it into
-		// the pathsSurface so trace_shadows can alpha-blend the LOD block with
-		// the fog background along the hit face's axis.
-		if (colors.has_node_coverage())
-		{
-			// trace_paths writes at (x, imageHeight-1-y) but trace_colors and
-			// trace_shadows both read at (x, y). We're rewriting the *same*
-			// texel that we just loaded, so use the load-side coordinate.
-			const uint32 cov = colors.get_node_coverage(colorNodeIndexLod);
-			Path::store_coverage_only(pixel.x, pixel.y, traceParams.pathsSurface, cov);
-		}
 		setColor(avg);
 		return;
 	}
@@ -883,12 +930,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
         setColorImpl(color);
     };
-	// LOD: `alpha` controls silhouette softening for LOD-A hits. alpha == 1.f
-	// is the original opaque behaviour; alpha < 1.f blends the shaded voxel
-	// with the fog-attenuated sky ("what you'd see if this LOD block weren't
-	// here") before the final fog pass. See trace_colors for where the alpha
-	// comes from.
-	const auto setBRDFColor = [&](float light, double distance, double3 direction, double3 normal, bool isShadow, float alpha)
+	const auto setBRDFColor = [&](float light, double distance, double3 direction, double3 normal, bool isShadow)
 		{
 			const float3 L = sun_direction();
 			const float3 V = make_float3( - normalize(direction));
@@ -904,17 +946,6 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			float3 color = combine_shading(albedo, diffuse, specular, max(0.f, dot(V, H)), isShadow);
 			//color = color * clamp(0.5f + light, 0.f, 1.f);
 			//color = color * light;
-
-			// LOD alpha compositing: blend the shaded LOD voxel with the sky
-			// (which is the "background" we approximate seeing through the LOD
-			// node's transparency). applyFog is linear in its first argument,
-			// so blending BEFORE the fog pass is mathematically equivalent to
-			// (and one applyFog call cheaper than) blending after.
-			//if (alpha < 1.f)
-			//{
-			//	const float3 skyColor = ColorUtils::to_linear(make_float3(187.f, 242.f, 250.f) / 255.f);
-			//	color = alpha * color + (1.f - alpha) * skyColor;
-			//}
 
 			color = applyFog(
 				color,
@@ -950,7 +981,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 	//   * 平坦部分 —— 投影面上没被起伏占据的那部分仍然是包围盒的平面，用几何盒法线着色。
 	// 两部分一起归一化，使整套方案能平滑退化：直方图全零的节点会把权重 1 全给平坦部分，从而
 	// 逐位复现 setBRDFColor 的结果。
-	const auto setPrefilteredBRDFColor = [&](double distance, double3 direction, double3 boxNormal, uint32 packed, bool isShadow, float alpha)
+	const auto setPrefilteredBRDFColor = [&](double distance, double3 direction, double3 boxNormal, uint32 packed, bool isShadow)
 		{
 			const float3 L = sun_direction();
 			const float3 V = make_float3( - normalize(direction));
@@ -971,7 +1002,7 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 			// Relief part / 起伏部分
 			for (uint32 d = 0; d < LodPrefilter::C_numDirections; ++d)
 			{
-				const float relief = LodPrefilter::bin_to_relief(LodPrefilter::unpack_bin(packed, d));
+				const float relief = LodPrefilter::bin_to_relief(LodPrefilter::unpack_bin(packed, d), d);
 				if (relief <= 0.f) continue;
 
 				const float3 N = LodPrefilter::direction_normal(d);
@@ -1024,14 +1055,6 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 
 			float3 color = combine_shading(albedo, diffuse, specular, max(0.f, dot(V, H)), isShadow);
 
-			// Identical LOD alpha compositing to setBRDFColor.
-			// 与 setBRDFColor 完全相同的 LOD alpha 合成。
-			//if (alpha < 1.f)
-			//{
-			//	const float3 skyColor = ColorUtils::to_linear(make_float3(187.f, 242.f, 250.f) / 255.f);
-			//	color = alpha * color + (1.f - alpha) * skyColor;
-			//}
-
 			color = applyFog(
 				color,
 				distance,
@@ -1045,12 +1068,9 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
     // LOD: hitLevel is encoded in the 4th uint of pathsSurface. When LOD stopped early the
     // hit position represents the lower-left corner of a multi-voxel node rather than a 1-voxel.
     // dag.levels means full descent (1x1x1).
-    // coveragePacked holds the 3-axis alpha (24 bits, 8 per axis) written by
-    // trace_colors when LOD-A engages; default 0xFFFFFF means "opaque hit".
     uint32 hitLevel = dag.levels;
-    uint32 coveragePacked = 0xFFFFFFu;
     const float3 rayOrigin = make_float3(
-        Path::load_with_level(pixel.x, pixel.y, params.pathsSurface, hitLevel, &coveragePacked).path);
+        Path::load_with_level(pixel.x, pixel.y, params.pathsSurface, hitLevel).path);
     const double3 cameraRayDirection = normalize(params.rayMin + pixel.x * params.rayDDx + (imageHeight - 1 - pixel.y) * params.rayDDy - params.cameraPosition);
 
 #if ENABLE_PREFILTERED_SHADING
@@ -1095,23 +1115,6 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
     const double distance = length(v);
     const double3 nv = v / distance;
 
-    // LOD: pick the alpha along whichever axis the hit face is oriented along.
-    // The normal below is always axis-aligned (one of ±e_x/y/z), so exactly one
-    // component of |normal| is 1 and the others are 0. For non-LOD or LOD-B
-    // pixels coveragePacked stays 0xFFFFFF => alpha == 1.f (no compositing).
-    const auto pick_alpha_from_normal = [&](const double3& normal) -> float
-    {
-        const float ax = float((coveragePacked >> 0)  & 0xFFu) / 255.f;
-        const float ay = float((coveragePacked >> 8)  & 0xFFu) / 255.f;
-        const float az = float((coveragePacked >> 16) & 0xFFu) / 255.f;
-        const double anx = fabs(normal.x);
-        const double any = fabs(normal.y);
-        const double anz = fabs(normal.z);
-        if (anx >= any && anx >= anz) return ax;
-        if (any >= anz)               return ay;
-        return az;
-    };
-
     if (isShadowed)
     {
 #if PER_VOXEL_FACE_SHADING
@@ -1120,11 +1123,10 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
 		const double3 voxelOriginToHitPosition = normalize(hitPosition - (rayOriginDouble + voxelSize * 0.5));
 		const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
 		const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
-		const float alpha = pick_alpha_from_normal(normal);
 #if ENABLE_PREFILTERED_SHADING
-		setPrefilteredBRDFColor(distance, nv, normal, prefilterPacked, true, alpha);
+		setPrefilteredBRDFColor(distance, nv, normal, prefilterPacked, true);
 #else
-		setBRDFColor(0, distance, nv, normal, true, alpha);
+		setBRDFColor(0, distance, nv, normal, true);
 #endif
 #else
 		setColor(0, distance, nv);
@@ -1138,11 +1140,10 @@ __global__ void Tracer::trace_shadows(const TraceShadowsParams params, const TDA
         const auto truncate_signed = [](double3 d) { return make_double3(int32(d.x), int32(d.y), int32(d.z)); };
         const double3 normal = truncate_signed(voxelOriginToHitPosition / max(abs(voxelOriginToHitPosition)));
         //setColor(max(0.f, dot(make_float3(normal), sun_direction())), distance, nv);
-		const float alpha = pick_alpha_from_normal(normal);
 #if ENABLE_PREFILTERED_SHADING
-		setPrefilteredBRDFColor(distance, nv, normal, prefilterPacked, false, alpha);
+		setPrefilteredBRDFColor(distance, nv, normal, prefilterPacked, false);
 #else
-		setBRDFColor(1, distance, nv, normal, false, alpha);
+		setBRDFColor(1, distance, nv, normal, false);
 #endif
 #else
         setColor(1, distance, nv);
