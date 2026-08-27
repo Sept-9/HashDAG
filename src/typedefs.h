@@ -7,6 +7,13 @@
 #define BENCHMARK 0
 #endif
 
+/** Optional path for replay statistics, for example
+ *  #define FRAME_TIME_OUTPUT "original.stats.csv"
+ *
+ * The parent directory must already exist. When omitted, BENCHMARK builds use
+ * the existing timestamped profiling output and interactive builds do not save.
+ */
+
 /** Config: Will replay a video
  */
 #ifndef USE_VIDEO
@@ -429,6 +436,14 @@
  */
 #ifndef PER_VOXEL_FACE_SHADING
 #define PER_VOXEL_FACE_SHADING 0
+#endif
+
+/** Config: screen-space LOD threshold in pixels.
+ *
+ * 0 disables LOD. Override this in script_definitions.h for evaluation runs.
+ */
+#ifndef LOD_PIXEL_THRESHOLD
+#define LOD_PIXEL_THRESHOLD 0.f
 #endif
 
 /** Config: perform all shading and colour-averaging arithmetic in linear RGB

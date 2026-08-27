@@ -445,6 +445,7 @@ void Engine::tick()
 	PROFILE_FUNCTION();
 
 	frameIndex++;
+	bool replayFinishedThisFrame = false;
 	
 	if (printMemoryStats)
 	{
@@ -590,28 +591,7 @@ void Engine::tick()
 	else if (!replayReader.at_end())
 	{
 		replayReader.replay_frame();
-		if (replayReader.at_end())
-		{
-            if (firstReplay && REPLAY_TWICE)
-            {
-                printf("First replay ended, starting again now that everything is loaded in memory...\n");
-                firstReplay = false;
-                replayReader.reset_replay();
-                statsRecorder.clear();
-            }
-            else
-            {
-#if BENCHMARK
-                printf("Replay ended, saving stats... ");
-                statsRecorder.write_csv();
-#endif
-#ifdef PROFILING_PATH
-                hashDag.data.save_bucket_sizes(false);
-#endif
-                statsRecorder.clear();
-                printf("Saved!\n");
-            }
-        }
+		replayFinishedThisFrame = replayReader.at_end();
 	}
 
 	double pathsTime = 0;
@@ -698,6 +678,10 @@ void Engine::tick()
         }
     }
 	statsRecorder.report("shadows", shadowsTime);
+	// GPU rendering time for the frame. Each component is measured with CUDA
+	// events and synchronized before returning, so their sum is comparable
+	// across evaluation configurations and excludes UI/presentation overhead.
+	statsRecorder.report("frame_time_ms", pathsTime + colorsTime + shadowsTime);
 
     if (config.currentDag == EDag::HashDag && replayReader.is_empty())
     {
@@ -798,6 +782,34 @@ void Engine::tick()
 #endif
         }
 		statsRecorder.next_frame();
+	}
+
+	// Finalize the replay only after recording its last rendered frame. Doing
+	// this earlier drops the final camera sample from the benchmark output.
+	if (replayFinishedThisFrame)
+	{
+        if (firstReplay && REPLAY_TWICE)
+        {
+            printf("First replay ended, starting again now that everything is loaded in memory...\n");
+            firstReplay = false;
+            replayReader.reset_replay();
+            statsRecorder.clear();
+        }
+        else
+        {
+#ifdef FRAME_TIME_OUTPUT
+            printf("Replay ended, saving stats to %s... ", FRAME_TIME_OUTPUT);
+            statsRecorder.write_csv(FRAME_TIME_OUTPUT);
+#elif BENCHMARK
+            printf("Replay ended, saving stats... ");
+            statsRecorder.write_csv();
+#endif
+#ifdef PROFILING_PATH
+            hashDag.data.save_bucket_sizes(false);
+#endif
+            statsRecorder.clear();
+            printf("Saved!\n");
+        }
 	}
 
 	HACK_PROFILE_FRAME_ADVANCE();

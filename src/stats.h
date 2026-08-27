@@ -45,9 +45,12 @@ public:
         path << std::put_time(&tm, "%Y-%m-%d-%H-%M-%S");
 #endif
 		path << ".stats.csv";
-
-		std::ofstream os(path.str());
-		checkAlways(os.is_open());
+		write_csv(path.str());
+	}
+	inline void write_csv(const std::string& path)
+	{
+		std::ofstream os(path);
+		checkfAlways(os.is_open(), "Could not open stats output: %s", path.c_str());
 
 		write_csv(os);
 

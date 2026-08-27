@@ -1,0 +1,7984 @@
+0,paths,3.93626
+0,colors,2.14835
+0,shadows,6.90586
+0,frame_time_ms,12.9905
+0,virtual_size,1172.88
+0,allocated_size,1776.66
+0,color_size,3365.59
+0,color_size undo_redo,0
+1,paths,4.10931
+1,colors,2.45248
+1,shadows,6.99802
+1,frame_time_ms,13.5598
+1,virtual_size,1172.88
+1,allocated_size,1776.66
+1,color_size,3365.59
+1,color_size undo_redo,0
+2,paths,4.30678
+2,colors,2.14323
+2,shadows,7.04205
+2,frame_time_ms,13.4921
+2,virtual_size,1172.88
+2,allocated_size,1776.66
+2,color_size,3365.59
+2,color_size undo_redo,0
+3,paths,3.74758
+3,colors,2.77811
+3,shadows,6.87181
+3,frame_time_ms,13.3975
+3,virtual_size,1172.88
+3,allocated_size,1776.66
+3,color_size,3365.59
+3,color_size undo_redo,0
+4,paths,4.16221
+4,colors,2.16371
+4,shadows,6.99392
+4,frame_time_ms,13.3198
+4,virtual_size,1172.88
+4,allocated_size,1776.66
+4,color_size,3365.59
+4,color_size undo_redo,0
+5,paths,3.71302
+5,colors,2.50368
+5,shadows,6.784
+5,frame_time_ms,13.0007
+5,virtual_size,1172.88
+5,allocated_size,1776.66
+5,color_size,3365.59
+5,color_size undo_redo,0
+6,paths,4.03456
+6,colors,2.45018
+6,shadows,6.7072
+6,frame_time_ms,13.1919
+6,virtual_size,1172.88
+6,allocated_size,1776.66
+6,color_size,3365.59
+6,color_size undo_redo,0
+7,paths,4.12365
+7,colors,2.18096
+7,shadows,6.89869
+7,frame_time_ms,13.2033
+7,virtual_size,1172.88
+7,allocated_size,1776.66
+7,color_size,3365.59
+7,color_size undo_redo,0
+8,paths,3.73965
+8,colors,2.79645
+8,shadows,6.8905
+8,frame_time_ms,13.4266
+8,virtual_size,1172.88
+8,allocated_size,1776.66
+8,color_size,3365.59
+8,color_size undo_redo,0
+9,paths,4.30874
+9,colors,2.15741
+9,shadows,7.01834
+9,frame_time_ms,13.4845
+9,virtual_size,1172.88
+9,allocated_size,1776.66
+9,color_size,3365.59
+9,color_size undo_redo,0
+10,paths,3.71302
+10,colors,2.48627
+10,shadows,6.90867
+10,frame_time_ms,13.108
+10,virtual_size,1172.88
+10,allocated_size,1776.66
+10,color_size,3365.59
+10,color_size undo_redo,0
+11,paths,4.05402
+11,colors,2.44326
+11,shadows,6.7543
+11,frame_time_ms,13.2516
+11,virtual_size,1172.88
+11,allocated_size,1776.66
+11,color_size,3365.59
+11,color_size undo_redo,0
+12,paths,3.98426
+12,colors,2.19114
+12,shadows,6.87523
+12,frame_time_ms,13.0506
+12,virtual_size,1172.88
+12,allocated_size,1776.66
+12,color_size,3365.59
+12,color_size undo_redo,0
+13,paths,3.71405
+13,colors,2.80787
+13,shadows,6.72973
+13,frame_time_ms,13.2516
+13,virtual_size,1172.88
+13,allocated_size,1776.66
+13,color_size,3365.59
+13,color_size undo_redo,0
+14,paths,4.28954
+14,colors,2.15654
+14,shadows,6.83725
+14,frame_time_ms,13.2833
+14,virtual_size,1172.88
+14,allocated_size,1776.66
+14,color_size,3365.59
+14,color_size undo_redo,0
+15,paths,3.71082
+15,colors,2.79654
+15,shadows,7.01338
+15,frame_time_ms,13.5207
+15,virtual_size,1172.88
+15,allocated_size,1776.66
+15,color_size,3365.59
+15,color_size undo_redo,0
+16,paths,4.32026
+16,colors,2.45146
+16,shadows,6.74202
+16,frame_time_ms,13.5137
+16,virtual_size,1172.88
+16,allocated_size,1776.66
+16,color_size,3365.59
+16,color_size undo_redo,0
+17,paths,3.98627
+17,colors,2.17907
+17,shadows,7.0144
+17,frame_time_ms,13.1797
+17,virtual_size,1172.88
+17,allocated_size,1776.66
+17,color_size,3365.59
+17,color_size undo_redo,0
+18,paths,3.7335
+18,colors,2.75149
+18,shadows,6.85875
+18,frame_time_ms,13.3437
+18,virtual_size,1172.88
+18,allocated_size,1776.66
+18,color_size,3365.59
+18,color_size undo_redo,0
+19,paths,4.33254
+19,colors,2.16749
+19,shadows,7.02054
+19,frame_time_ms,13.5206
+19,virtual_size,1172.88
+19,allocated_size,1776.66
+19,color_size,3365.59
+19,color_size undo_redo,0
+20,paths,3.9936
+20,colors,2.17805
+20,shadows,6.74202
+20,frame_time_ms,12.9137
+20,virtual_size,1172.88
+20,allocated_size,1776.66
+20,color_size,3365.59
+20,color_size undo_redo,0
+21,paths,3.72531
+21,colors,2.49837
+21,shadows,6.81776
+21,frame_time_ms,13.0414
+21,virtual_size,1172.88
+21,allocated_size,1776.66
+21,color_size,3365.59
+21,color_size undo_redo,0
+22,paths,4.30163
+22,colors,2.16064
+22,shadows,7.03082
+22,frame_time_ms,13.4931
+22,virtual_size,1172.88
+22,allocated_size,1776.66
+22,color_size,3365.59
+22,color_size undo_redo,0
+23,paths,3.69766
+23,colors,2.66342
+23,shadows,6.81261
+23,frame_time_ms,13.1737
+23,virtual_size,1172.88
+23,allocated_size,1776.66
+23,color_size,3365.59
+23,color_size undo_redo,0
+24,paths,4.29363
+24,colors,2.17293
+24,shadows,7.05946
+24,frame_time_ms,13.526
+24,virtual_size,1172.88
+24,allocated_size,1776.66
+24,color_size,3365.59
+24,color_size undo_redo,0
+25,paths,3.98336
+25,colors,2.17286
+25,shadows,6.73997
+25,frame_time_ms,12.8962
+25,virtual_size,1172.88
+25,allocated_size,1776.66
+25,color_size,3365.59
+25,color_size undo_redo,0
+26,paths,4.02022
+26,colors,2.65731
+26,shadows,6.75021
+26,frame_time_ms,13.4277
+26,virtual_size,1172.88
+26,allocated_size,1776.66
+26,color_size,3365.59
+26,color_size undo_redo,0
+27,paths,4.28554
+27,colors,2.19341
+27,shadows,7.00621
+27,frame_time_ms,13.4852
+27,virtual_size,1172.88
+27,allocated_size,1776.66
+27,color_size,3365.59
+27,color_size undo_redo,0
+28,paths,3.72819
+28,colors,2.79859
+28,shadows,6.96285
+28,frame_time_ms,13.4896
+28,virtual_size,1172.88
+28,allocated_size,1776.66
+28,color_size,3365.59
+28,color_size undo_redo,0
+29,paths,4.31795
+29,colors,2.13168
+29,shadows,7.03693
+29,frame_time_ms,13.4866
+29,virtual_size,1172.88
+29,allocated_size,1776.66
+29,color_size,3365.59
+29,color_size undo_redo,0
+30,paths,3.94221
+30,colors,2.1289
+30,shadows,6.89152
+30,frame_time_ms,12.9626
+30,virtual_size,1172.88
+30,allocated_size,1776.66
+30,color_size,3365.59
+30,color_size undo_redo,0
+31,paths,4.03558
+31,colors,2.58458
+31,shadows,6.85536
+31,frame_time_ms,13.4755
+31,virtual_size,1172.88
+31,allocated_size,1776.66
+31,color_size,3365.59
+31,color_size undo_redo,0
+32,paths,4.25267
+32,colors,2.176
+32,shadows,6.81984
+32,frame_time_ms,13.2485
+32,virtual_size,1172.88
+32,allocated_size,1776.66
+32,color_size,3365.59
+32,color_size undo_redo,0
+33,paths,3.71814
+33,colors,2.58662
+33,shadows,7.00723
+33,frame_time_ms,13.312
+33,virtual_size,1172.88
+33,allocated_size,1776.66
+33,color_size,3365.59
+33,color_size undo_redo,0
+34,paths,4.00794
+34,colors,2.59277
+34,shadows,6.66931
+34,frame_time_ms,13.27
+34,virtual_size,1172.88
+34,allocated_size,1776.66
+34,color_size,3365.59
+34,color_size undo_redo,0
+35,paths,3.98438
+35,colors,2.13811
+35,shadows,6.72358
+35,frame_time_ms,12.8461
+35,virtual_size,1172.88
+35,allocated_size,1776.66
+35,color_size,3365.59
+35,color_size undo_redo,0
+36,paths,3.6905
+36,colors,2.44317
+36,shadows,6.72125
+36,frame_time_ms,12.8549
+36,virtual_size,1172.88
+36,allocated_size,1776.66
+36,color_size,3365.59
+36,color_size undo_redo,0
+37,paths,4.29866
+37,colors,2.14221
+37,shadows,6.68547
+37,frame_time_ms,13.1263
+37,virtual_size,1172.88
+37,allocated_size,1776.66
+37,color_size,3365.59
+37,color_size undo_redo,0
+38,paths,3.70278
+38,colors,2.81882
+38,shadows,6.74406
+38,frame_time_ms,13.2657
+38,virtual_size,1172.88
+38,allocated_size,1776.66
+38,color_size,3365.59
+38,color_size undo_redo,0
+39,paths,4.26189
+39,colors,2.11654
+39,shadows,6.98982
+39,frame_time_ms,13.3683
+39,virtual_size,1172.88
+39,allocated_size,1776.66
+39,color_size,3365.59
+39,color_size undo_redo,0
+40,paths,3.64544
+40,colors,2.52211
+40,shadows,6.6775
+40,frame_time_ms,12.8451
+40,virtual_size,1172.88
+40,allocated_size,1776.66
+40,color_size,3365.59
+40,color_size undo_redo,0
+41,paths,3.98336
+41,colors,2.49651
+41,shadows,6.40512
+41,frame_time_ms,12.885
+41,virtual_size,1172.88
+41,allocated_size,1776.66
+41,color_size,3365.59
+41,color_size undo_redo,0
+42,paths,3.67917
+42,colors,2.49642
+42,shadows,6.69389
+42,frame_time_ms,12.8695
+42,virtual_size,1172.88
+42,allocated_size,1776.66
+42,color_size,3365.59
+42,color_size undo_redo,0
+43,paths,4.01408
+43,colors,2.15763
+43,shadows,6.37133
+43,frame_time_ms,12.543
+43,virtual_size,1172.88
+43,allocated_size,1776.66
+43,color_size,3365.59
+43,color_size undo_redo,0
+44,paths,4.11034
+44,colors,2.12579
+44,shadows,6.67238
+44,frame_time_ms,12.9085
+44,virtual_size,1172.88
+44,allocated_size,1776.66
+44,color_size,3365.59
+44,color_size undo_redo,0
+45,paths,3.63827
+45,colors,2.44531
+45,shadows,6.6601
+45,frame_time_ms,12.7437
+45,virtual_size,1172.88
+45,allocated_size,1776.66
+45,color_size,3365.59
+45,color_size undo_redo,0
+46,paths,4.26397
+46,colors,2.15142
+46,shadows,6.64269
+46,frame_time_ms,13.0581
+46,virtual_size,1172.88
+46,allocated_size,1776.66
+46,color_size,3365.59
+46,color_size undo_redo,0
+47,paths,3.62189
+47,colors,2.7679
+47,shadows,6.68262
+47,frame_time_ms,13.0724
+47,virtual_size,1172.88
+47,allocated_size,1776.66
+47,color_size,3365.59
+47,color_size undo_redo,0
+48,paths,4.13696
+48,colors,2.15347
+48,shadows,6.61606
+48,frame_time_ms,12.9065
+48,virtual_size,1172.88
+48,allocated_size,1776.66
+48,color_size,3365.59
+48,color_size undo_redo,0
+49,paths,4.192
+49,colors,2.1463
+49,shadows,6.64678
+49,frame_time_ms,12.9851
+49,virtual_size,1172.88
+49,allocated_size,1776.66
+49,color_size,3365.59
+49,color_size undo_redo,0
+50,paths,3.66182
+50,colors,2.46986
+50,shadows,6.9929
+50,frame_time_ms,13.1246
+50,virtual_size,1172.88
+50,allocated_size,1776.66
+50,color_size,3365.59
+50,color_size undo_redo,0
+51,paths,4.18518
+51,colors,2.1801
+51,shadows,6.61709
+51,frame_time_ms,12.9824
+51,virtual_size,1172.88
+51,allocated_size,1776.66
+51,color_size,3365.59
+51,color_size undo_redo,0
+52,paths,3.62269
+52,colors,2.54454
+52,shadows,6.6304
+52,frame_time_ms,12.7976
+52,virtual_size,1172.88
+52,allocated_size,1776.66
+52,color_size,3365.59
+52,color_size undo_redo,0
+53,paths,4.19021
+53,colors,2.13389
+53,shadows,7.00826
+53,frame_time_ms,13.3324
+53,virtual_size,1172.88
+53,allocated_size,1776.66
+53,color_size,3365.59
+53,color_size undo_redo,0
+54,paths,4.13798
+54,colors,2.13578
+54,shadows,6.62822
+54,frame_time_ms,12.902
+54,virtual_size,1172.88
+54,allocated_size,1776.66
+54,color_size,3365.59
+54,color_size undo_redo,0
+55,paths,3.9639
+55,colors,2.41971
+55,shadows,6.79014
+55,frame_time_ms,13.1738
+55,virtual_size,1172.88
+55,allocated_size,1776.66
+55,color_size,3365.59
+55,color_size undo_redo,0
+56,paths,4.20445
+56,colors,2.13709
+56,shadows,6.91917
+56,frame_time_ms,13.2607
+56,virtual_size,1172.88
+56,allocated_size,1776.66
+56,color_size,3365.59
+56,color_size undo_redo,0
+57,paths,3.63926
+57,colors,2.70643
+57,shadows,6.61709
+57,frame_time_ms,12.9628
+57,virtual_size,1172.88
+57,allocated_size,1776.66
+57,color_size,3365.59
+57,color_size undo_redo,0
+58,paths,4.41245
+58,colors,2.13504
+58,shadows,6.6048
+58,frame_time_ms,13.1523
+58,virtual_size,1172.88
+58,allocated_size,1776.66
+58,color_size,3365.59
+58,color_size undo_redo,0
+59,paths,3.62189
+59,colors,2.74432
+59,shadows,6.61187
+59,frame_time_ms,12.9781
+59,virtual_size,1172.88
+59,allocated_size,1776.66
+59,color_size,3365.59
+59,color_size undo_redo,0
+60,paths,4.01715
+60,colors,2.11952
+60,shadows,6.58518
+60,frame_time_ms,12.7219
+60,virtual_size,1172.88
+60,allocated_size,1776.66
+60,color_size,3365.59
+60,color_size undo_redo,0
+61,paths,3.6567
+61,colors,2.69709
+61,shadows,6.60678
+61,frame_time_ms,12.9606
+61,virtual_size,1172.88
+61,allocated_size,1776.66
+61,color_size,3365.59
+61,color_size undo_redo,0
+62,paths,4.37226
+62,colors,2.11136
+62,shadows,6.73904
+62,frame_time_ms,13.2227
+62,virtual_size,1172.88
+62,allocated_size,1776.66
+62,color_size,3365.59
+62,color_size undo_redo,0
+63,paths,3.6239
+63,colors,2.73818
+63,shadows,6.91392
+63,frame_time_ms,13.276
+63,virtual_size,1172.88
+63,allocated_size,1776.66
+63,color_size,3365.59
+63,color_size undo_redo,0
+64,paths,4.19123
+64,colors,2.06438
+64,shadows,6.89357
+64,frame_time_ms,13.1492
+64,virtual_size,1172.88
+64,allocated_size,1776.66
+64,color_size,3365.59
+64,color_size undo_redo,0
+65,paths,3.62598
+65,colors,2.43507
+65,shadows,6.69798
+65,frame_time_ms,12.759
+65,virtual_size,1172.88
+65,allocated_size,1776.66
+65,color_size,3365.59
+65,color_size undo_redo,0
+66,paths,4.2096
+66,colors,2.09101
+66,shadows,6.90483
+66,frame_time_ms,13.2054
+66,virtual_size,1172.88
+66,allocated_size,1776.66
+66,color_size,3365.59
+66,color_size undo_redo,0
+67,paths,3.60752
+67,colors,2.08896
+67,shadows,6.78195
+67,frame_time_ms,12.4784
+67,virtual_size,1172.88
+67,allocated_size,1776.66
+67,color_size,3365.59
+67,color_size undo_redo,0
+68,paths,3.93318
+68,colors,2.52704
+68,shadows,6.63962
+68,frame_time_ms,13.0998
+68,virtual_size,1172.88
+68,allocated_size,1776.66
+68,color_size,3365.59
+68,color_size undo_redo,0
+69,paths,3.86662
+69,colors,2.0775
+69,shadows,6.86374
+69,frame_time_ms,12.8079
+69,virtual_size,1172.88
+69,allocated_size,1776.66
+69,color_size,3365.59
+69,color_size undo_redo,0
+70,paths,3.94957
+70,colors,2.32141
+70,shadows,6.76557
+70,frame_time_ms,13.0365
+70,virtual_size,1172.88
+70,allocated_size,1776.66
+70,color_size,3365.59
+70,color_size undo_redo,0
+71,paths,3.86867
+71,colors,2.07136
+71,shadows,6.56262
+71,frame_time_ms,12.5027
+71,virtual_size,1172.88
+71,allocated_size,1776.66
+71,color_size,3365.59
+71,color_size undo_redo,0
+72,paths,3.91987
+72,colors,2.05616
+72,shadows,6.8393
+72,frame_time_ms,12.8153
+72,virtual_size,1172.88
+72,allocated_size,1776.66
+72,color_size,3365.59
+72,color_size undo_redo,0
+73,paths,4.07654
+73,colors,2.09101
+73,shadows,6.60275
+73,frame_time_ms,12.7703
+73,virtual_size,1172.88
+73,allocated_size,1776.66
+73,color_size,3365.59
+73,color_size undo_redo,0
+74,paths,3.60243
+74,colors,2.72384
+74,shadows,6.93219
+74,frame_time_ms,13.2585
+74,virtual_size,1172.88
+74,allocated_size,1776.66
+74,color_size,3365.59
+74,color_size undo_redo,0
+75,paths,4.1623
+75,colors,2.07558
+75,shadows,6.84544
+75,frame_time_ms,13.0833
+75,virtual_size,1172.88
+75,allocated_size,1776.66
+75,color_size,3365.59
+75,color_size undo_redo,0
+76,paths,3.584
+76,colors,2.41357
+76,shadows,6.75328
+76,frame_time_ms,12.7508
+76,virtual_size,1172.88
+76,allocated_size,1776.66
+76,color_size,3365.59
+76,color_size undo_redo,0
+77,paths,4.17075
+77,colors,2.04566
+77,shadows,6.98368
+77,frame_time_ms,13.2001
+77,virtual_size,1172.88
+77,allocated_size,1776.66
+77,color_size,3365.59
+77,color_size undo_redo,0
+78,paths,3.59318
+78,colors,2.41421
+78,shadows,6.74304
+78,frame_time_ms,12.7504
+78,virtual_size,1172.88
+78,allocated_size,1776.66
+78,color_size,3365.59
+78,color_size undo_redo,0
+79,paths,3.92176
+79,colors,2.03558
+79,shadows,6.67648
+79,frame_time_ms,12.6338
+79,virtual_size,1172.88
+79,allocated_size,1776.66
+79,color_size,3365.59
+79,color_size undo_redo,0
+80,paths,3.85946
+80,colors,2.0521
+80,shadows,6.73382
+80,frame_time_ms,12.6454
+80,virtual_size,1172.88
+80,allocated_size,1776.66
+80,color_size,3365.59
+80,color_size undo_redo,0
+81,paths,3.89734
+81,colors,2.40742
+81,shadows,6.68554
+81,frame_time_ms,12.9903
+81,virtual_size,1172.88
+81,allocated_size,1776.66
+81,color_size,3365.59
+81,color_size undo_redo,0
+82,paths,3.88608
+82,colors,2.06848
+82,shadows,6.57587
+82,frame_time_ms,12.5304
+82,virtual_size,1172.88
+82,allocated_size,1776.66
+82,color_size,3365.59
+82,color_size undo_redo,0
+83,paths,3.57683
+83,colors,2.27123
+83,shadows,6.58717
+83,frame_time_ms,12.4352
+83,virtual_size,1172.88
+83,allocated_size,1776.66
+83,color_size,3365.59
+83,color_size undo_redo,0
+84,paths,3.98438
+84,colors,2.08077
+84,shadows,6.68947
+84,frame_time_ms,12.7546
+84,virtual_size,1172.88
+84,allocated_size,1776.66
+84,color_size,3365.59
+84,color_size undo_redo,0
+85,paths,3.55843
+85,colors,2.05091
+85,shadows,6.59456
+85,frame_time_ms,12.2039
+85,virtual_size,1172.88
+85,allocated_size,1776.66
+85,color_size,3365.59
+85,color_size undo_redo,0
+86,paths,4.17792
+86,colors,2.02826
+86,shadows,6.62221
+86,frame_time_ms,12.8284
+86,virtual_size,1172.88
+86,allocated_size,1776.66
+86,color_size,3365.59
+86,color_size undo_redo,0
+87,paths,3.56557
+87,colors,2.55693
+87,shadows,6.86387
+87,frame_time_ms,12.9864
+87,virtual_size,1172.88
+87,allocated_size,1776.66
+87,color_size,3365.59
+87,color_size undo_redo,0
+88,paths,3.97005
+88,colors,2.01011
+88,shadows,6.55462
+88,frame_time_ms,12.5348
+88,virtual_size,1172.88
+88,allocated_size,1776.66
+88,color_size,3365.59
+88,color_size undo_redo,0
+89,paths,3.52544
+89,colors,2.56288
+89,shadows,6.71334
+89,frame_time_ms,12.8017
+89,virtual_size,1172.88
+89,allocated_size,1776.66
+89,color_size,3365.59
+89,color_size undo_redo,0
+90,paths,3.95878
+90,colors,1.9751
+90,shadows,6.56691
+90,frame_time_ms,12.5008
+90,virtual_size,1172.88
+90,allocated_size,1776.66
+90,color_size,3365.59
+90,color_size undo_redo,0
+91,paths,3.47926
+91,colors,2.22413
+91,shadows,6.55229
+91,frame_time_ms,12.2557
+91,virtual_size,1172.88
+91,allocated_size,1776.66
+91,color_size,3365.59
+91,color_size undo_redo,0
+92,paths,4.224
+92,colors,1.91386
+92,shadows,6.60275
+92,frame_time_ms,12.7406
+92,virtual_size,1172.88
+92,allocated_size,1776.66
+92,color_size,3365.59
+92,color_size undo_redo,0
+93,paths,3.39661
+93,colors,2.20365
+93,shadows,6.45222
+93,frame_time_ms,12.0525
+93,virtual_size,1172.88
+93,allocated_size,1776.66
+93,color_size,3365.59
+93,color_size undo_redo,0
+94,paths,4.09805
+94,colors,1.88518
+94,shadows,6.48883
+94,frame_time_ms,12.4721
+94,virtual_size,1172.88
+94,allocated_size,1776.66
+94,color_size,3365.59
+94,color_size undo_redo,0
+95,paths,3.89325
+95,colors,2.19418
+95,shadows,6.48406
+95,frame_time_ms,12.5715
+95,virtual_size,1172.88
+95,allocated_size,1776.66
+95,color_size,3365.59
+95,color_size undo_redo,0
+96,paths,3.7335
+96,colors,1.84627
+96,shadows,6.4297
+96,frame_time_ms,12.0095
+96,virtual_size,1172.88
+96,allocated_size,1776.66
+96,color_size,3365.59
+96,color_size undo_redo,0
+97,paths,3.32288
+97,colors,2.0951
+97,shadows,6.58726
+97,frame_time_ms,12.0052
+97,virtual_size,1172.88
+97,allocated_size,1776.66
+97,color_size,3365.59
+97,color_size undo_redo,0
+98,paths,4.00486
+98,colors,1.77645
+98,shadows,6.39968
+98,frame_time_ms,12.181
+98,virtual_size,1172.88
+98,allocated_size,1776.66
+98,color_size,3365.59
+98,color_size undo_redo,0
+99,paths,3.6096
+99,colors,1.74678
+99,shadows,6.34762
+99,frame_time_ms,11.704
+99,virtual_size,1172.88
+99,allocated_size,1776.66
+99,color_size,3365.59
+99,color_size undo_redo,0
+100,paths,3.23891
+100,colors,2.19034
+100,shadows,6.26893
+100,frame_time_ms,11.6982
+100,virtual_size,1172.88
+100,allocated_size,1776.66
+100,color_size,3365.59
+100,color_size undo_redo,0
+101,paths,3.9383
+101,colors,1.67936
+101,shadows,6.32922
+101,frame_time_ms,11.9469
+101,virtual_size,1172.88
+101,allocated_size,1776.66
+101,color_size,3365.59
+101,color_size undo_redo,0
+102,paths,3.16518
+102,colors,1.64557
+102,shadows,6.20749
+102,frame_time_ms,11.0182
+102,virtual_size,1172.88
+102,allocated_size,1776.66
+102,color_size,3365.59
+102,color_size undo_redo,0
+103,paths,3.14675
+103,colors,1.99152
+103,shadows,6.11626
+103,frame_time_ms,11.2545
+103,virtual_size,1172.88
+103,allocated_size,1776.66
+103,color_size,3365.59
+103,color_size undo_redo,0
+104,paths,3.54784
+104,colors,1.60355
+104,shadows,6.1737
+104,frame_time_ms,11.3251
+104,virtual_size,1172.88
+104,allocated_size,1776.66
+104,color_size,3365.59
+104,color_size undo_redo,0
+105,paths,3.3833
+105,colors,1.56262
+105,shadows,6.00064
+105,frame_time_ms,10.9466
+105,virtual_size,1172.88
+105,allocated_size,1776.66
+105,color_size,3365.59
+105,color_size undo_redo,0
+106,paths,2.9911
+106,colors,1.84115
+106,shadows,6.10099
+106,frame_time_ms,10.9332
+106,virtual_size,1172.88
+106,allocated_size,1776.66
+106,color_size,3365.59
+106,color_size undo_redo,0
+107,paths,2.98291
+107,colors,1.51344
+107,shadows,6.19725
+107,frame_time_ms,10.6936
+107,virtual_size,1172.88
+107,allocated_size,1776.66
+107,color_size,3365.59
+107,color_size undo_redo,0
+108,paths,3.38918
+108,colors,1.4807
+108,shadows,5.8368
+108,frame_time_ms,10.7067
+108,virtual_size,1172.88
+108,allocated_size,1776.66
+108,color_size,3365.59
+108,color_size undo_redo,0
+109,paths,3.53587
+109,colors,1.4633
+109,shadows,5.85523
+109,frame_time_ms,10.8544
+109,virtual_size,1172.88
+109,allocated_size,1776.66
+109,color_size,3365.59
+109,color_size undo_redo,0
+110,paths,3.18976
+110,colors,1.75501
+110,shadows,5.41696
+110,frame_time_ms,10.3617
+110,virtual_size,1172.88
+110,allocated_size,1776.66
+110,color_size,3365.59
+110,color_size undo_redo,0
+111,paths,2.85594
+111,colors,1.68954
+111,shadows,5.59616
+111,frame_time_ms,10.1416
+111,virtual_size,1172.88
+111,allocated_size,1776.66
+111,color_size,3365.59
+111,color_size undo_redo,0
+112,paths,2.82112
+112,colors,1.64349
+112,shadows,5.62074
+112,frame_time_ms,10.0853
+112,virtual_size,1172.88
+112,allocated_size,1776.66
+112,color_size,3365.59
+112,color_size undo_redo,0
+113,paths,2.80358
+113,colors,1.78992
+113,shadows,5.10874
+113,frame_time_ms,9.70224
+113,virtual_size,1172.88
+113,allocated_size,1776.66
+113,color_size,3365.59
+113,color_size undo_redo,0
+114,paths,2.76787
+114,colors,1.77347
+114,shadows,5.09014
+114,frame_time_ms,9.63149
+114,virtual_size,1172.88
+114,allocated_size,1776.66
+114,color_size,3365.59
+114,color_size undo_redo,0
+115,paths,2.73715
+115,colors,1.75104
+115,shadows,5.65965
+115,frame_time_ms,10.1478
+115,virtual_size,1172.88
+115,allocated_size,1776.66
+115,color_size,3365.59
+115,color_size undo_redo,0
+116,paths,2.72384
+116,colors,1.64659
+116,shadows,5.45075
+116,frame_time_ms,9.82118
+116,virtual_size,1172.88
+116,allocated_size,1776.66
+116,color_size,3365.59
+116,color_size undo_redo,0
+117,paths,2.70435
+117,colors,1.60563
+117,shadows,5.25402
+117,frame_time_ms,9.564
+117,virtual_size,1172.88
+117,allocated_size,1776.66
+117,color_size,3365.59
+117,color_size undo_redo,0
+118,paths,2.87642
+118,colors,1.23085
+118,shadows,5.25517
+118,frame_time_ms,9.36243
+118,virtual_size,1172.88
+118,allocated_size,1776.66
+118,color_size,3365.59
+118,color_size undo_redo,0
+119,paths,2.59072
+119,colors,1.52358
+119,shadows,5.3801
+119,frame_time_ms,9.4944
+119,virtual_size,1172.88
+119,allocated_size,1776.66
+119,color_size,3365.59
+119,color_size undo_redo,0
+120,paths,2.83331
+120,colors,1.13562
+120,shadows,5.21421
+120,frame_time_ms,9.18314
+120,virtual_size,1172.88
+120,allocated_size,1776.66
+120,color_size,3365.59
+120,color_size undo_redo,0
+121,paths,2.5303
+121,colors,1.45792
+121,shadows,5.05651
+121,frame_time_ms,9.04474
+121,virtual_size,1172.88
+121,allocated_size,1776.66
+121,color_size,3365.59
+121,color_size undo_redo,0
+122,paths,2.47603
+122,colors,1.51347
+122,shadows,4.70093
+122,frame_time_ms,8.69043
+122,virtual_size,1172.88
+122,allocated_size,1776.66
+122,color_size,3365.59
+122,color_size undo_redo,0
+123,paths,2.46883
+123,colors,1.03936
+123,shadows,4.90394
+123,frame_time_ms,8.41213
+123,virtual_size,1172.88
+123,allocated_size,1776.66
+123,color_size,3365.59
+123,color_size undo_redo,0
+124,paths,2.44736
+124,colors,1.02502
+124,shadows,5.00304
+124,frame_time_ms,8.47542
+124,virtual_size,1172.88
+124,allocated_size,1776.66
+124,color_size,3365.59
+124,color_size undo_redo,0
+125,paths,3.01568
+125,colors,1.01683
+125,shadows,4.95002
+125,frame_time_ms,8.98253
+125,virtual_size,1172.88
+125,allocated_size,1776.66
+125,color_size,3365.59
+125,color_size undo_redo,0
+126,paths,2.8119
+126,colors,1.00352
+126,shadows,4.95485
+126,frame_time_ms,8.77027
+126,virtual_size,1172.88
+126,allocated_size,1776.66
+126,color_size,3365.59
+126,color_size undo_redo,0
+127,paths,3.03507
+127,colors,1.02995
+127,shadows,5.21216
+127,frame_time_ms,9.27718
+127,virtual_size,1172.88
+127,allocated_size,1776.66
+127,color_size,3365.59
+127,color_size undo_redo,0
+128,paths,2.69005
+128,colors,0.97792
+128,shadows,4.79821
+128,frame_time_ms,8.46618
+128,virtual_size,1172.88
+128,allocated_size,1776.66
+128,color_size,3365.59
+128,color_size undo_redo,0
+129,paths,2.40026
+129,colors,0.98688
+129,shadows,4.48205
+129,frame_time_ms,7.86918
+129,virtual_size,1172.88
+129,allocated_size,1776.66
+129,color_size,3365.59
+129,color_size undo_redo,0
+130,paths,2.38285
+130,colors,0.939008
+130,shadows,5.02989
+130,frame_time_ms,8.35174
+130,virtual_size,1172.88
+130,allocated_size,1776.66
+130,color_size,3365.59
+130,color_size undo_redo,0
+131,paths,2.9232
+131,colors,0.894976
+131,shadows,4.89955
+131,frame_time_ms,8.71773
+131,virtual_size,1172.88
+131,allocated_size,1776.66
+131,color_size,3365.59
+131,color_size undo_redo,0
+132,paths,2.63347
+132,colors,0.865152
+132,shadows,4.7145
+132,frame_time_ms,8.21312
+132,virtual_size,1172.88
+132,allocated_size,1776.66
+132,color_size,3365.59
+132,color_size undo_redo,0
+133,paths,2.58458
+133,colors,0.83968
+133,shadows,4.44595
+133,frame_time_ms,7.87021
+133,virtual_size,1172.88
+133,allocated_size,1776.66
+133,color_size,3365.59
+133,color_size undo_redo,0
+134,paths,2.3081
+134,colors,0.82432
+134,shadows,4.97734
+134,frame_time_ms,8.10976
+134,virtual_size,1172.88
+134,allocated_size,1776.66
+134,color_size,3365.59
+134,color_size undo_redo,0
+135,paths,2.62042
+135,colors,0.799424
+135,shadows,4.75238
+135,frame_time_ms,8.17222
+135,virtual_size,1172.88
+135,allocated_size,1776.66
+135,color_size,3365.59
+135,color_size undo_redo,0
+136,paths,2.64602
+136,colors,0.777216
+136,shadows,4.56995
+136,frame_time_ms,7.99318
+136,virtual_size,1172.88
+136,allocated_size,1776.66
+136,color_size,3365.59
+136,color_size undo_redo,0
+137,paths,2.22922
+137,colors,1.02298
+137,shadows,4.32406
+137,frame_time_ms,7.57626
+137,virtual_size,1172.88
+137,allocated_size,1776.66
+137,color_size,3365.59
+137,color_size undo_redo,0
+138,paths,2.20877
+138,colors,0.74752
+138,shadows,4.87731
+138,frame_time_ms,7.8336
+138,virtual_size,1172.88
+138,allocated_size,1776.66
+138,color_size,3365.59
+138,color_size undo_redo,0
+139,paths,2.80781
+139,colors,0.717728
+139,shadows,4.58634
+139,frame_time_ms,8.11187
+139,virtual_size,1172.88
+139,allocated_size,1776.66
+139,color_size,3365.59
+139,color_size undo_redo,0
+140,paths,2.51494
+140,colors,0.710656
+140,shadows,4.69299
+140,frame_time_ms,7.91859
+140,virtual_size,1172.88
+140,allocated_size,1776.66
+140,color_size,3365.59
+140,color_size undo_redo,0
+141,paths,2.18112
+141,colors,0.693248
+141,shadows,4.69606
+141,frame_time_ms,7.57043
+141,virtual_size,1172.88
+141,allocated_size,1776.66
+141,color_size,3365.59
+141,color_size undo_redo,0
+142,paths,2.50032
+142,colors,0.687104
+142,shadows,4.8647
+142,frame_time_ms,8.05213
+142,virtual_size,1172.88
+142,allocated_size,1776.66
+142,color_size,3365.59
+142,color_size undo_redo,0
+143,paths,2.41965
+143,colors,0.678624
+143,shadows,4.50365
+143,frame_time_ms,7.60192
+143,virtual_size,1172.88
+143,allocated_size,1776.66
+143,color_size,3365.59
+143,color_size undo_redo,0
+144,paths,2.17805
+144,colors,0.655328
+144,shadows,4.6848
+144,frame_time_ms,7.51818
+144,virtual_size,1172.88
+144,allocated_size,1776.66
+144,color_size,3365.59
+144,color_size undo_redo,0
+145,paths,2.81395
+145,colors,0.651296
+145,shadows,4.80461
+145,frame_time_ms,8.26986
+145,virtual_size,1172.88
+145,allocated_size,1776.66
+145,color_size,3365.59
+145,color_size undo_redo,0
+146,paths,2.32656
+146,colors,0.638976
+146,shadows,4.2199
+146,frame_time_ms,7.18544
+146,virtual_size,1172.88
+146,allocated_size,1776.66
+146,color_size,3365.59
+146,color_size undo_redo,0
+147,paths,2.13811
+147,colors,0.616448
+147,shadows,4.78192
+147,frame_time_ms,7.53648
+147,virtual_size,1172.88
+147,allocated_size,1776.66
+147,color_size,3365.59
+147,color_size undo_redo,0
+148,paths,2.32928
+148,colors,0.611328
+148,shadows,4.64384
+148,frame_time_ms,7.58445
+148,virtual_size,1172.88
+148,allocated_size,1776.66
+148,color_size,3365.59
+148,color_size undo_redo,0
+149,paths,2.15859
+149,colors,0.621568
+149,shadows,4.77968
+149,frame_time_ms,7.55984
+149,virtual_size,1172.88
+149,allocated_size,1776.66
+149,color_size,3365.59
+149,color_size undo_redo,0
+150,paths,2.78938
+150,colors,0.632832
+150,shadows,4.49741
+150,frame_time_ms,7.91962
+150,virtual_size,1172.88
+150,allocated_size,1776.66
+150,color_size,3365.59
+150,color_size undo_redo,0
+151,paths,2.20262
+151,colors,0.641024
+151,shadows,4.1769
+151,frame_time_ms,7.02054
+151,virtual_size,1172.88
+151,allocated_size,1776.66
+151,color_size,3365.59
+151,color_size undo_redo,0
+152,paths,2.49856
+152,colors,0.64
+152,shadows,4.74317
+152,frame_time_ms,7.88173
+152,virtual_size,1172.88
+152,allocated_size,1776.66
+152,color_size,3365.59
+152,color_size undo_redo,0
+153,paths,2.54051
+153,colors,0.62976
+153,shadows,4.14106
+153,frame_time_ms,7.31133
+153,virtual_size,1172.88
+153,allocated_size,1776.66
+153,color_size,3365.59
+153,color_size undo_redo,0
+154,paths,2.22208
+154,colors,0.638976
+154,shadows,4.71142
+154,frame_time_ms,7.57248
+154,virtual_size,1172.88
+154,allocated_size,1776.66
+154,color_size,3365.59
+154,color_size undo_redo,0
+155,paths,2.87238
+155,colors,0.648288
+155,shadows,4.54246
+155,frame_time_ms,8.06314
+155,virtual_size,1172.88
+155,allocated_size,1776.66
+155,color_size,3365.59
+155,color_size undo_redo,0
+156,paths,2.28554
+156,colors,0.644096
+156,shadows,4.48717
+156,frame_time_ms,7.4168
+156,virtual_size,1172.88
+156,allocated_size,1776.66
+156,color_size,3365.59
+156,color_size undo_redo,0
+157,paths,2.29885
+157,colors,0.641792
+157,shadows,4.73181
+157,frame_time_ms,7.67245
+157,virtual_size,1172.88
+157,allocated_size,1776.66
+157,color_size,3365.59
+157,color_size undo_redo,0
+158,paths,2.64074
+158,colors,0.664448
+158,shadows,4.56704
+158,frame_time_ms,7.87222
+158,virtual_size,1172.88
+158,allocated_size,1776.66
+158,color_size,3365.59
+158,color_size undo_redo,0
+159,paths,2.37651
+159,colors,0.659456
+159,shadows,4.59466
+159,frame_time_ms,7.63062
+159,virtual_size,1172.88
+159,allocated_size,1776.66
+159,color_size,3365.59
+159,color_size undo_redo,0
+160,paths,2.75149
+160,colors,0.662528
+160,shadows,4.66842
+160,frame_time_ms,8.08243
+160,virtual_size,1172.88
+160,allocated_size,1776.66
+160,color_size,3365.59
+160,color_size undo_redo,0
+161,paths,2.77094
+161,colors,0.693248
+161,shadows,4.70186
+161,frame_time_ms,8.16605
+161,virtual_size,1172.88
+161,allocated_size,1776.66
+161,color_size,3365.59
+161,color_size undo_redo,0
+162,paths,2.55078
+162,colors,0.674816
+162,shadows,4.65101
+162,frame_time_ms,7.87661
+162,virtual_size,1172.88
+162,allocated_size,1776.66
+162,color_size,3365.59
+162,color_size undo_redo,0
+163,paths,2.57434
+163,colors,0.668672
+163,shadows,4.68275
+163,frame_time_ms,7.92576
+163,virtual_size,1172.88
+163,allocated_size,1776.66
+163,color_size,3365.59
+163,color_size undo_redo,0
+164,paths,3.07917
+164,colors,0.669344
+164,shadows,4.88858
+164,frame_time_ms,8.63709
+164,virtual_size,1172.88
+164,allocated_size,1776.66
+164,color_size,3365.59
+164,color_size undo_redo,0
+165,paths,2.76662
+165,colors,0.655104
+165,shadows,4.70426
+165,frame_time_ms,8.12598
+165,virtual_size,1172.88
+165,allocated_size,1776.66
+165,color_size,3365.59
+165,color_size undo_redo,0
+166,paths,2.95402
+166,colors,0.643072
+166,shadows,4.59242
+166,frame_time_ms,8.1895
+166,virtual_size,1172.88
+166,allocated_size,1776.66
+166,color_size,3365.59
+166,color_size undo_redo,0
+167,paths,3.46522
+167,colors,0.671744
+167,shadows,4.91827
+167,frame_time_ms,9.05523
+167,virtual_size,1172.88
+167,allocated_size,1776.66
+167,color_size,3365.59
+167,color_size undo_redo,0
+168,paths,3.97101
+168,colors,0.655168
+168,shadows,4.5568
+168,frame_time_ms,9.18298
+168,virtual_size,1172.88
+168,allocated_size,1776.66
+168,color_size,3365.59
+168,color_size undo_redo,0
+169,paths,3.95162
+169,colors,0.544736
+169,shadows,4.72269
+169,frame_time_ms,9.21904
+169,virtual_size,1172.88
+169,allocated_size,1776.66
+169,color_size,3365.59
+169,color_size undo_redo,0
+170,paths,2.77686
+170,colors,0.55696
+170,shadows,5.05136
+170,frame_time_ms,8.38518
+170,virtual_size,1172.88
+170,allocated_size,1776.66
+170,color_size,3365.59
+170,color_size undo_redo,0
+171,paths,2.55078
+171,colors,0.553984
+171,shadows,5.66957
+171,frame_time_ms,8.77434
+171,virtual_size,1172.88
+171,allocated_size,1776.66
+171,color_size,3365.59
+171,color_size undo_redo,0
+172,paths,2.46989
+172,colors,0.556032
+172,shadows,5.38605
+172,frame_time_ms,8.41197
+172,virtual_size,1172.88
+172,allocated_size,1776.66
+172,color_size,3365.59
+172,color_size undo_redo,0
+173,paths,3.12525
+173,colors,0.557056
+173,shadows,5.26643
+173,frame_time_ms,8.94874
+173,virtual_size,1172.88
+173,allocated_size,1776.66
+173,color_size,3365.59
+173,color_size undo_redo,0
+174,paths,2.66515
+174,colors,0.550912
+174,shadows,5.1096
+174,frame_time_ms,8.32566
+174,virtual_size,1172.88
+174,allocated_size,1776.66
+174,color_size,3365.59
+174,color_size undo_redo,0
+175,paths,2.3593
+175,colors,0.55472
+175,shadows,5.16298
+175,frame_time_ms,8.07699
+175,virtual_size,1172.88
+175,allocated_size,1776.66
+175,color_size,3365.59
+175,color_size undo_redo,0
+176,paths,2.32755
+176,colors,0.548864
+176,shadows,5.20909
+176,frame_time_ms,8.0855
+176,virtual_size,1172.88
+176,allocated_size,1776.66
+176,color_size,3365.59
+176,color_size undo_redo,0
+177,paths,3.18653
+177,colors,0.549888
+177,shadows,5.13024
+177,frame_time_ms,8.86666
+177,virtual_size,1172.88
+177,allocated_size,1776.66
+177,color_size,3365.59
+177,color_size undo_redo,0
+178,paths,3.09453
+178,colors,0.544768
+178,shadows,5.08314
+178,frame_time_ms,8.72243
+178,virtual_size,1172.88
+178,allocated_size,1776.66
+178,color_size,3365.59
+178,color_size undo_redo,0
+179,paths,2.71248
+179,colors,0.441344
+179,shadows,4.46054
+179,frame_time_ms,7.61437
+179,virtual_size,1172.88
+179,allocated_size,1776.66
+179,color_size,3365.59
+179,color_size undo_redo,0
+180,paths,2.61837
+180,colors,0.489472
+180,shadows,5.2183
+180,frame_time_ms,8.32614
+180,virtual_size,1172.88
+180,allocated_size,1776.66
+180,color_size,3365.59
+180,color_size undo_redo,0
+181,paths,2.25792
+181,colors,0.499712
+181,shadows,5.48147
+181,frame_time_ms,8.2391
+181,virtual_size,1172.88
+181,allocated_size,1776.66
+181,color_size,3365.59
+181,color_size undo_redo,0
+182,paths,2.79318
+182,colors,0.507904
+182,shadows,5.19782
+182,frame_time_ms,8.49891
+182,virtual_size,1172.88
+182,allocated_size,1776.66
+182,color_size,3365.59
+182,color_size undo_redo,0
+183,paths,2.41357
+183,colors,0.521216
+183,shadows,4.73805
+183,frame_time_ms,7.67283
+183,virtual_size,1172.88
+183,allocated_size,1776.66
+183,color_size,3365.59
+183,color_size undo_redo,0
+184,paths,2.20672
+184,colors,0.531456
+184,shadows,5.1456
+184,frame_time_ms,7.88378
+184,virtual_size,1172.88
+184,allocated_size,1776.66
+184,color_size,3365.59
+184,color_size undo_redo,0
+185,paths,2.8577
+185,colors,0.555008
+185,shadows,5.03808
+185,frame_time_ms,8.45078
+185,virtual_size,1172.88
+185,allocated_size,1776.66
+185,color_size,3365.59
+185,color_size undo_redo,0
+186,paths,2.33267
+186,colors,0.57344
+186,shadows,4.57421
+186,frame_time_ms,7.48032
+186,virtual_size,1172.88
+186,allocated_size,1776.66
+186,color_size,3365.59
+186,color_size undo_redo,0
+187,paths,2.44019
+187,colors,0.598016
+187,shadows,4.92134
+187,frame_time_ms,7.95955
+187,virtual_size,1172.88
+187,allocated_size,1776.66
+187,color_size,3365.59
+187,color_size undo_redo,0
+188,paths,2.80986
+188,colors,0.642048
+188,shadows,5.0104
+188,frame_time_ms,8.4623
+188,virtual_size,1172.88
+188,allocated_size,1776.66
+188,color_size,3365.59
+188,color_size undo_redo,0
+189,paths,2.86925
+189,colors,0.668576
+189,shadows,4.78413
+189,frame_time_ms,8.32195
+189,virtual_size,1172.88
+189,allocated_size,1776.66
+189,color_size,3365.59
+189,color_size undo_redo,0
+190,paths,2.67059
+190,colors,0.688128
+190,shadows,4.47386
+190,frame_time_ms,7.83258
+190,virtual_size,1172.88
+190,allocated_size,1776.66
+190,color_size,3365.59
+190,color_size undo_redo,0
+191,paths,2.80147
+191,colors,0.72704
+191,shadows,5.10259
+191,frame_time_ms,8.6311
+191,virtual_size,1172.88
+191,allocated_size,1776.66
+191,color_size,3365.59
+191,color_size undo_redo,0
+192,paths,3.51232
+192,colors,0.748544
+192,shadows,4.73395
+192,frame_time_ms,8.99482
+192,virtual_size,1172.88
+192,allocated_size,1776.66
+192,color_size,3365.59
+192,color_size undo_redo,0
+193,paths,3.19386
+193,colors,0.754688
+193,shadows,4.74317
+193,frame_time_ms,8.69171
+193,virtual_size,1172.88
+193,allocated_size,1776.66
+193,color_size,3365.59
+193,color_size undo_redo,0
+194,paths,3.00851
+194,colors,0.799584
+194,shadows,4.91088
+194,frame_time_ms,8.71898
+194,virtual_size,1172.88
+194,allocated_size,1776.66
+194,color_size,3365.59
+194,color_size undo_redo,0
+195,paths,3.04435
+195,colors,0.842368
+195,shadows,4.6007
+195,frame_time_ms,8.48742
+195,virtual_size,1172.88
+195,allocated_size,1776.66
+195,color_size,3365.59
+195,color_size undo_redo,0
+196,paths,3.05766
+196,colors,0.881664
+196,shadows,5.0912
+196,frame_time_ms,9.03053
+196,virtual_size,1172.88
+196,allocated_size,1776.66
+196,color_size,3365.59
+196,color_size undo_redo,0
+197,paths,3.36176
+197,colors,0.930816
+197,shadows,5.17939
+197,frame_time_ms,9.47197
+197,virtual_size,1172.88
+197,allocated_size,1776.66
+197,color_size,3365.59
+197,color_size undo_redo,0
+198,paths,3.05766
+198,colors,0.919296
+198,shadows,5.22854
+198,frame_time_ms,9.2055
+198,virtual_size,1172.88
+198,allocated_size,1776.66
+198,color_size,3365.59
+198,color_size undo_redo,0
+199,paths,3.34029
+199,colors,0.91008
+199,shadows,5.39648
+199,frame_time_ms,9.64685
+199,virtual_size,1172.88
+199,allocated_size,1776.66
+199,color_size,3365.59
+199,color_size undo_redo,0
+200,paths,3.3495
+200,colors,0.889856
+200,shadows,5.05856
+200,frame_time_ms,9.29792
+200,virtual_size,1172.88
+200,allocated_size,1776.66
+200,color_size,3365.59
+200,color_size undo_redo,0
+201,paths,3.68624
+201,colors,0.874496
+201,shadows,5.03274
+201,frame_time_ms,9.59347
+201,virtual_size,1172.88
+201,allocated_size,1776.66
+201,color_size,3365.59
+201,color_size undo_redo,0
+202,paths,3.62906
+202,colors,0.858112
+202,shadows,4.94182
+202,frame_time_ms,9.42899
+202,virtual_size,1172.88
+202,allocated_size,1776.66
+202,color_size,3365.59
+202,color_size undo_redo,0
+203,paths,3.74067
+203,colors,0.832512
+203,shadows,5.11386
+203,frame_time_ms,9.68704
+203,virtual_size,1172.88
+203,allocated_size,1776.66
+203,color_size,3365.59
+203,color_size undo_redo,0
+204,paths,3.54099
+204,colors,0.806848
+204,shadows,4.93261
+204,frame_time_ms,9.28045
+204,virtual_size,1172.88
+204,allocated_size,1776.66
+204,color_size,3365.59
+204,color_size undo_redo,0
+205,paths,2.98483
+205,colors,0.781152
+205,shadows,4.76262
+205,frame_time_ms,8.52861
+205,virtual_size,1172.88
+205,allocated_size,1776.66
+205,color_size,3365.59
+205,color_size undo_redo,0
+206,paths,3.25427
+206,colors,0.747264
+206,shadows,4.36429
+206,frame_time_ms,8.36582
+206,virtual_size,1172.88
+206,allocated_size,1776.66
+206,color_size,3365.59
+206,color_size undo_redo,0
+207,paths,2.88256
+207,colors,0.704192
+207,shadows,4.57421
+207,frame_time_ms,8.16096
+207,virtual_size,1172.88
+207,allocated_size,1776.66
+207,color_size,3365.59
+207,color_size undo_redo,0
+208,paths,3.18877
+208,colors,0.673792
+208,shadows,4.46669
+208,frame_time_ms,8.32925
+208,virtual_size,1172.88
+208,allocated_size,1776.66
+208,color_size,3365.59
+208,color_size undo_redo,0
+209,paths,3.11501
+209,colors,0.635904
+209,shadows,4.77286
+209,frame_time_ms,8.52378
+209,virtual_size,1172.88
+209,allocated_size,1776.66
+209,color_size,3365.59
+209,color_size undo_redo,0
+210,paths,2.80678
+210,colors,0.61952
+210,shadows,4.07418
+210,frame_time_ms,7.50048
+210,virtual_size,1172.88
+210,allocated_size,1776.66
+210,color_size,3365.59
+210,color_size undo_redo,0
+211,paths,2.76038
+211,colors,0.60416
+211,shadows,4.32333
+211,frame_time_ms,7.68787
+211,virtual_size,1172.88
+211,allocated_size,1776.66
+211,color_size,3365.59
+211,color_size undo_redo,0
+212,paths,2.99299
+212,colors,0.5632
+212,shadows,4.57318
+212,frame_time_ms,8.12938
+212,virtual_size,1172.88
+212,allocated_size,1776.66
+212,color_size,3365.59
+212,color_size undo_redo,0
+213,paths,3.10579
+213,colors,0.55808
+213,shadows,3.89427
+213,frame_time_ms,7.55814
+213,virtual_size,1172.88
+213,allocated_size,1776.66
+213,color_size,3365.59
+213,color_size undo_redo,0
+214,paths,2.82384
+214,colors,0.508928
+214,shadows,4.13792
+214,frame_time_ms,7.47069
+214,virtual_size,1172.88
+214,allocated_size,1776.66
+214,color_size,3365.59
+214,color_size undo_redo,0
+215,paths,2.80474
+215,colors,0.521216
+215,shadows,4.26906
+215,frame_time_ms,7.59501
+215,virtual_size,1172.88
+215,allocated_size,1776.66
+215,color_size,3365.59
+215,color_size undo_redo,0
+216,paths,2.65523
+216,colors,0.518848
+216,shadows,3.80416
+216,frame_time_ms,6.97824
+216,virtual_size,1172.88
+216,allocated_size,1776.66
+216,color_size,3365.59
+216,color_size undo_redo,0
+217,paths,2.42157
+217,colors,0.484352
+217,shadows,4.25574
+217,frame_time_ms,7.16166
+217,virtual_size,1172.88
+217,allocated_size,1776.66
+217,color_size,3365.59
+217,color_size undo_redo,0
+218,paths,3.0464
+218,colors,0.479232
+218,shadows,3.89216
+218,frame_time_ms,7.41779
+218,virtual_size,1172.88
+218,allocated_size,1776.66
+218,color_size,3365.59
+218,color_size undo_redo,0
+219,paths,2.65728
+219,colors,0.488448
+219,shadows,3.99258
+219,frame_time_ms,7.1383
+219,virtual_size,1172.88
+219,allocated_size,1776.66
+219,color_size,3365.59
+219,color_size undo_redo,0
+220,paths,2.72691
+220,colors,0.496416
+220,shadows,4.15744
+220,frame_time_ms,7.38077
+220,virtual_size,1172.88
+220,allocated_size,1776.66
+220,color_size,3365.59
+220,color_size undo_redo,0
+221,paths,2.44429
+221,colors,0.524032
+221,shadows,3.72634
+221,frame_time_ms,6.69466
+221,virtual_size,1172.88
+221,allocated_size,1776.66
+221,color_size,3365.59
+221,color_size undo_redo,0
+222,paths,2.73907
+222,colors,0.533504
+222,shadows,4.17997
+222,frame_time_ms,7.45254
+222,virtual_size,1172.88
+222,allocated_size,1776.66
+222,color_size,3365.59
+222,color_size undo_redo,0
+223,paths,2.75456
+223,colors,0.524288
+223,shadows,3.70867
+223,frame_time_ms,6.98752
+223,virtual_size,1172.88
+223,allocated_size,1776.66
+223,color_size,3365.59
+223,color_size undo_redo,0
+224,paths,2.68902
+224,colors,0.54048
+224,shadows,4.0745
+224,frame_time_ms,7.304
+224,virtual_size,1172.88
+224,allocated_size,1776.66
+224,color_size,3365.59
+224,color_size undo_redo,0
+225,paths,2.87334
+225,colors,0.560128
+225,shadows,4.07757
+225,frame_time_ms,7.51104
+225,virtual_size,1172.88
+225,allocated_size,1776.66
+225,color_size,3365.59
+225,color_size undo_redo,0
+226,paths,2.5815
+226,colors,0.572288
+226,shadows,3.79494
+226,frame_time_ms,6.94874
+226,virtual_size,1172.88
+226,allocated_size,1776.66
+226,color_size,3365.59
+226,color_size undo_redo,0
+227,paths,2.89779
+227,colors,0.586752
+227,shadows,4.38067
+227,frame_time_ms,7.86522
+227,virtual_size,1172.88
+227,allocated_size,1776.66
+227,color_size,3365.59
+227,color_size undo_redo,0
+228,paths,3.23277
+228,colors,0.610304
+228,shadows,3.87354
+228,frame_time_ms,7.71661
+228,virtual_size,1172.88
+228,allocated_size,1776.66
+228,color_size,3365.59
+228,color_size undo_redo,0
+229,paths,2.70336
+229,colors,0.63488
+229,shadows,4.24038
+229,frame_time_ms,7.57862
+229,virtual_size,1172.88
+229,allocated_size,1776.66
+229,color_size,3365.59
+229,color_size undo_redo,0
+230,paths,3.42317
+230,colors,0.648192
+230,shadows,4.4032
+230,frame_time_ms,8.47456
+230,virtual_size,1172.88
+230,allocated_size,1776.66
+230,color_size,3365.59
+230,color_size undo_redo,0
+231,paths,3.13446
+231,colors,0.669696
+231,shadows,4.01715
+231,frame_time_ms,7.82131
+231,virtual_size,1172.88
+231,allocated_size,1776.66
+231,color_size,3365.59
+231,color_size undo_redo,0
+232,paths,2.9399
+232,colors,0.697152
+232,shadows,4.35917
+232,frame_time_ms,7.99622
+232,virtual_size,1172.88
+232,allocated_size,1776.66
+232,color_size,3365.59
+232,color_size undo_redo,0
+233,paths,3.31981
+233,colors,0.724992
+233,shadows,4.2967
+233,frame_time_ms,8.3415
+233,virtual_size,1172.88
+233,allocated_size,1776.66
+233,color_size,3365.59
+233,color_size undo_redo,0
+234,paths,3.60243
+234,colors,0.765952
+234,shadows,3.98848
+234,frame_time_ms,8.35686
+234,virtual_size,1172.88
+234,allocated_size,1776.66
+234,color_size,3365.59
+234,color_size undo_redo,0
+235,paths,3.13626
+235,colors,0.789504
+235,shadows,3.97926
+235,frame_time_ms,7.90502
+235,virtual_size,1172.88
+235,allocated_size,1776.66
+235,color_size,3365.59
+235,color_size undo_redo,0
+236,paths,3.21434
+236,colors,0.810816
+236,shadows,4.57626
+236,frame_time_ms,8.60141
+236,virtual_size,1172.88
+236,allocated_size,1776.66
+236,color_size,3365.59
+236,color_size undo_redo,0
+237,paths,3.91373
+237,colors,0.837632
+237,shadows,4.31104
+237,frame_time_ms,9.0624
+237,virtual_size,1172.88
+237,allocated_size,1776.66
+237,color_size,3365.59
+237,color_size undo_redo,0
+238,paths,4.02211
+238,colors,0.877312
+238,shadows,4.42253
+238,frame_time_ms,9.32195
+238,virtual_size,1172.88
+238,allocated_size,1776.66
+238,color_size,3365.59
+238,color_size undo_redo,0
+239,paths,4.12365
+239,colors,0.919552
+239,shadows,4.34458
+239,frame_time_ms,9.38778
+239,virtual_size,1172.88
+239,allocated_size,1776.66
+239,color_size,3365.59
+239,color_size undo_redo,0
+240,paths,3.89018
+240,colors,0.943104
+240,shadows,4.03558
+240,frame_time_ms,8.86886
+240,virtual_size,1172.88
+240,allocated_size,1776.66
+240,color_size,3365.59
+240,color_size undo_redo,0
+241,paths,4.09907
+241,colors,0.982016
+241,shadows,4.07347
+241,frame_time_ms,9.15456
+241,virtual_size,1172.88
+241,allocated_size,1776.66
+241,color_size,3365.59
+241,color_size undo_redo,0
+242,paths,3.79392
+242,colors,1.00426
+242,shadows,4.38886
+242,frame_time_ms,9.18704
+242,virtual_size,1172.88
+242,allocated_size,1776.66
+242,color_size,3365.59
+242,color_size undo_redo,0
+243,paths,4.2025
+243,colors,1.03731
+243,shadows,4.41133
+243,frame_time_ms,9.65114
+243,virtual_size,1172.88
+243,allocated_size,1776.66
+243,color_size,3365.59
+243,color_size undo_redo,0
+244,paths,4.21888
+244,colors,1.25133
+244,shadows,4.48205
+244,frame_time_ms,9.95226
+244,virtual_size,1172.88
+244,allocated_size,1776.66
+244,color_size,3365.59
+244,color_size undo_redo,0
+245,paths,3.88915
+245,colors,1.38138
+245,shadows,4.48
+245,frame_time_ms,9.75053
+245,virtual_size,1172.88
+245,allocated_size,1776.66
+245,color_size,3365.59
+245,color_size undo_redo,0
+246,paths,4.27418
+246,colors,1.46739
+246,shadows,4.50458
+246,frame_time_ms,10.2461
+246,virtual_size,1172.88
+246,allocated_size,1776.66
+246,color_size,3365.59
+246,color_size undo_redo,0
+247,paths,4.25165
+247,colors,1.43053
+247,shadows,4.19635
+247,frame_time_ms,9.87853
+247,virtual_size,1172.88
+247,allocated_size,1776.66
+247,color_size,3365.59
+247,color_size undo_redo,0
+248,paths,3.93818
+248,colors,1.42746
+248,shadows,4.51789
+248,frame_time_ms,9.88352
+248,virtual_size,1172.88
+248,allocated_size,1776.66
+248,color_size,3365.59
+248,color_size undo_redo,0
+249,paths,4.26496
+249,colors,1.48173
+249,shadows,4.22707
+249,frame_time_ms,9.97376
+249,virtual_size,1172.88
+249,allocated_size,1776.66
+249,color_size,3365.59
+249,color_size undo_redo,0
+250,paths,3.9607
+250,colors,1.62406
+250,shadows,4.24448
+250,frame_time_ms,9.82925
+250,virtual_size,1172.88
+250,allocated_size,1776.66
+250,color_size,3365.59
+250,color_size undo_redo,0
+251,paths,3.99053
+251,colors,1.61792
+251,shadows,4.3048
+251,frame_time_ms,9.91325
+251,virtual_size,1172.88
+251,allocated_size,1776.66
+251,color_size,3365.59
+251,color_size undo_redo,0
+252,paths,3.99258
+252,colors,1.51837
+252,shadows,4.3049
+252,frame_time_ms,9.81584
+252,virtual_size,1172.88
+252,allocated_size,1776.66
+252,color_size,3365.59
+252,color_size undo_redo,0
+253,paths,3.98346
+253,colors,1.73466
+253,shadows,4.33139
+253,frame_time_ms,10.0495
+253,virtual_size,1172.88
+253,allocated_size,1776.66
+253,color_size,3365.59
+253,color_size undo_redo,0
+254,paths,4.01917
+254,colors,1.54214
+254,shadows,4.72371
+254,frame_time_ms,10.285
+254,virtual_size,1172.88
+254,allocated_size,1776.66
+254,color_size,3365.59
+254,color_size undo_redo,0
+255,paths,3.99258
+255,colors,1.19904
+255,shadows,4.72474
+255,frame_time_ms,9.91635
+255,virtual_size,1172.88
+255,allocated_size,1776.66
+255,color_size,3365.59
+255,color_size undo_redo,0
+256,paths,4.20352
+256,colors,1.20832
+256,shadows,5.10653
+256,frame_time_ms,10.5184
+256,virtual_size,1172.88
+256,allocated_size,1776.66
+256,color_size,3365.59
+256,color_size undo_redo,0
+257,paths,4.59264
+257,colors,1.20934
+257,shadows,4.7616
+257,frame_time_ms,10.5636
+257,virtual_size,1172.88
+257,allocated_size,1776.66
+257,color_size,3365.59
+257,color_size undo_redo,0
+258,paths,4.52813
+258,colors,1.22573
+258,shadows,4.78928
+258,frame_time_ms,10.5431
+258,virtual_size,1172.88
+258,allocated_size,1776.66
+258,color_size,3365.59
+258,color_size undo_redo,0
+259,paths,4.37146
+259,colors,1.23699
+259,shadows,4.85274
+259,frame_time_ms,10.4612
+259,virtual_size,1172.88
+259,allocated_size,1776.66
+259,color_size,3365.59
+259,color_size undo_redo,0
+260,paths,4.37555
+260,colors,1.59642
+260,shadows,4.57523
+260,frame_time_ms,10.5472
+260,virtual_size,1172.88
+260,allocated_size,1776.66
+260,color_size,3365.59
+260,color_size undo_redo,0
+261,paths,4.07654
+261,colors,1.60358
+261,shadows,4.6039
+261,frame_time_ms,10.284
+261,virtual_size,1172.88
+261,allocated_size,1776.66
+261,color_size,3365.59
+261,color_size undo_redo,0
+262,paths,4.49853
+262,colors,1.29738
+262,shadows,5.26234
+262,frame_time_ms,11.0582
+262,virtual_size,1172.88
+262,allocated_size,1776.66
+262,color_size,3365.59
+262,color_size undo_redo,0
+263,paths,4.33254
+263,colors,1.23904
+263,shadows,5.24698
+263,frame_time_ms,10.8186
+263,virtual_size,1172.88
+263,allocated_size,1776.66
+263,color_size,3365.59
+263,color_size undo_redo,0
+264,paths,4.60381
+264,colors,1.2153
+264,shadows,4.992
+264,frame_time_ms,10.8111
+264,virtual_size,1172.88
+264,allocated_size,1776.66
+264,color_size,3365.59
+264,color_size undo_redo,0
+265,paths,4.51277
+265,colors,1.20525
+265,shadows,5.13523
+265,frame_time_ms,10.8532
+265,virtual_size,1172.88
+265,allocated_size,1776.66
+265,color_size,3365.59
+265,color_size undo_redo,0
+266,paths,4.1769
+266,colors,1.15712
+266,shadows,5.04195
+266,frame_time_ms,10.376
+266,virtual_size,1172.88
+266,allocated_size,1776.66
+266,color_size,3365.59
+266,color_size undo_redo,0
+267,paths,3.72019
+267,colors,1.41613
+267,shadows,4.70733
+267,frame_time_ms,9.84365
+267,virtual_size,1172.88
+267,allocated_size,1776.66
+267,color_size,3365.59
+267,color_size undo_redo,0
+268,paths,3.62048
+268,colors,1.58822
+268,shadows,4.7616
+268,frame_time_ms,9.9703
+268,virtual_size,1172.88
+268,allocated_size,1776.66
+268,color_size,3365.59
+268,color_size undo_redo,0
+269,paths,3.51334
+269,colors,1.44794
+269,shadows,4.85581
+269,frame_time_ms,9.81709
+269,virtual_size,1172.88
+269,allocated_size,1776.66
+269,color_size,3365.59
+269,color_size undo_redo,0
+270,paths,3.42323
+270,colors,1.38752
+270,shadows,5.17632
+270,frame_time_ms,9.98707
+270,virtual_size,1172.88
+270,allocated_size,1776.66
+270,color_size,3365.59
+270,color_size undo_redo,0
+271,paths,3.2553
+271,colors,1.02195
+271,shadows,5.00634
+271,frame_time_ms,9.28358
+271,virtual_size,1172.88
+271,allocated_size,1776.66
+271,color_size,3365.59
+271,color_size undo_redo,0
+272,paths,3.13232
+272,colors,0.975712
+272,shadows,5.32566
+272,frame_time_ms,9.4337
+272,virtual_size,1172.88
+272,allocated_size,1776.66
+272,color_size,3365.59
+272,color_size undo_redo,0
+273,paths,3.00333
+273,colors,0.933728
+273,shadows,5.2521
+273,frame_time_ms,9.18915
+273,virtual_size,1172.88
+273,allocated_size,1776.66
+273,color_size,3365.59
+273,color_size undo_redo,0
+274,paths,2.88461
+274,colors,0.891904
+274,shadows,5.37875
+274,frame_time_ms,9.15526
+274,virtual_size,1172.88
+274,allocated_size,1776.66
+274,color_size,3365.59
+274,color_size undo_redo,0
+275,paths,3.08941
+275,colors,0.849664
+275,shadows,5.16608
+275,frame_time_ms,9.10515
+275,virtual_size,1172.88
+275,allocated_size,1776.66
+275,color_size,3365.59
+275,color_size undo_redo,0
+276,paths,2.95718
+276,colors,0.835584
+276,shadows,5.46406
+276,frame_time_ms,9.25683
+276,virtual_size,1172.88
+276,allocated_size,1776.66
+276,color_size,3365.59
+276,color_size undo_redo,0
+277,paths,2.87722
+277,colors,0.774848
+277,shadows,5.2057
+277,frame_time_ms,8.85776
+277,virtual_size,1172.88
+277,allocated_size,1776.66
+277,color_size,3365.59
+277,color_size undo_redo,0
+278,paths,3.11706
+278,colors,0.760832
+278,shadows,5.3719
+278,frame_time_ms,9.24979
+278,virtual_size,1172.88
+278,allocated_size,1776.66
+278,color_size,3365.59
+278,color_size undo_redo,0
+279,paths,3.25949
+279,colors,0.72192
+279,shadows,5.08621
+279,frame_time_ms,9.06762
+279,virtual_size,1172.88
+279,allocated_size,1776.66
+279,color_size,3365.59
+279,color_size undo_redo,0
+280,paths,2.82
+280,colors,0.718848
+280,shadows,5.24595
+280,frame_time_ms,8.7848
+280,virtual_size,1172.88
+280,allocated_size,1776.66
+280,color_size,3365.59
+280,color_size undo_redo,0
+281,paths,2.36237
+281,colors,0.658368
+281,shadows,4.96333
+281,frame_time_ms,7.98406
+281,virtual_size,1172.88
+281,allocated_size,1776.66
+281,color_size,3365.59
+281,color_size undo_redo,0
+282,paths,2.27738
+282,colors,0.638816
+282,shadows,5.06368
+282,frame_time_ms,7.97987
+282,virtual_size,1172.88
+282,allocated_size,1776.66
+282,color_size,3365.59
+282,color_size undo_redo,0
+283,paths,2.64902
+283,colors,0.620288
+283,shadows,4.63565
+283,frame_time_ms,7.90496
+283,virtual_size,1172.88
+283,allocated_size,1776.66
+283,color_size,3365.59
+283,color_size undo_redo,0
+284,paths,2.15238
+284,colors,0.602976
+284,shadows,4.53222
+284,frame_time_ms,7.28758
+284,virtual_size,1172.88
+284,allocated_size,1776.66
+284,color_size,3365.59
+284,color_size undo_redo,0
+285,paths,2.43498
+285,colors,0.601088
+285,shadows,4.77491
+285,frame_time_ms,7.81098
+285,virtual_size,1172.88
+285,allocated_size,1776.66
+285,color_size,3365.59
+285,color_size undo_redo,0
+286,paths,2.57434
+286,colors,0.591872
+286,shadows,4.49331
+286,frame_time_ms,7.65952
+286,virtual_size,1172.88
+286,allocated_size,1776.66
+286,color_size,3365.59
+286,color_size undo_redo,0
+287,paths,2.1207
+287,colors,0.591872
+287,shadows,4.48906
+287,frame_time_ms,7.20163
+287,virtual_size,1172.88
+287,allocated_size,1776.66
+287,color_size,3365.59
+287,color_size undo_redo,0
+288,paths,2.4105
+288,colors,0.586752
+288,shadows,4.74083
+288,frame_time_ms,7.73808
+288,virtual_size,1172.88
+288,allocated_size,1776.66
+288,color_size,3365.59
+288,color_size undo_redo,0
+289,paths,2.25382
+289,colors,0.5888
+289,shadows,4.16035
+289,frame_time_ms,7.00298
+289,virtual_size,1172.88
+289,allocated_size,1776.66
+289,color_size,3365.59
+289,color_size undo_redo,0
+290,paths,2.07667
+290,colors,0.574304
+290,shadows,4.73475
+290,frame_time_ms,7.38573
+290,virtual_size,1172.88
+290,allocated_size,1776.66
+290,color_size,3365.59
+290,color_size undo_redo,0
+291,paths,2.27328
+291,colors,0.558816
+291,shadows,4.05606
+291,frame_time_ms,6.88816
+291,virtual_size,1172.88
+291,allocated_size,1776.66
+291,color_size,3365.59
+291,color_size undo_redo,0
+292,paths,2.05312
+292,colors,0.54784
+292,shadows,4.67245
+292,frame_time_ms,7.27341
+292,virtual_size,1172.88
+292,allocated_size,1776.66
+292,color_size,3365.59
+292,color_size undo_redo,0
+293,paths,2.04083
+293,colors,0.539328
+293,shadows,3.95776
+293,frame_time_ms,6.53792
+293,virtual_size,1172.88
+293,allocated_size,1776.66
+293,color_size,3365.59
+293,color_size undo_redo,0
+294,paths,2.03981
+294,colors,0.535552
+294,shadows,4.51165
+294,frame_time_ms,7.08701
+294,virtual_size,1172.88
+294,allocated_size,1776.66
+294,color_size,3365.59
+294,color_size undo_redo,0
+295,paths,2.02957
+295,colors,0.540608
+295,shadows,3.91978
+295,frame_time_ms,6.48995
+295,virtual_size,1172.88
+295,allocated_size,1776.66
+295,color_size,3365.59
+295,color_size undo_redo,0
+296,paths,2.35827
+296,colors,0.530432
+296,shadows,4.51472
+296,frame_time_ms,7.40342
+296,virtual_size,1172.88
+296,allocated_size,1776.66
+296,color_size,3365.59
+296,color_size undo_redo,0
+297,paths,2.00397
+297,colors,0.538624
+297,shadows,3.9207
+297,frame_time_ms,6.4633
+297,virtual_size,1172.88
+297,allocated_size,1776.66
+297,color_size,3365.59
+297,color_size undo_redo,0
+298,paths,2.33248
+298,colors,0.534432
+298,shadows,4.56294
+298,frame_time_ms,7.42986
+298,virtual_size,1172.88
+298,allocated_size,1776.66
+298,color_size,3365.59
+298,color_size undo_redo,0
+299,paths,2.00787
+299,colors,0.518144
+299,shadows,3.94138
+299,frame_time_ms,6.46739
+299,virtual_size,1172.88
+299,allocated_size,1776.66
+299,color_size,3365.59
+299,color_size undo_redo,0
+300,paths,2.23744
+300,colors,0.529408
+300,shadows,4.57114
+300,frame_time_ms,7.33798
+300,virtual_size,1172.88
+300,allocated_size,1776.66
+300,color_size,3365.59
+300,color_size undo_redo,0
+301,paths,2.00192
+301,colors,0.526976
+301,shadows,3.96259
+301,frame_time_ms,6.49149
+301,virtual_size,1172.88
+301,allocated_size,1776.66
+301,color_size,3365.59
+301,color_size undo_redo,0
+302,paths,2.02138
+302,colors,0.542624
+302,shadows,4.55782
+302,frame_time_ms,7.12182
+302,virtual_size,1172.88
+302,allocated_size,1776.66
+302,color_size,3365.59
+302,color_size undo_redo,0
+303,paths,2.01933
+303,colors,0.54768
+303,shadows,3.93728
+303,frame_time_ms,6.50429
+303,virtual_size,1172.88
+303,allocated_size,1776.66
+303,color_size,3365.59
+303,color_size undo_redo,0
+304,paths,1.99987
+304,colors,0.543744
+304,shadows,4.52608
+304,frame_time_ms,7.0697
+304,virtual_size,1172.88
+304,allocated_size,1776.66
+304,color_size,3365.59
+304,color_size undo_redo,0
+305,paths,1.97325
+305,colors,0.5376
+305,shadows,3.98746
+305,frame_time_ms,6.4983
+305,virtual_size,1172.88
+305,allocated_size,1776.66
+305,color_size,3365.59
+305,color_size undo_redo,0
+306,paths,2.28762
+306,colors,0.549888
+306,shadows,4.61005
+306,frame_time_ms,7.44755
+306,virtual_size,1172.88
+306,allocated_size,1776.66
+306,color_size,3365.59
+306,color_size undo_redo,0
+307,paths,2.00704
+307,colors,0.566272
+307,shadows,4.03968
+307,frame_time_ms,6.61299
+307,virtual_size,1172.88
+307,allocated_size,1776.66
+307,color_size,3365.59
+307,color_size undo_redo,0
+308,paths,1.99971
+308,colors,0.562176
+308,shadows,4.66637
+308,frame_time_ms,7.22826
+308,virtual_size,1172.88
+308,allocated_size,1776.66
+308,color_size,3365.59
+308,color_size undo_redo,0
+309,paths,2.34371
+309,colors,0.57344
+309,shadows,4.40013
+309,frame_time_ms,7.31728
+309,virtual_size,1172.88
+309,allocated_size,1776.66
+309,color_size,3365.59
+309,color_size undo_redo,0
+310,paths,1.99872
+310,colors,0.565248
+310,shadows,4.35507
+310,frame_time_ms,6.91904
+310,virtual_size,1172.88
+310,allocated_size,1776.66
+310,color_size,3365.59
+310,color_size undo_redo,0
+311,paths,2.33341
+311,colors,0.56832
+311,shadows,4.55782
+311,frame_time_ms,7.45955
+311,virtual_size,1172.88
+311,allocated_size,1776.66
+311,color_size,3365.59
+311,color_size undo_redo,0
+312,paths,2.03043
+312,colors,0.581632
+312,shadows,4.02739
+312,frame_time_ms,6.63946
+312,virtual_size,1172.88
+312,allocated_size,1776.66
+312,color_size,3365.59
+312,color_size undo_redo,0
+313,paths,2.03162
+313,colors,0.579584
+313,shadows,4.4521
+313,frame_time_ms,7.0633
+313,virtual_size,1172.88
+313,allocated_size,1776.66
+313,color_size,3365.59
+313,color_size undo_redo,0
+314,paths,2.00704
+314,colors,0.587776
+314,shadows,3.9936
+314,frame_time_ms,6.58842
+314,virtual_size,1172.88
+314,allocated_size,1776.66
+314,color_size,3365.59
+314,color_size undo_redo,0
+315,paths,2.03366
+315,colors,0.59392
+315,shadows,4.62541
+315,frame_time_ms,7.25299
+315,virtual_size,1172.88
+315,allocated_size,1776.66
+315,color_size,3365.59
+315,color_size undo_redo,0
+316,paths,2.57434
+316,colors,0.610112
+316,shadows,4.04262
+316,frame_time_ms,7.22707
+316,virtual_size,1172.88
+316,allocated_size,1776.66
+316,color_size,3365.59
+316,color_size undo_redo,0
+317,paths,2.02138
+317,colors,0.614176
+317,shadows,4.59878
+317,frame_time_ms,7.23434
+317,virtual_size,1172.88
+317,allocated_size,1776.66
+317,color_size,3365.59
+317,color_size undo_redo,0
+318,paths,2.02941
+318,colors,0.625664
+318,shadows,4.06118
+318,frame_time_ms,6.71626
+318,virtual_size,1172.88
+318,allocated_size,1776.66
+318,color_size,3365.59
+318,color_size undo_redo,0
+319,paths,1.9968
+319,colors,0.6264
+319,shadows,4.69504
+319,frame_time_ms,7.31824
+319,virtual_size,1172.88
+319,allocated_size,1776.66
+319,color_size,3365.59
+319,color_size undo_redo,0
+320,paths,2.24973
+320,colors,0.618496
+320,shadows,4.58138
+320,frame_time_ms,7.4496
+320,virtual_size,1172.88
+320,allocated_size,1776.66
+320,color_size,3365.59
+320,color_size undo_redo,0
+321,paths,1.99066
+321,colors,0.621312
+321,shadows,4.35213
+321,frame_time_ms,6.9641
+321,virtual_size,1172.88
+321,allocated_size,1776.66
+321,color_size,3365.59
+321,color_size undo_redo,0
+322,paths,2.24768
+322,colors,0.615392
+322,shadows,4.64282
+322,frame_time_ms,7.50589
+322,virtual_size,1172.88
+322,allocated_size,1776.66
+322,color_size,3365.59
+322,color_size undo_redo,0
+323,paths,1.93331
+323,colors,0.60096
+323,shadows,3.97824
+323,frame_time_ms,6.51251
+323,virtual_size,1172.88
+323,allocated_size,1776.66
+323,color_size,3365.59
+323,color_size undo_redo,0
+324,paths,2.25978
+324,colors,0.607232
+324,shadows,4.53802
+324,frame_time_ms,7.40502
+324,virtual_size,1172.88
+324,allocated_size,1776.66
+324,color_size,3365.59
+324,color_size undo_redo,0
+325,paths,1.9712
+325,colors,0.612032
+325,shadows,3.97085
+325,frame_time_ms,6.55408
+325,virtual_size,1172.88
+325,allocated_size,1776.66
+325,color_size,3365.59
+325,color_size undo_redo,0
+326,paths,1.99066
+326,colors,0.625664
+326,shadows,4.5648
+326,frame_time_ms,7.18112
+326,virtual_size,1172.88
+326,allocated_size,1776.66
+326,color_size,3365.59
+326,color_size undo_redo,0
+327,paths,2.25894
+327,colors,0.63488
+327,shadows,4.1175
+327,frame_time_ms,7.01133
+327,virtual_size,1172.88
+327,allocated_size,1776.66
+327,color_size,3365.59
+327,color_size undo_redo,0
+328,paths,2.03469
+328,colors,0.65024
+328,shadows,4.5535
+328,frame_time_ms,7.23843
+328,virtual_size,1172.88
+328,allocated_size,1776.66
+328,color_size,3365.59
+328,color_size undo_redo,0
+329,paths,2.04493
+329,colors,0.669696
+329,shadows,4.05789
+329,frame_time_ms,6.77251
+329,virtual_size,1172.88
+329,allocated_size,1776.66
+329,color_size,3365.59
+329,color_size undo_redo,0
+330,paths,2.0777
+330,colors,0.683008
+330,shadows,4.60493
+330,frame_time_ms,7.36563
+330,virtual_size,1172.88
+330,allocated_size,1776.66
+330,color_size,3365.59
+330,color_size undo_redo,0
+331,paths,2.53747
+331,colors,0.691904
+331,shadows,4.04989
+331,frame_time_ms,7.27926
+331,virtual_size,1172.88
+331,allocated_size,1776.66
+331,color_size,3365.59
+331,color_size undo_redo,0
+332,paths,2.11661
+332,colors,0.714496
+332,shadows,4.79824
+332,frame_time_ms,7.62934
+332,virtual_size,1172.88
+332,allocated_size,1776.66
+332,color_size,3365.59
+332,color_size undo_redo,0
+333,paths,2.47296
+333,colors,0.737152
+333,shadows,4.39296
+333,frame_time_ms,7.60307
+333,virtual_size,1172.88
+333,allocated_size,1776.66
+333,color_size,3365.59
+333,color_size undo_redo,0
+334,paths,2.42176
+334,colors,0.7648
+334,shadows,4.49808
+334,frame_time_ms,7.68464
+334,virtual_size,1172.88
+334,allocated_size,1776.66
+334,color_size,3365.59
+334,color_size undo_redo,0
+335,paths,2.20262
+335,colors,0.78336
+335,shadows,4.48512
+335,frame_time_ms,7.4711
+335,virtual_size,1172.88
+335,allocated_size,1776.66
+335,color_size,3365.59
+335,color_size undo_redo,0
+336,paths,2.51984
+336,colors,0.784192
+336,shadows,4.90266
+336,frame_time_ms,8.20669
+336,virtual_size,1172.88
+336,allocated_size,1776.66
+336,color_size,3365.59
+336,color_size undo_redo,0
+337,paths,2.48832
+337,colors,0.816128
+337,shadows,4.48614
+337,frame_time_ms,7.79059
+337,virtual_size,1172.88
+337,allocated_size,1776.66
+337,color_size,3365.59
+337,color_size undo_redo,0
+338,paths,2.2689
+338,colors,0.830464
+338,shadows,4.51066
+338,frame_time_ms,7.61002
+338,virtual_size,1172.88
+338,allocated_size,1776.66
+338,color_size,3365.59
+338,color_size undo_redo,0
+339,paths,2.61222
+339,colors,0.86016
+339,shadows,4.6048
+339,frame_time_ms,8.07718
+339,virtual_size,1172.88
+339,allocated_size,1776.66
+339,color_size,3365.59
+339,color_size undo_redo,0
+340,paths,2.98086
+340,colors,0.89088
+340,shadows,4.54963
+340,frame_time_ms,8.42138
+340,virtual_size,1172.88
+340,allocated_size,1776.66
+340,color_size,3365.59
+340,color_size undo_redo,0
+341,paths,2.40435
+341,colors,0.91648
+341,shadows,4.30378
+341,frame_time_ms,7.62461
+341,virtual_size,1172.88
+341,allocated_size,1776.66
+341,color_size,3365.59
+341,color_size undo_redo,0
+342,paths,2.47091
+342,colors,0.929664
+342,shadows,4.72147
+342,frame_time_ms,8.12205
+342,virtual_size,1172.88
+342,allocated_size,1776.66
+342,color_size,3365.59
+342,color_size undo_redo,0
+343,paths,2.83853
+343,colors,0.946176
+343,shadows,4.8065
+343,frame_time_ms,8.5912
+343,virtual_size,1172.88
+343,allocated_size,1776.66
+343,color_size,3365.59
+343,color_size undo_redo,0
+344,paths,2.83853
+344,colors,0.96256
+344,shadows,4.94694
+344,frame_time_ms,8.74803
+344,virtual_size,1172.88
+344,allocated_size,1776.66
+344,color_size,3365.59
+344,color_size undo_redo,0
+345,paths,2.60198
+345,colors,0.974848
+345,shadows,4.4073
+345,frame_time_ms,7.98413
+345,virtual_size,1172.88
+345,allocated_size,1776.66
+345,color_size,3365.59
+345,color_size undo_redo,0
+346,paths,2.61222
+346,colors,0.99328
+346,shadows,4.71334
+346,frame_time_ms,8.31885
+346,virtual_size,1172.88
+346,allocated_size,1776.66
+346,color_size,3365.59
+346,color_size undo_redo,0
+347,paths,2.97267
+347,colors,1.05558
+347,shadows,4.75021
+347,frame_time_ms,8.77846
+347,virtual_size,1172.88
+347,allocated_size,1776.66
+347,color_size,3365.59
+347,color_size undo_redo,0
+348,paths,3.26758
+348,colors,1.03424
+348,shadows,4.80666
+348,frame_time_ms,9.10848
+348,virtual_size,1172.88
+348,allocated_size,1776.66
+348,color_size,3365.59
+348,color_size undo_redo,0
+349,paths,3.25939
+349,colors,1.0455
+349,shadows,4.80051
+349,frame_time_ms,9.10541
+349,virtual_size,1172.88
+349,allocated_size,1776.66
+349,color_size,3365.59
+349,color_size undo_redo,0
+350,paths,2.76275
+350,colors,1.06803
+350,shadows,4.74086
+350,frame_time_ms,8.57165
+350,virtual_size,1172.88
+350,allocated_size,1776.66
+350,color_size,3365.59
+350,color_size undo_redo,0
+351,paths,2.78118
+351,colors,1.58618
+351,shadows,4.49312
+351,frame_time_ms,8.86048
+351,virtual_size,1172.88
+351,allocated_size,1776.66
+351,color_size,3365.59
+351,color_size undo_redo,0
+352,paths,2.8375
+352,colors,1.48787
+352,shadows,4.52198
+352,frame_time_ms,8.84736
+352,virtual_size,1172.88
+352,allocated_size,1776.66
+352,color_size,3365.59
+352,color_size undo_redo,0
+353,paths,3.00134
+353,colors,1.26224
+353,shadows,4.94899
+353,frame_time_ms,9.21258
+353,virtual_size,1172.88
+353,allocated_size,1776.66
+353,color_size,3365.59
+353,color_size undo_redo,0
+354,paths,3.21638
+354,colors,1.63123
+354,shadows,4.87424
+354,frame_time_ms,9.72186
+354,virtual_size,1172.88
+354,allocated_size,1776.66
+354,color_size,3365.59
+354,color_size undo_redo,0
+355,paths,3.41162
+355,colors,1.80224
+355,shadows,5.70259
+355,frame_time_ms,10.9164
+355,virtual_size,1172.88
+355,allocated_size,1776.66
+355,color_size,3365.59
+355,color_size undo_redo,0
+356,paths,4.02432
+356,colors,1.5841
+356,shadows,6.34982
+356,frame_time_ms,11.9582
+356,virtual_size,1172.88
+356,allocated_size,1776.66
+356,color_size,3365.59
+356,color_size undo_redo,0
+357,paths,3.79264
+357,colors,2.00192
+357,shadows,6.14797
+357,frame_time_ms,11.9425
+357,virtual_size,1172.88
+357,allocated_size,1776.66
+357,color_size,3365.59
+357,color_size undo_redo,0
+358,paths,4.20237
+358,colors,1.7961
+358,shadows,6.58739
+358,frame_time_ms,12.5859
+358,virtual_size,1172.88
+358,allocated_size,1776.66
+358,color_size,3365.59
+358,color_size undo_redo,0
+359,paths,4.43392
+359,colors,1.90541
+359,shadows,6.08438
+359,frame_time_ms,12.4237
+359,virtual_size,1172.88
+359,allocated_size,1776.66
+359,color_size,3365.59
+359,color_size undo_redo,0
+360,paths,4.73907
+360,colors,1.97837
+360,shadows,6.81472
+360,frame_time_ms,13.5322
+360,virtual_size,1172.88
+360,allocated_size,1776.66
+360,color_size,3365.59
+360,color_size undo_redo,0
+361,paths,4.77469
+361,colors,2.65728
+361,shadows,6.78707
+361,frame_time_ms,14.219
+361,virtual_size,1172.88
+361,allocated_size,1776.66
+361,color_size,3365.59
+361,color_size undo_redo,0
+362,paths,5.23674
+362,colors,2.52006
+362,shadows,6.41741
+362,frame_time_ms,14.1742
+362,virtual_size,1172.88
+362,allocated_size,1776.66
+362,color_size,3365.59
+362,color_size undo_redo,0
+363,paths,5.17837
+363,colors,2.29888
+363,shadows,6.92019
+363,frame_time_ms,14.3974
+363,virtual_size,1172.88
+363,allocated_size,1776.66
+363,color_size,3365.59
+363,color_size undo_redo,0
+364,paths,5.44435
+364,colors,2.35402
+364,shadows,7.12602
+364,frame_time_ms,14.9244
+364,virtual_size,1172.88
+364,allocated_size,1776.66
+364,color_size,3365.59
+364,color_size undo_redo,0
+365,paths,5.10259
+365,colors,2.44224
+365,shadows,7.15866
+365,frame_time_ms,14.7035
+365,virtual_size,1172.88
+365,allocated_size,1776.66
+365,color_size,3365.59
+365,color_size undo_redo,0
+366,paths,5.07699
+366,colors,2.82317
+366,shadows,7.18234
+366,frame_time_ms,15.0825
+366,virtual_size,1172.88
+366,allocated_size,1776.66
+366,color_size,3365.59
+366,color_size undo_redo,0
+367,paths,4.96438
+367,colors,2.89792
+367,shadows,7.34413
+367,frame_time_ms,15.2064
+367,virtual_size,1172.88
+367,allocated_size,1776.66
+367,color_size,3365.59
+367,color_size undo_redo,0
+368,paths,5.45382
+368,colors,2.9399
+368,shadows,7.40864
+368,frame_time_ms,15.8024
+368,virtual_size,1172.88
+368,allocated_size,1776.66
+368,color_size,3365.59
+368,color_size undo_redo,0
+369,paths,5.49171
+369,colors,2.86707
+369,shadows,7.2192
+369,frame_time_ms,15.578
+369,virtual_size,1172.88
+369,allocated_size,1776.66
+369,color_size,3365.59
+369,color_size undo_redo,0
+370,paths,5.52038
+370,colors,2.96243
+370,shadows,7.23875
+370,frame_time_ms,15.7216
+370,virtual_size,1172.88
+370,allocated_size,1776.66
+370,color_size,3365.59
+370,color_size undo_redo,0
+371,paths,5.65965
+371,colors,2.99418
+371,shadows,7.31238
+371,frame_time_ms,15.9662
+371,virtual_size,1172.88
+371,allocated_size,1776.66
+371,color_size,3365.59
+371,color_size undo_redo,0
+372,paths,5.56339
+372,colors,3.08531
+372,shadows,7.39226
+372,frame_time_ms,16.041
+372,virtual_size,1172.88
+372,allocated_size,1776.66
+372,color_size,3365.59
+372,color_size undo_redo,0
+373,paths,5.64102
+373,colors,3.10864
+373,shadows,7.42912
+373,frame_time_ms,16.1788
+373,virtual_size,1172.88
+373,allocated_size,1776.66
+373,color_size,3365.59
+373,color_size undo_redo,0
+374,paths,5.66682
+374,colors,3.18874
+374,shadows,7.5049
+374,frame_time_ms,16.3604
+374,virtual_size,1172.88
+374,allocated_size,1776.66
+374,color_size,3365.59
+374,color_size undo_redo,0
+375,paths,5.94218
+375,colors,2.86182
+375,shadows,7.68102
+375,frame_time_ms,16.485
+375,virtual_size,1172.88
+375,allocated_size,1776.66
+375,color_size,3365.59
+375,color_size undo_redo,0
+376,paths,6.31296
+376,colors,2.84058
+376,shadows,7.39021
+376,frame_time_ms,16.5437
+376,virtual_size,1172.88
+376,allocated_size,1776.66
+376,color_size,3365.59
+376,color_size undo_redo,0
+377,paths,6.10282
+377,colors,3.26733
+377,shadows,7.78234
+377,frame_time_ms,17.1525
+377,virtual_size,1172.88
+377,allocated_size,1776.66
+377,color_size,3365.59
+377,color_size undo_redo,0
+378,paths,5.69347
+378,colors,3.10784
+378,shadows,7.79651
+378,frame_time_ms,16.5978
+378,virtual_size,1172.88
+378,allocated_size,1776.66
+378,color_size,3365.59
+378,color_size undo_redo,0
+379,paths,5.39018
+379,colors,3.08838
+379,shadows,7.54787
+379,frame_time_ms,16.0264
+379,virtual_size,1172.88
+379,allocated_size,1776.66
+379,color_size,3365.59
+379,color_size undo_redo,0
+380,paths,5.66784
+380,colors,2.66854
+380,shadows,7.09632
+380,frame_time_ms,15.4327
+380,virtual_size,1172.88
+380,allocated_size,1776.66
+380,color_size,3365.59
+380,color_size undo_redo,0
+381,paths,4.9969
+381,colors,2.96243
+381,shadows,7.03363
+381,frame_time_ms,14.993
+381,virtual_size,1172.88
+381,allocated_size,1776.66
+381,color_size,3365.59
+381,color_size undo_redo,0
+382,paths,5.18438
+382,colors,2.83853
+382,shadows,6.83725
+382,frame_time_ms,14.8602
+382,virtual_size,1172.88
+382,allocated_size,1776.66
+382,color_size,3365.59
+382,color_size undo_redo,0
+383,paths,5.05635
+383,colors,2.84262
+383,shadows,6.8567
+383,frame_time_ms,14.7557
+383,virtual_size,1172.88
+383,allocated_size,1776.66
+383,color_size,3365.59
+383,color_size undo_redo,0
+384,paths,5.26336
+384,colors,2.97062
+384,shadows,7.03075
+384,frame_time_ms,15.2647
+384,virtual_size,1172.88
+384,allocated_size,1776.66
+384,color_size,3365.59
+384,color_size undo_redo,0
+385,paths,4.89882
+385,colors,2.29581
+385,shadows,6.77766
+385,frame_time_ms,13.9723
+385,virtual_size,1172.88
+385,allocated_size,1776.66
+385,color_size,3365.59
+385,color_size undo_redo,0
+386,paths,4.93056
+386,colors,2.19923
+386,shadows,6.75533
+386,frame_time_ms,13.8851
+386,virtual_size,1172.88
+386,allocated_size,1776.66
+386,color_size,3365.59
+386,color_size undo_redo,0
+387,paths,4.22502
+387,colors,2.79757
+387,shadows,6.63859
+387,frame_time_ms,13.6612
+387,virtual_size,1172.88
+387,allocated_size,1776.66
+387,color_size,3365.59
+387,color_size undo_redo,0
+388,paths,4.55475
+388,colors,2.08486
+388,shadows,7.0144
+388,frame_time_ms,13.654
+388,virtual_size,1172.88
+388,allocated_size,1776.66
+388,color_size,3365.59
+388,color_size undo_redo,0
+389,paths,4.07418
+389,colors,2.37338
+389,shadows,6.47578
+389,frame_time_ms,12.9233
+389,virtual_size,1172.88
+389,allocated_size,1776.66
+389,color_size,3365.59
+389,color_size undo_redo,0
+390,paths,4.42573
+390,colors,2.28762
+390,shadows,6.33226
+390,frame_time_ms,13.0456
+390,virtual_size,1172.88
+390,allocated_size,1776.66
+390,color_size,3365.59
+390,color_size undo_redo,0
+391,paths,4.56275
+391,colors,2.09408
+391,shadows,6.68877
+391,frame_time_ms,13.3456
+391,virtual_size,1172.88
+391,allocated_size,1776.66
+391,color_size,3365.59
+391,color_size undo_redo,0
+392,paths,4.18509
+392,colors,2.42586
+392,shadows,6.84208
+392,frame_time_ms,13.453
+392,virtual_size,1172.88
+392,allocated_size,1776.66
+392,color_size,3365.59
+392,color_size undo_redo,0
+393,paths,4.79949
+393,colors,2.55898
+393,shadows,6.61811
+393,frame_time_ms,13.9766
+393,virtual_size,1172.88
+393,allocated_size,1776.66
+393,color_size,3365.59
+393,color_size undo_redo,0
+394,paths,4.80461
+394,colors,2.19443
+394,shadows,6.63245
+394,frame_time_ms,13.6315
+394,virtual_size,1172.88
+394,allocated_size,1776.66
+394,color_size,3365.59
+394,color_size undo_redo,0
+395,paths,4.57933
+395,colors,2.14118
+395,shadows,6.63654
+395,frame_time_ms,13.3571
+395,virtual_size,1172.88
+395,allocated_size,1776.66
+395,color_size,3365.59
+395,color_size undo_redo,0
+396,paths,4.65101
+396,colors,2.83238
+396,shadows,6.53107
+396,frame_time_ms,14.0145
+396,virtual_size,1172.88
+396,allocated_size,1776.66
+396,color_size,3365.59
+396,color_size undo_redo,0
+397,paths,4.97459
+397,colors,2.24358
+397,shadows,6.87901
+397,frame_time_ms,14.0972
+397,virtual_size,1172.88
+397,allocated_size,1776.66
+397,color_size,3365.59
+397,color_size undo_redo,0
+398,paths,5.29101
+398,colors,2.26714
+398,shadows,6.62016
+398,frame_time_ms,14.1783
+398,virtual_size,1172.88
+398,allocated_size,1776.66
+398,color_size,3365.59
+398,color_size undo_redo,0
+399,paths,4.72269
+399,colors,2.29274
+399,shadows,6.85974
+399,frame_time_ms,13.8752
+399,virtual_size,1172.88
+399,allocated_size,1776.66
+399,color_size,3365.59
+399,color_size undo_redo,0
+400,paths,4.49126
+400,colors,2.63254
+400,shadows,6.65085
+400,frame_time_ms,13.7747
+400,virtual_size,1172.88
+400,allocated_size,1776.66
+400,color_size,3365.59
+400,color_size undo_redo,0
+401,paths,5.13712
+401,colors,2.95424
+401,shadows,6.54643
+401,frame_time_ms,14.6378
+401,virtual_size,1172.88
+401,allocated_size,1776.66
+401,color_size,3365.59
+401,color_size undo_redo,0
+402,paths,5.01958
+402,colors,2.71974
+402,shadows,6.09674
+402,frame_time_ms,13.8361
+402,virtual_size,1172.88
+402,allocated_size,1776.66
+402,color_size,3365.59
+402,color_size undo_redo,0
+403,paths,4.82918
+403,colors,2.38355
+403,shadows,6.58022
+403,frame_time_ms,13.793
+403,virtual_size,1172.88
+403,allocated_size,1776.66
+403,color_size,3365.59
+403,color_size undo_redo,0
+404,paths,4.60893
+404,colors,2.91635
+404,shadows,6.52493
+404,frame_time_ms,14.0502
+404,virtual_size,1172.88
+404,allocated_size,1776.66
+404,color_size,3365.59
+404,color_size undo_redo,0
+405,paths,5.248
+405,colors,2.92762
+405,shadows,6.48602
+405,frame_time_ms,14.6616
+405,virtual_size,1172.88
+405,allocated_size,1776.66
+405,color_size,3365.59
+405,color_size undo_redo,0
+406,paths,5.12102
+406,colors,2.38387
+406,shadows,6.9591
+406,frame_time_ms,14.464
+406,virtual_size,1172.88
+406,allocated_size,1776.66
+406,color_size,3365.59
+406,color_size undo_redo,0
+407,paths,4.76058
+407,colors,2.7136
+407,shadows,6.77581
+407,frame_time_ms,14.25
+407,virtual_size,1172.88
+407,allocated_size,1776.66
+407,color_size,3365.59
+407,color_size undo_redo,0
+408,paths,4.76979
+408,colors,2.98086
+408,shadows,6.58842
+408,frame_time_ms,14.3391
+408,virtual_size,1172.88
+408,allocated_size,1776.66
+408,color_size,3365.59
+408,color_size undo_redo,0
+409,paths,5.07597
+409,colors,2.66922
+409,shadows,6.43277
+409,frame_time_ms,14.178
+409,virtual_size,1172.88
+409,allocated_size,1776.66
+409,color_size,3365.59
+409,color_size undo_redo,0
+410,paths,5.00736
+410,colors,2.3767
+410,shadows,6.46042
+410,frame_time_ms,13.8445
+410,virtual_size,1172.88
+410,allocated_size,1776.66
+410,color_size,3365.59
+410,color_size undo_redo,0
+411,paths,4.39501
+411,colors,2.74432
+411,shadows,6.51264
+411,frame_time_ms,13.652
+411,virtual_size,1172.88
+411,allocated_size,1776.66
+411,color_size,3365.59
+411,color_size undo_redo,0
+412,paths,4.97869
+412,colors,2.2999
+412,shadows,6.16038
+412,frame_time_ms,13.439
+412,virtual_size,1172.88
+412,allocated_size,1776.66
+412,color_size,3365.59
+412,color_size undo_redo,0
+413,paths,4.78394
+413,colors,2.22925
+413,shadows,6.20442
+413,frame_time_ms,13.2176
+413,virtual_size,1172.88
+413,allocated_size,1776.66
+413,color_size,3365.59
+413,color_size undo_redo,0
+414,paths,4.64077
+414,colors,2.7863
+414,shadows,6.24637
+414,frame_time_ms,13.6734
+414,virtual_size,1172.88
+414,allocated_size,1776.66
+414,color_size,3365.59
+414,color_size undo_redo,0
+415,paths,4.5913
+415,colors,2.10646
+415,shadows,5.86022
+415,frame_time_ms,12.558
+415,virtual_size,1172.88
+415,allocated_size,1776.66
+415,color_size,3365.59
+415,color_size undo_redo,0
+416,paths,4.06528
+416,colors,2.29274
+416,shadows,6.01395
+416,frame_time_ms,12.372
+416,virtual_size,1172.88
+416,allocated_size,1776.66
+416,color_size,3365.59
+416,color_size undo_redo,0
+417,paths,4.59581
+417,colors,2.06336
+417,shadows,5.44563
+417,frame_time_ms,12.1048
+417,virtual_size,1172.88
+417,allocated_size,1776.66
+417,color_size,3365.59
+417,color_size undo_redo,0
+418,paths,4.27008
+418,colors,2.36646
+418,shadows,5.01331
+418,frame_time_ms,11.6499
+418,virtual_size,1172.88
+418,allocated_size,1776.66
+418,color_size,3365.59
+418,color_size undo_redo,0
+419,paths,3.98714
+419,colors,2.48832
+419,shadows,5.5808
+419,frame_time_ms,12.0563
+419,virtual_size,1172.88
+419,allocated_size,1776.66
+419,color_size,3365.59
+419,color_size undo_redo,0
+420,paths,4.65818
+420,colors,2.21286
+420,shadows,5.34426
+420,frame_time_ms,12.2153
+420,virtual_size,1172.88
+420,allocated_size,1776.66
+420,color_size,3365.59
+420,color_size undo_redo,0
+421,paths,4.2281
+421,colors,2.99622
+421,shadows,5.55008
+421,frame_time_ms,12.7744
+421,virtual_size,1172.88
+421,allocated_size,1776.66
+421,color_size,3365.59
+421,color_size undo_redo,0
+422,paths,4.97664
+422,colors,2.34067
+422,shadows,5.23059
+422,frame_time_ms,12.5479
+422,virtual_size,1172.88
+422,allocated_size,1776.66
+422,color_size,3365.59
+422,color_size undo_redo,0
+423,paths,4.47488
+423,colors,2.46784
+423,shadows,5.55504
+423,frame_time_ms,12.4978
+423,virtual_size,1172.88
+423,allocated_size,1776.66
+423,color_size,3365.59
+423,color_size undo_redo,0
+424,paths,5.09533
+424,colors,2.53747
+424,shadows,5.36678
+424,frame_time_ms,12.9996
+424,virtual_size,1172.88
+424,allocated_size,1776.66
+424,color_size,3365.59
+424,color_size undo_redo,0
+425,paths,4.8097
+425,colors,3.08109
+425,shadows,5.82042
+425,frame_time_ms,13.7112
+425,virtual_size,1172.88
+425,allocated_size,1776.66
+425,color_size,3365.59
+425,color_size undo_redo,0
+426,paths,5.37386
+426,colors,3.14163
+426,shadows,5.54982
+426,frame_time_ms,14.0653
+426,virtual_size,1172.88
+426,allocated_size,1776.66
+426,color_size,3365.59
+426,color_size undo_redo,0
+427,paths,5.4415
+427,colors,2.78323
+427,shadows,5.65043
+427,frame_time_ms,13.8752
+427,virtual_size,1172.88
+427,allocated_size,1776.66
+427,color_size,3365.59
+427,color_size undo_redo,0
+428,paths,5.02784
+428,colors,3.18976
+428,shadows,5.61562
+428,frame_time_ms,13.8332
+428,virtual_size,1172.88
+428,allocated_size,1776.66
+428,color_size,3365.59
+428,color_size undo_redo,0
+429,paths,5.23162
+429,colors,3.36896
+429,shadows,5.60829
+429,frame_time_ms,14.2089
+429,virtual_size,1172.88
+429,allocated_size,1776.66
+429,color_size,3365.59
+429,color_size undo_redo,0
+430,paths,5.45699
+430,colors,2.71053
+430,shadows,5.08211
+430,frame_time_ms,13.2496
+430,virtual_size,1172.88
+430,allocated_size,1776.66
+430,color_size,3365.59
+430,color_size undo_redo,0
+431,paths,5.1497
+431,colors,2.63475
+431,shadows,5.68906
+431,frame_time_ms,13.4735
+431,virtual_size,1172.88
+431,allocated_size,1776.66
+431,color_size,3365.59
+431,color_size undo_redo,0
+432,paths,4.93862
+432,colors,2.88358
+432,shadows,5.02784
+432,frame_time_ms,12.85
+432,virtual_size,1172.88
+432,allocated_size,1776.66
+432,color_size,3365.59
+432,color_size undo_redo,0
+433,paths,5.25824
+433,colors,2.59994
+433,shadows,5.31968
+433,frame_time_ms,13.1779
+433,virtual_size,1172.88
+433,allocated_size,1776.66
+433,color_size,3365.59
+433,color_size undo_redo,0
+434,paths,4.66637
+434,colors,2.91635
+434,shadows,5.64736
+434,frame_time_ms,13.2301
+434,virtual_size,1172.88
+434,allocated_size,1776.66
+434,color_size,3365.59
+434,color_size undo_redo,0
+435,paths,5.33606
+435,colors,3.12218
+435,shadows,5.08006
+435,frame_time_ms,13.5383
+435,virtual_size,1172.88
+435,allocated_size,1776.66
+435,color_size,3365.59
+435,color_size undo_redo,0
+436,paths,5.05856
+436,colors,2.67264
+436,shadows,5.47942
+436,frame_time_ms,13.2106
+436,virtual_size,1172.88
+436,allocated_size,1776.66
+436,color_size,3365.59
+436,color_size undo_redo,0
+437,paths,5.36576
+437,colors,3.36896
+437,shadows,5.4825
+437,frame_time_ms,14.2172
+437,virtual_size,1172.88
+437,allocated_size,1776.66
+437,color_size,3365.59
+437,color_size undo_redo,0
+438,paths,5.39546
+438,colors,2.98701
+438,shadows,5.52339
+438,frame_time_ms,13.9059
+438,virtual_size,1172.88
+438,allocated_size,1776.66
+438,color_size,3365.59
+438,color_size undo_redo,0
+439,paths,5.31149
+439,colors,2.75251
+439,shadows,5.54086
+439,frame_time_ms,13.6049
+439,virtual_size,1172.88
+439,allocated_size,1776.66
+439,color_size,3365.59
+439,color_size undo_redo,0
+440,paths,4.90685
+440,colors,3.22662
+440,shadows,5.52317
+440,frame_time_ms,13.6566
+440,virtual_size,1172.88
+440,allocated_size,1776.66
+440,color_size,3365.59
+440,color_size undo_redo,0
+441,paths,5.41594
+441,colors,3.2215
+441,shadows,5.52755
+441,frame_time_ms,14.165
+441,virtual_size,1172.88
+441,allocated_size,1776.66
+441,color_size,3365.59
+441,color_size undo_redo,0
+442,paths,5.47104
+442,colors,2.73715
+442,shadows,5.65862
+442,frame_time_ms,13.8668
+442,virtual_size,1172.88
+442,allocated_size,1776.66
+442,color_size,3365.59
+442,color_size undo_redo,0
+443,paths,5.04115
+443,colors,2.80666
+443,shadows,5.72928
+443,frame_time_ms,13.5771
+443,virtual_size,1172.88
+443,allocated_size,1776.66
+443,color_size,3365.59
+443,color_size undo_redo,0
+444,paths,5.38726
+444,colors,3.24915
+444,shadows,5.73542
+444,frame_time_ms,14.3718
+444,virtual_size,1172.88
+444,allocated_size,1776.66
+444,color_size,3365.59
+444,color_size undo_redo,0
+445,paths,5.91443
+445,colors,3.19795
+445,shadows,5.59619
+445,frame_time_ms,14.7086
+445,virtual_size,1172.88
+445,allocated_size,1776.66
+445,color_size,3365.59
+445,color_size undo_redo,0
+446,paths,6.05798
+446,colors,3.19792
+446,shadows,5.63405
+446,frame_time_ms,14.89
+446,virtual_size,1172.88
+446,allocated_size,1776.66
+446,color_size,3365.59
+446,color_size undo_redo,0
+447,paths,5.85011
+447,colors,2.91226
+447,shadows,6.14912
+447,frame_time_ms,14.9115
+447,virtual_size,1172.88
+447,allocated_size,1776.66
+447,color_size,3365.59
+447,color_size undo_redo,0
+448,paths,5.88083
+448,colors,2.97062
+448,shadows,5.82928
+448,frame_time_ms,14.6807
+448,virtual_size,1172.88
+448,allocated_size,1776.66
+448,color_size,3365.59
+448,color_size undo_redo,0
+449,paths,5.55213
+449,colors,3.34131
+449,shadows,5.80403
+449,frame_time_ms,14.6975
+449,virtual_size,1172.88
+449,allocated_size,1776.66
+449,color_size,3365.59
+449,color_size undo_redo,0
+450,paths,5.58051
+450,colors,2.93274
+450,shadows,5.74874
+450,frame_time_ms,14.262
+450,virtual_size,1172.88
+450,allocated_size,1776.66
+450,color_size,3365.59
+450,color_size undo_redo,0
+451,paths,5.7639
+451,colors,3.31133
+451,shadows,5.42208
+451,frame_time_ms,14.4973
+451,virtual_size,1172.88
+451,allocated_size,1776.66
+451,color_size,3365.59
+451,color_size undo_redo,0
+452,paths,6.16038
+452,colors,3.41504
+452,shadows,5.67078
+452,frame_time_ms,15.2462
+452,virtual_size,1172.88
+452,allocated_size,1776.66
+452,color_size,3365.59
+452,color_size undo_redo,0
+453,paths,6.25664
+453,colors,3.5287
+453,shadows,5.88288
+453,frame_time_ms,15.6682
+453,virtual_size,1172.88
+453,allocated_size,1776.66
+453,color_size,3365.59
+453,color_size undo_redo,0
+454,paths,6.11226
+454,colors,3.22541
+454,shadows,6.19405
+454,frame_time_ms,15.5317
+454,virtual_size,1172.88
+454,allocated_size,1776.66
+454,color_size,3365.59
+454,color_size undo_redo,0
+455,paths,6.2985
+455,colors,3.27578
+455,shadows,6.3793
+455,frame_time_ms,15.9536
+455,virtual_size,1172.88
+455,allocated_size,1776.66
+455,color_size,3365.59
+455,color_size undo_redo,0
+456,paths,6.144
+456,colors,3.19062
+456,shadows,6.52083
+456,frame_time_ms,15.8555
+456,virtual_size,1172.88
+456,allocated_size,1776.66
+456,color_size,3365.59
+456,color_size undo_redo,0
+457,paths,6.38842
+457,colors,3.18154
+457,shadows,6.36826
+457,frame_time_ms,15.9382
+457,virtual_size,1172.88
+457,allocated_size,1776.66
+457,color_size,3365.59
+457,color_size undo_redo,0
+458,paths,6.50854
+458,colors,3.41709
+458,shadows,6.10304
+458,frame_time_ms,16.0287
+458,virtual_size,1172.88
+458,allocated_size,1776.66
+458,color_size,3365.59
+458,color_size undo_redo,0
+459,paths,6.21056
+459,colors,3.48467
+459,shadows,6.32013
+459,frame_time_ms,16.0154
+459,virtual_size,1172.88
+459,allocated_size,1776.66
+459,color_size,3365.59
+459,color_size undo_redo,0
+460,paths,6.18896
+460,colors,3.4263
+460,shadows,6.45427
+460,frame_time_ms,16.0695
+460,virtual_size,1172.88
+460,allocated_size,1776.66
+460,color_size,3365.59
+460,color_size undo_redo,0
+461,paths,6.27098
+461,colors,3.44064
+461,shadows,6.71744
+461,frame_time_ms,16.4291
+461,virtual_size,1172.88
+461,allocated_size,1776.66
+461,color_size,3365.59
+461,color_size undo_redo,0
+462,paths,6.01395
+462,colors,3.1959
+462,shadows,7.28576
+462,frame_time_ms,16.4956
+462,virtual_size,1172.88
+462,allocated_size,1776.66
+462,color_size,3365.59
+462,color_size undo_redo,0
+463,paths,6.02931
+463,colors,3.1833
+463,shadows,8.15616
+463,frame_time_ms,17.3688
+463,virtual_size,1172.88
+463,allocated_size,1776.66
+463,color_size,3365.59
+463,color_size undo_redo,0
+464,paths,6.29453
+464,colors,3.80003
+464,shadows,8.0087
+464,frame_time_ms,18.1033
+464,virtual_size,1172.88
+464,allocated_size,1776.66
+464,color_size,3365.59
+464,color_size undo_redo,0
+465,paths,5.91872
+465,colors,3.16416
+465,shadows,8.01562
+465,frame_time_ms,17.0985
+465,virtual_size,1172.88
+465,allocated_size,1776.66
+465,color_size,3365.59
+465,color_size undo_redo,0
+466,paths,6.4919
+466,colors,3.45293
+466,shadows,7.66019
+466,frame_time_ms,17.605
+466,virtual_size,1172.88
+466,allocated_size,1776.66
+466,color_size,3365.59
+466,color_size undo_redo,0
+467,paths,6.23514
+467,colors,3.57162
+467,shadows,8.0384
+467,frame_time_ms,17.8452
+467,virtual_size,1172.88
+467,allocated_size,1776.66
+467,color_size,3365.59
+467,color_size undo_redo,0
+468,paths,5.94192
+468,colors,3.11296
+468,shadows,8.12339
+468,frame_time_ms,17.1783
+468,virtual_size,1172.88
+468,allocated_size,1776.66
+468,color_size,3365.59
+468,color_size undo_redo,0
+469,paths,6.46758
+469,colors,3.08326
+469,shadows,7.74144
+469,frame_time_ms,17.2923
+469,virtual_size,1172.88
+469,allocated_size,1776.66
+469,color_size,3365.59
+469,color_size undo_redo,0
+470,paths,6.04774
+470,colors,3.39952
+470,shadows,7.95238
+470,frame_time_ms,17.3996
+470,virtual_size,1172.88
+470,allocated_size,1776.66
+470,color_size,3365.59
+470,color_size undo_redo,0
+471,paths,5.69834
+471,colors,3.03002
+471,shadows,8.40192
+471,frame_time_ms,17.1303
+471,virtual_size,1172.88
+471,allocated_size,1776.66
+471,color_size,3365.59
+471,color_size undo_redo,0
+472,paths,5.87059
+472,colors,2.97949
+472,shadows,8.06707
+472,frame_time_ms,16.9172
+472,virtual_size,1172.88
+472,allocated_size,1776.66
+472,color_size,3365.59
+472,color_size undo_redo,0
+473,paths,5.66886
+473,colors,3.27373
+473,shadows,8.10461
+473,frame_time_ms,17.0472
+473,virtual_size,1172.88
+473,allocated_size,1776.66
+473,color_size,3365.59
+473,color_size undo_redo,0
+474,paths,6.20851
+474,colors,2.92045
+474,shadows,8.0087
+474,frame_time_ms,17.1377
+474,virtual_size,1172.88
+474,allocated_size,1776.66
+474,color_size,3365.59
+474,color_size undo_redo,0
+475,paths,5.89398
+475,colors,2.92966
+475,shadows,7.97798
+475,frame_time_ms,16.8016
+475,virtual_size,1172.88
+475,allocated_size,1776.66
+475,color_size,3365.59
+475,color_size undo_redo,0
+476,paths,5.8703
+476,colors,3.36778
+476,shadows,7.85818
+476,frame_time_ms,17.0963
+476,virtual_size,1172.88
+476,allocated_size,1776.66
+476,color_size,3365.59
+476,color_size undo_redo,0
+477,paths,5.53677
+477,colors,3.2705
+477,shadows,8.0105
+477,frame_time_ms,16.8178
+477,virtual_size,1172.88
+477,allocated_size,1776.66
+477,color_size,3365.59
+477,color_size undo_redo,0
+478,paths,6.11002
+478,colors,2.89178
+478,shadows,7.78342
+478,frame_time_ms,16.7852
+478,virtual_size,1172.88
+478,allocated_size,1776.66
+478,color_size,3365.59
+478,color_size undo_redo,0
+479,paths,6.07949
+479,colors,2.89587
+479,shadows,7.3809
+479,frame_time_ms,16.3563
+479,virtual_size,1172.88
+479,allocated_size,1776.66
+479,color_size,3365.59
+479,color_size undo_redo,0
+480,paths,6.17882
+480,colors,3.18563
+480,shadows,7.07059
+480,frame_time_ms,16.435
+480,virtual_size,1172.88
+480,allocated_size,1776.66
+480,color_size,3365.59
+480,color_size undo_redo,0
+481,paths,5.6616
+481,colors,3.16826
+481,shadows,6.91098
+481,frame_time_ms,15.7408
+481,virtual_size,1172.88
+481,allocated_size,1776.66
+481,color_size,3365.59
+481,color_size undo_redo,0
+482,paths,5.40672
+482,colors,3.2256
+482,shadows,7.168
+482,frame_time_ms,15.8003
+482,virtual_size,1172.88
+482,allocated_size,1776.66
+482,color_size,3365.59
+482,color_size undo_redo,0
+483,paths,5.59514
+483,colors,3.10989
+483,shadows,6.62118
+483,frame_time_ms,15.3262
+483,virtual_size,1172.88
+483,allocated_size,1776.66
+483,color_size,3365.59
+483,color_size undo_redo,0
+484,paths,5.49581
+484,colors,3.02669
+484,shadows,6.57408
+484,frame_time_ms,15.0966
+484,virtual_size,1172.88
+484,allocated_size,1776.66
+484,color_size,3365.59
+484,color_size undo_redo,0
+485,paths,5.39958
+485,colors,3.05357
+485,shadows,6.46246
+485,frame_time_ms,14.9156
+485,virtual_size,1172.88
+485,allocated_size,1776.66
+485,color_size,3365.59
+485,color_size undo_redo,0
+486,paths,5.40765
+486,colors,3.04845
+486,shadows,6.53411
+486,frame_time_ms,14.9902
+486,virtual_size,1172.88
+486,allocated_size,1776.66
+486,color_size,3365.59
+486,color_size undo_redo,0
+487,paths,5.56736
+487,colors,3.03805
+487,shadows,6.37638
+487,frame_time_ms,14.9818
+487,virtual_size,1172.88
+487,allocated_size,1776.66
+487,color_size,3365.59
+487,color_size undo_redo,0
+488,paths,5.75267
+488,colors,3.09453
+488,shadows,6.44288
+488,frame_time_ms,15.2901
+488,virtual_size,1172.88
+488,allocated_size,1776.66
+488,color_size,3365.59
+488,color_size undo_redo,0
+489,paths,5.77434
+489,colors,2.99418
+489,shadows,6.27405
+489,frame_time_ms,15.0426
+489,virtual_size,1172.88
+489,allocated_size,1776.66
+489,color_size,3365.59
+489,color_size undo_redo,0
+490,paths,5.60026
+490,colors,2.67469
+490,shadows,6.25869
+490,frame_time_ms,14.5336
+490,virtual_size,1172.88
+490,allocated_size,1776.66
+490,color_size,3365.59
+490,color_size undo_redo,0
+491,paths,5.72518
+491,colors,2.66957
+491,shadows,6.16125
+491,frame_time_ms,14.556
+491,virtual_size,1172.88
+491,allocated_size,1776.66
+491,color_size,3365.59
+491,color_size undo_redo,0
+492,paths,5.48045
+492,colors,3.00134
+492,shadows,6.14067
+492,frame_time_ms,14.6225
+492,virtual_size,1172.88
+492,allocated_size,1776.66
+492,color_size,3365.59
+492,color_size undo_redo,0
+493,paths,5.87981
+493,colors,2.95424
+493,shadows,6.10509
+493,frame_time_ms,14.9391
+493,virtual_size,1172.88
+493,allocated_size,1776.66
+493,color_size,3365.59
+493,color_size undo_redo,0
+494,paths,5.55622
+494,colors,2.89459
+494,shadows,6.08973
+494,frame_time_ms,14.5405
+494,virtual_size,1172.88
+494,allocated_size,1776.66
+494,color_size,3365.59
+494,color_size undo_redo,0
+495,paths,5.99542
+495,colors,2.9481
+495,shadows,6.02624
+495,frame_time_ms,14.9698
+495,virtual_size,1172.88
+495,allocated_size,1776.66
+495,color_size,3365.59
+495,color_size undo_redo,0
+496,paths,5.69754
+496,colors,2.61939
+496,shadows,6.04365
+496,frame_time_ms,14.3606
+496,virtual_size,1172.88
+496,allocated_size,1776.66
+496,color_size,3365.59
+496,color_size undo_redo,0
+497,paths,5.8287
+497,colors,2.67059
+497,shadows,6.18496
+497,frame_time_ms,14.6843
+497,virtual_size,1172.88
+497,allocated_size,1776.66
+497,color_size,3365.59
+497,color_size undo_redo,0
+498,paths,5.43539
+498,colors,2.67971
+498,shadows,6.19622
+498,frame_time_ms,14.3113
+498,virtual_size,1172.88
+498,allocated_size,1776.66
+498,color_size,3365.59
+498,color_size undo_redo,0
+499,paths,5.62669
+499,colors,2.95114
+499,shadows,6.20646
+499,frame_time_ms,14.7843
+499,virtual_size,1172.88
+499,allocated_size,1776.66
+499,color_size,3365.59
+499,color_size undo_redo,0
+500,paths,5.56234
+500,colors,2.944
+500,shadows,6.10611
+500,frame_time_ms,14.6124
+500,virtual_size,1172.88
+500,allocated_size,1776.66
+500,color_size,3365.59
+500,color_size undo_redo,0
+501,paths,5.72723
+501,colors,3.12934
+501,shadows,6.14909
+501,frame_time_ms,15.0057
+501,virtual_size,1172.88
+501,allocated_size,1776.66
+501,color_size,3365.59
+501,color_size undo_redo,0
+502,paths,5.8921
+502,colors,2.66035
+502,shadows,6.12054
+502,frame_time_ms,14.673
+502,virtual_size,1172.88
+502,allocated_size,1776.66
+502,color_size,3365.59
+502,color_size undo_redo,0
+503,paths,5.86752
+503,colors,2.58458
+503,shadows,5.94944
+503,frame_time_ms,14.4015
+503,virtual_size,1172.88
+503,allocated_size,1776.66
+503,color_size,3365.59
+503,color_size undo_redo,0
+504,paths,5.67299
+504,colors,2.47584
+504,shadows,6.31501
+504,frame_time_ms,14.4638
+504,virtual_size,1172.88
+504,allocated_size,1776.66
+504,color_size,3365.59
+504,color_size undo_redo,0
+505,paths,5.08314
+505,colors,2.80166
+505,shadows,6.39488
+505,frame_time_ms,14.2797
+505,virtual_size,1172.88
+505,allocated_size,1776.66
+505,color_size,3365.59
+505,color_size undo_redo,0
+506,paths,5.30336
+506,colors,2.7904
+506,shadows,6.5207
+506,frame_time_ms,14.6145
+506,virtual_size,1172.88
+506,allocated_size,1776.66
+506,color_size,3365.59
+506,color_size undo_redo,0
+507,paths,5.56618
+507,colors,2.65216
+507,shadows,6.33754
+507,frame_time_ms,14.5559
+507,virtual_size,1172.88
+507,allocated_size,1776.66
+507,color_size,3365.59
+507,color_size undo_redo,0
+508,paths,5.4559
+508,colors,2.32653
+508,shadows,6.36621
+508,frame_time_ms,14.1486
+508,virtual_size,1172.88
+508,allocated_size,1776.66
+508,color_size,3365.59
+508,color_size undo_redo,0
+509,paths,5.36166
+509,colors,2.33235
+509,shadows,6.32934
+509,frame_time_ms,14.0234
+509,virtual_size,1172.88
+509,allocated_size,1776.66
+509,color_size,3365.59
+509,color_size undo_redo,0
+510,paths,5.39018
+510,colors,2.6624
+510,shadows,6.55258
+510,frame_time_ms,14.6052
+510,virtual_size,1172.88
+510,allocated_size,1776.66
+510,color_size,3365.59
+510,color_size undo_redo,0
+511,paths,5.70778
+511,colors,2.80371
+511,shadows,6.4
+511,frame_time_ms,14.9115
+511,virtual_size,1172.88
+511,allocated_size,1776.66
+511,color_size,3365.59
+511,color_size undo_redo,0
+512,paths,5.72822
+512,colors,2.82214
+512,shadows,6.50109
+512,frame_time_ms,15.0515
+512,virtual_size,1172.88
+512,allocated_size,1776.66
+512,color_size,3365.59
+512,color_size undo_redo,0
+513,paths,5.972
+513,colors,2.34272
+513,shadows,6.18598
+513,frame_time_ms,14.5007
+513,virtual_size,1172.88
+513,allocated_size,1776.66
+513,color_size,3365.59
+513,color_size undo_redo,0
+514,paths,5.90118
+514,colors,2.39821
+514,shadows,6.47987
+514,frame_time_ms,14.7793
+514,virtual_size,1172.88
+514,allocated_size,1776.66
+514,color_size,3365.59
+514,color_size undo_redo,0
+515,paths,4.97562
+515,colors,2.71155
+515,shadows,6.38362
+515,frame_time_ms,14.0708
+515,virtual_size,1172.88
+515,allocated_size,1776.66
+515,color_size,3365.59
+515,color_size undo_redo,0
+516,paths,5.2736
+516,colors,2.62758
+516,shadows,6.22694
+516,frame_time_ms,14.1281
+516,virtual_size,1172.88
+516,allocated_size,1776.66
+516,color_size,3365.59
+516,color_size undo_redo,0
+517,paths,5.71798
+517,colors,2.62042
+517,shadows,6.23386
+517,frame_time_ms,14.5723
+517,virtual_size,1172.88
+517,allocated_size,1776.66
+517,color_size,3365.59
+517,color_size undo_redo,0
+518,paths,5.57056
+518,colors,2.29171
+518,shadows,6.22573
+518,frame_time_ms,14.088
+518,virtual_size,1172.88
+518,allocated_size,1776.66
+518,color_size,3365.59
+518,color_size undo_redo,0
+519,paths,5.01453
+519,colors,2.22291
+519,shadows,6.36006
+519,frame_time_ms,13.5975
+519,virtual_size,1172.88
+519,allocated_size,1776.66
+519,color_size,3365.59
+519,color_size undo_redo,0
+520,paths,5.05139
+520,colors,2.32346
+520,shadows,6.22182
+520,frame_time_ms,13.5967
+520,virtual_size,1172.88
+520,allocated_size,1776.66
+520,color_size,3365.59
+520,color_size undo_redo,0
+521,paths,4.80666
+521,colors,1.99782
+521,shadows,6.52269
+521,frame_time_ms,13.3272
+521,virtual_size,1172.88
+521,allocated_size,1776.66
+521,color_size,3365.59
+521,color_size undo_redo,0
+522,paths,4.35712
+522,colors,2.1655
+522,shadows,6.06106
+522,frame_time_ms,12.5837
+522,virtual_size,1172.88
+522,allocated_size,1776.66
+522,color_size,3365.59
+522,color_size undo_redo,0
+523,paths,4.86278
+523,colors,1.82682
+523,shadows,6.07949
+523,frame_time_ms,12.7691
+523,virtual_size,1172.88
+523,allocated_size,1776.66
+523,color_size,3365.59
+523,color_size undo_redo,0
+524,paths,4.51891
+524,colors,2.06643
+524,shadows,6.27507
+524,frame_time_ms,12.8604
+524,virtual_size,1172.88
+524,allocated_size,1776.66
+524,color_size,3365.59
+524,color_size undo_redo,0
+525,paths,4.70512
+525,colors,1.74067
+525,shadows,6.10099
+525,frame_time_ms,12.5468
+525,virtual_size,1172.88
+525,allocated_size,1776.66
+525,color_size,3365.59
+525,color_size undo_redo,0
+526,paths,4.40189
+526,colors,2.0295
+526,shadows,6.20624
+526,frame_time_ms,12.6376
+526,virtual_size,1172.88
+526,allocated_size,1776.66
+526,color_size,3365.59
+526,color_size undo_redo,0
+527,paths,4.41139
+527,colors,2.05005
+527,shadows,6.00986
+527,frame_time_ms,12.4713
+527,virtual_size,1172.88
+527,allocated_size,1776.66
+527,color_size,3365.59
+527,color_size undo_redo,0
+528,paths,4.56678
+528,colors,1.65171
+528,shadows,6.04467
+528,frame_time_ms,12.2632
+528,virtual_size,1172.88
+528,allocated_size,1776.66
+528,color_size,3365.59
+528,color_size undo_redo,0
+529,paths,4.18406
+529,colors,1.69878
+529,shadows,6.12864
+529,frame_time_ms,12.0115
+529,virtual_size,1172.88
+529,allocated_size,1776.66
+529,color_size,3365.59
+529,color_size undo_redo,0
+530,paths,5.02883
+530,colors,1.792
+530,shadows,6.07322
+530,frame_time_ms,12.894
+530,virtual_size,1172.88
+530,allocated_size,1776.66
+530,color_size,3365.59
+530,color_size undo_redo,0
+531,paths,5.2951
+531,colors,1.86778
+531,shadows,6.0311
+531,frame_time_ms,13.194
+531,virtual_size,1172.88
+531,allocated_size,1776.66
+531,color_size,3365.59
+531,color_size undo_redo,0
+532,paths,5.34323
+532,colors,2.27328
+532,shadows,5.65421
+532,frame_time_ms,13.2707
+532,virtual_size,1172.88
+532,allocated_size,1776.66
+532,color_size,3365.59
+532,color_size undo_redo,0
+533,paths,5.46304
+533,colors,1.87392
+533,shadows,5.8624
+533,frame_time_ms,13.1994
+533,virtual_size,1172.88
+533,allocated_size,1776.66
+533,color_size,3365.59
+533,color_size undo_redo,0
+534,paths,4.7401
+534,colors,2.08778
+534,shadows,5.67706
+534,frame_time_ms,12.5049
+534,virtual_size,1172.88
+534,allocated_size,1776.66
+534,color_size,3365.59
+534,color_size undo_redo,0
+535,paths,5.43846
+535,colors,1.75718
+535,shadows,5.66963
+535,frame_time_ms,12.8653
+535,virtual_size,1172.88
+535,allocated_size,1776.66
+535,color_size,3365.59
+535,color_size undo_redo,0
+536,paths,5.03194
+536,colors,2.11149
+536,shadows,5.6535
+536,frame_time_ms,12.7969
+536,virtual_size,1172.88
+536,allocated_size,1776.66
+536,color_size,3365.59
+536,color_size undo_redo,0
+537,paths,5.1671
+537,colors,1.78278
+537,shadows,5.34614
+537,frame_time_ms,12.296
+537,virtual_size,1172.88
+537,allocated_size,1776.66
+537,color_size,3365.59
+537,color_size undo_redo,0
+538,paths,5.44051
+538,colors,1.75206
+538,shadows,5.65862
+538,frame_time_ms,12.8512
+538,virtual_size,1172.88
+538,allocated_size,1776.66
+538,color_size,3365.59
+538,color_size undo_redo,0
+539,paths,5.34938
+539,colors,2.16678
+539,shadows,5.60093
+539,frame_time_ms,13.1171
+539,virtual_size,1172.88
+539,allocated_size,1776.66
+539,color_size,3365.59
+539,color_size undo_redo,0
+540,paths,5.29306
+540,colors,1.7408
+540,shadows,5.60528
+540,frame_time_ms,12.6391
+540,virtual_size,1172.88
+540,allocated_size,1776.66
+540,color_size,3365.59
+540,color_size undo_redo,0
+541,paths,5.05242
+541,colors,2.20774
+541,shadows,5.6361
+541,frame_time_ms,12.8963
+541,virtual_size,1172.88
+541,allocated_size,1776.66
+541,color_size,3365.59
+541,color_size undo_redo,0
+542,paths,5.32781
+542,colors,1.76435
+542,shadows,5.95354
+542,frame_time_ms,13.0457
+542,virtual_size,1172.88
+542,allocated_size,1776.66
+542,color_size,3365.59
+542,color_size undo_redo,0
+543,paths,4.72346
+543,colors,2.17898
+543,shadows,5.80998
+543,frame_time_ms,12.7124
+543,virtual_size,1172.88
+543,allocated_size,1776.66
+543,color_size,3365.59
+543,color_size undo_redo,0
+544,paths,5.1689
+544,colors,1.71907
+544,shadows,5.78851
+544,frame_time_ms,12.6765
+544,virtual_size,1172.88
+544,allocated_size,1776.66
+544,color_size,3365.59
+544,color_size undo_redo,0
+545,paths,4.71347
+545,colors,2.18931
+545,shadows,5.81427
+545,frame_time_ms,12.7171
+545,virtual_size,1172.88
+545,allocated_size,1776.66
+545,color_size,3365.59
+545,color_size undo_redo,0
+546,paths,5.31866
+546,colors,1.71827
+546,shadows,5.67603
+546,frame_time_ms,12.713
+546,virtual_size,1172.88
+546,allocated_size,1776.66
+546,color_size,3365.59
+546,color_size undo_redo,0
+547,paths,4.67866
+547,colors,2.11456
+547,shadows,5.92794
+547,frame_time_ms,12.7212
+547,virtual_size,1172.88
+547,allocated_size,1776.66
+547,color_size,3365.59
+547,color_size undo_redo,0
+548,paths,5.10566
+548,colors,1.72416
+548,shadows,5.62176
+548,frame_time_ms,12.4516
+548,virtual_size,1172.88
+548,allocated_size,1776.66
+548,color_size,3365.59
+548,color_size undo_redo,0
+549,paths,4.67149
+549,colors,1.68448
+549,shadows,5.96566
+549,frame_time_ms,12.3216
+549,virtual_size,1172.88
+549,allocated_size,1776.66
+549,color_size,3365.59
+549,color_size undo_redo,0
+550,paths,5.26928
+550,colors,1.71392
+550,shadows,5.28253
+550,frame_time_ms,12.2657
+550,virtual_size,1172.88
+550,allocated_size,1776.66
+550,color_size,3365.59
+550,color_size undo_redo,0
+551,paths,4.66944
+551,colors,2.01011
+551,shadows,5.64506
+551,frame_time_ms,12.3246
+551,virtual_size,1172.88
+551,allocated_size,1776.66
+551,color_size,3365.59
+551,color_size undo_redo,0
+552,paths,5.24186
+552,colors,1.69062
+552,shadows,5.74362
+552,frame_time_ms,12.6761
+552,virtual_size,1172.88
+552,allocated_size,1776.66
+552,color_size,3365.59
+552,color_size undo_redo,0
+553,paths,4.69402
+553,colors,2.06643
+553,shadows,5.90848
+553,frame_time_ms,12.6689
+553,virtual_size,1172.88
+553,allocated_size,1776.66
+553,color_size,3365.59
+553,color_size undo_redo,0
+554,paths,5.37878
+554,colors,1.69654
+554,shadows,5.63178
+554,frame_time_ms,12.7071
+554,virtual_size,1172.88
+554,allocated_size,1776.66
+554,color_size,3365.59
+554,color_size undo_redo,0
+555,paths,4.69914
+555,colors,2.25587
+555,shadows,5.62381
+555,frame_time_ms,12.5788
+555,virtual_size,1172.88
+555,allocated_size,1776.66
+555,color_size,3365.59
+555,color_size undo_redo,0
+556,paths,5.05651
+556,colors,1.63216
+556,shadows,5.71597
+556,frame_time_ms,12.4046
+556,virtual_size,1172.88
+556,allocated_size,1776.66
+556,color_size,3365.59
+556,color_size undo_redo,0
+557,paths,4.45133
+557,colors,1.91878
+557,shadows,5.88986
+557,frame_time_ms,12.26
+557,virtual_size,1172.88
+557,allocated_size,1776.66
+557,color_size,3365.59
+557,color_size undo_redo,0
+558,paths,5.05549
+558,colors,1.62202
+558,shadows,5.55315
+558,frame_time_ms,12.2307
+558,virtual_size,1172.88
+558,allocated_size,1776.66
+558,color_size,3365.59
+558,color_size undo_redo,0
+559,paths,4.98893
+559,colors,1.5657
+559,shadows,5.4825
+559,frame_time_ms,12.0371
+559,virtual_size,1172.88
+559,allocated_size,1776.66
+559,color_size,3365.59
+559,color_size undo_redo,0
+560,paths,4.33254
+560,colors,1.88006
+560,shadows,5.53267
+560,frame_time_ms,11.7453
+560,virtual_size,1172.88
+560,allocated_size,1776.66
+560,color_size,3365.59
+560,color_size undo_redo,0
+561,paths,4.95411
+561,colors,1.4889
+561,shadows,5.47942
+561,frame_time_ms,11.9224
+561,virtual_size,1172.88
+561,allocated_size,1776.66
+561,color_size,3365.59
+561,color_size undo_redo,0
+562,paths,5.17114
+562,colors,1.79382
+562,shadows,5.41389
+562,frame_time_ms,12.3788
+562,virtual_size,1172.88
+562,allocated_size,1776.66
+562,color_size,3365.59
+562,color_size undo_redo,0
+563,paths,5.06778
+563,colors,1.46022
+563,shadows,5.52858
+563,frame_time_ms,12.0566
+563,virtual_size,1172.88
+563,allocated_size,1776.66
+563,color_size,3365.59
+563,color_size undo_redo,0
+564,paths,4.5865
+564,colors,1.79798
+564,shadows,5.40659
+564,frame_time_ms,11.7911
+564,virtual_size,1172.88
+564,allocated_size,1776.66
+564,color_size,3365.59
+564,color_size undo_redo,0
+565,paths,4.81997
+565,colors,1.45818
+565,shadows,5.37702
+565,frame_time_ms,11.6552
+565,virtual_size,1172.88
+565,allocated_size,1776.66
+565,color_size,3365.59
+565,color_size undo_redo,0
+566,paths,4.87936
+566,colors,1.74182
+566,shadows,5.14458
+566,frame_time_ms,11.7658
+566,virtual_size,1172.88
+566,allocated_size,1776.66
+566,color_size,3365.59
+566,color_size undo_redo,0
+567,paths,4.51584
+567,colors,1.41811
+567,shadows,5.43642
+567,frame_time_ms,11.3704
+567,virtual_size,1172.88
+567,allocated_size,1776.66
+567,color_size,3365.59
+567,color_size undo_redo,0
+568,paths,4.77594
+568,colors,1.41606
+568,shadows,5.2992
+568,frame_time_ms,11.4912
+568,virtual_size,1172.88
+568,allocated_size,1776.66
+568,color_size,3365.59
+568,color_size undo_redo,0
+569,paths,4.51379
+569,colors,1.71622
+569,shadows,5.35952
+569,frame_time_ms,11.5895
+569,virtual_size,1172.88
+569,allocated_size,1776.66
+569,color_size,3365.59
+569,color_size undo_redo,0
+570,paths,4.68275
+570,colors,1.38224
+570,shadows,5.36259
+570,frame_time_ms,11.4276
+570,virtual_size,1172.88
+570,allocated_size,1776.66
+570,color_size,3365.59
+570,color_size undo_redo,0
+571,paths,4.70323
+571,colors,1.37216
+571,shadows,5.33814
+571,frame_time_ms,11.4135
+571,virtual_size,1172.88
+571,allocated_size,1776.66
+571,color_size,3365.59
+571,color_size undo_redo,0
+572,paths,4.1584
+572,colors,1.65274
+572,shadows,5.3504
+572,frame_time_ms,11.1615
+572,virtual_size,1172.88
+572,allocated_size,1776.66
+572,color_size,3365.59
+572,color_size undo_redo,0
+573,paths,4.6848
+573,colors,1.34042
+573,shadows,5.01043
+573,frame_time_ms,11.0356
+573,virtual_size,1172.88
+573,allocated_size,1776.66
+573,color_size,3365.59
+573,color_size undo_redo,0
+574,paths,4.68378
+574,colors,1.31789
+574,shadows,5.59309
+574,frame_time_ms,11.5948
+574,virtual_size,1172.88
+574,allocated_size,1776.66
+574,color_size,3365.59
+574,color_size undo_redo,0
+575,paths,4.34451
+575,colors,1.62714
+575,shadows,5.3248
+575,frame_time_ms,11.2964
+575,virtual_size,1172.88
+575,allocated_size,1776.66
+575,color_size,3365.59
+575,color_size undo_redo,0
+576,paths,3.96493
+576,colors,1.29734
+576,shadows,5.48954
+576,frame_time_ms,10.7518
+576,virtual_size,1172.88
+576,allocated_size,1776.66
+576,color_size,3365.59
+576,color_size undo_redo,0
+577,paths,4.54038
+577,colors,1.23357
+577,shadows,5.48147
+577,frame_time_ms,11.2554
+577,virtual_size,1172.88
+577,allocated_size,1776.66
+577,color_size,3365.59
+577,color_size undo_redo,0
+578,paths,4.2793
+578,colors,1.20525
+578,shadows,5.08416
+578,frame_time_ms,10.5687
+578,virtual_size,1172.88
+578,allocated_size,1776.66
+578,color_size,3365.59
+578,color_size undo_redo,0
+579,paths,3.84819
+579,colors,1.45715
+579,shadows,5.12614
+579,frame_time_ms,10.4315
+579,virtual_size,1172.88
+579,allocated_size,1776.66
+579,color_size,3365.59
+579,color_size undo_redo,0
+580,paths,3.95469
+580,colors,1.51853
+580,shadows,5.44461
+580,frame_time_ms,10.9178
+580,virtual_size,1172.88
+580,allocated_size,1776.66
+580,color_size,3365.59
+580,color_size undo_redo,0
+581,paths,4.19722
+581,colors,1.11894
+581,shadows,5.83466
+581,frame_time_ms,11.1508
+581,virtual_size,1172.88
+581,allocated_size,1776.66
+581,color_size,3365.59
+581,color_size undo_redo,0
+582,paths,4.2711
+582,colors,1.10182
+582,shadows,5.58592
+582,frame_time_ms,10.9588
+582,virtual_size,1172.88
+582,allocated_size,1776.66
+582,color_size,3365.59
+582,color_size undo_redo,0
+583,paths,4.08678
+583,colors,1.06768
+583,shadows,5.60026
+583,frame_time_ms,10.7547
+583,virtual_size,1172.88
+583,allocated_size,1776.66
+583,color_size,3365.59
+583,color_size undo_redo,0
+584,paths,3.59219
+584,colors,1.03619
+584,shadows,6.04128
+584,frame_time_ms,10.6697
+584,virtual_size,1172.88
+584,allocated_size,1776.66
+584,color_size,3365.59
+584,color_size undo_redo,0
+585,paths,3.45907
+585,colors,1.00554
+585,shadows,5.8624
+585,frame_time_ms,10.327
+585,virtual_size,1172.88
+585,allocated_size,1776.66
+585,color_size,3365.59
+585,color_size undo_redo,0
+586,paths,3.29203
+586,colors,0.97376
+586,shadows,5.93584
+586,frame_time_ms,10.2016
+586,virtual_size,1172.88
+586,allocated_size,1776.66
+586,color_size,3365.59
+586,color_size undo_redo,0
+587,paths,3.33114
+587,colors,0.951296
+587,shadows,5.83373
+587,frame_time_ms,10.1162
+587,virtual_size,1172.88
+587,allocated_size,1776.66
+587,color_size,3365.59
+587,color_size undo_redo,0
+588,paths,3.04742
+588,colors,0.902144
+588,shadows,5.92384
+588,frame_time_ms,9.87341
+588,virtual_size,1172.88
+588,allocated_size,1776.66
+588,color_size,3365.59
+588,color_size undo_redo,0
+589,paths,3.20819
+589,colors,0.875264
+589,shadows,6.00787
+589,frame_time_ms,10.0913
+589,virtual_size,1172.88
+589,allocated_size,1776.66
+589,color_size,3365.59
+589,color_size undo_redo,0
+590,paths,3.52768
+590,colors,0.85504
+590,shadows,6.28122
+590,frame_time_ms,10.6639
+590,virtual_size,1172.88
+590,allocated_size,1776.66
+590,color_size,3365.59
+590,color_size undo_redo,0
+591,paths,3.38534
+591,colors,0.859136
+591,shadows,6.08358
+591,frame_time_ms,10.3281
+591,virtual_size,1172.88
+591,allocated_size,1776.66
+591,color_size,3365.59
+591,color_size undo_redo,0
+592,paths,3.24675
+592,colors,0.817152
+592,shadows,6.10918
+592,frame_time_ms,10.1731
+592,virtual_size,1172.88
+592,allocated_size,1776.66
+592,color_size,3365.59
+592,color_size undo_redo,0
+593,paths,3.2297
+593,colors,0.806912
+593,shadows,5.90746
+593,frame_time_ms,9.94406
+593,virtual_size,1172.88
+593,allocated_size,1776.66
+593,color_size,3365.59
+593,color_size undo_redo,0
+594,paths,2.87539
+594,colors,0.811008
+594,shadows,5.8775
+594,frame_time_ms,9.5639
+594,virtual_size,1172.88
+594,allocated_size,1776.66
+594,color_size,3365.59
+594,color_size undo_redo,0
+595,paths,2.8201
+595,colors,0.794592
+595,shadows,5.9177
+595,frame_time_ms,9.53238
+595,virtual_size,1172.88
+595,allocated_size,1776.66
+595,color_size,3365.59
+595,color_size undo_redo,0
+596,paths,2.80474
+596,colors,0.792576
+596,shadows,5.91254
+596,frame_time_ms,9.50986
+596,virtual_size,1172.88
+596,allocated_size,1776.66
+596,color_size,3365.59
+596,color_size undo_redo,0
+597,paths,2.80474
+597,colors,0.78848
+597,shadows,5.82224
+597,frame_time_ms,9.41546
+597,virtual_size,1172.88
+597,allocated_size,1776.66
+597,color_size,3365.59
+597,color_size undo_redo,0
+598,paths,3.08326
+598,colors,0.78032
+598,shadows,6.09894
+598,frame_time_ms,9.96253
+598,virtual_size,1172.88
+598,allocated_size,1776.66
+598,color_size,3365.59
+598,color_size undo_redo,0
+599,paths,3.09555
+599,colors,0.772096
+599,shadows,5.79584
+599,frame_time_ms,9.66349
+599,virtual_size,1172.88
+599,allocated_size,1776.66
+599,color_size,3365.59
+599,color_size undo_redo,0
+600,paths,3.10784
+600,colors,0.768
+600,shadows,5.62381
+600,frame_time_ms,9.49965
+600,virtual_size,1172.88
+600,allocated_size,1776.66
+600,color_size,3365.59
+600,color_size undo_redo,0
+601,paths,3.41488
+601,colors,0.761856
+601,shadows,5.7936
+601,frame_time_ms,9.97034
+601,virtual_size,1172.88
+601,allocated_size,1776.66
+601,color_size,3365.59
+601,color_size undo_redo,0
+602,paths,3.32698
+602,colors,0.75776
+602,shadows,5.58899
+602,frame_time_ms,9.67373
+602,virtual_size,1172.88
+602,allocated_size,1776.66
+602,color_size,3365.59
+602,color_size undo_redo,0
+603,paths,3.17747
+603,colors,0.758688
+603,shadows,5.49549
+603,frame_time_ms,9.43165
+603,virtual_size,1172.88
+603,allocated_size,1776.66
+603,color_size,3365.59
+603,color_size undo_redo,0
+604,paths,2.98803
+604,colors,0.756736
+604,shadows,5.46173
+604,frame_time_ms,9.2065
+604,virtual_size,1172.88
+604,allocated_size,1776.66
+604,color_size,3365.59
+604,color_size undo_redo,0
+605,paths,2.97779
+605,colors,0.749568
+605,shadows,5.44752
+605,frame_time_ms,9.17488
+605,virtual_size,1172.88
+605,allocated_size,1776.66
+605,color_size,3365.59
+605,color_size undo_redo,0
+606,paths,3.15171
+606,colors,0.735232
+606,shadows,5.54598
+606,frame_time_ms,9.43293
+606,virtual_size,1172.88
+606,allocated_size,1776.66
+606,color_size,3365.59
+606,color_size undo_redo,0
+607,paths,3.21741
+607,colors,0.72896
+607,shadows,5.36032
+607,frame_time_ms,9.30669
+607,virtual_size,1172.88
+607,allocated_size,1776.66
+607,color_size,3365.59
+607,color_size undo_redo,0
+608,paths,3.25626
+608,colors,0.720576
+608,shadows,5.58563
+608,frame_time_ms,9.56246
+608,virtual_size,1172.88
+608,allocated_size,1776.66
+608,color_size,3365.59
+608,color_size undo_redo,0
+609,paths,3.23258
+609,colors,0.71168
+609,shadows,5.6064
+609,frame_time_ms,9.55066
+609,virtual_size,1172.88
+609,allocated_size,1776.66
+609,color_size,3365.59
+609,color_size undo_redo,0
+610,paths,3.19459
+610,colors,0.69632
+610,shadows,5.45683
+610,frame_time_ms,9.34774
+610,virtual_size,1172.88
+610,allocated_size,1776.66
+610,color_size,3365.59
+610,color_size undo_redo,0
+611,paths,3.17338
+611,colors,0.70144
+611,shadows,5.37805
+611,frame_time_ms,9.25286
+611,virtual_size,1172.88
+611,allocated_size,1776.66
+611,color_size,3365.59
+611,color_size undo_redo,0
+612,paths,3.19158
+612,colors,0.689152
+612,shadows,5.25824
+612,frame_time_ms,9.13898
+612,virtual_size,1172.88
+612,allocated_size,1776.66
+612,color_size,3365.59
+612,color_size undo_redo,0
+613,paths,2.8057
+613,colors,0.698368
+613,shadows,5.21085
+613,frame_time_ms,8.71491
+613,virtual_size,1172.88
+613,allocated_size,1776.66
+613,color_size,3365.59
+613,color_size undo_redo,0
+614,paths,2.48832
+614,colors,0.680928
+614,shadows,4.89974
+614,frame_time_ms,8.06899
+614,virtual_size,1172.88
+614,allocated_size,1776.66
+614,color_size,3365.59
+614,color_size undo_redo,0
+615,paths,2.47706
+615,colors,0.668672
+615,shadows,5.50195
+615,frame_time_ms,8.64768
+615,virtual_size,1172.88
+615,allocated_size,1776.66
+615,color_size,3365.59
+615,color_size undo_redo,0
+616,paths,2.77584
+616,colors,0.684032
+616,shadows,5.59616
+616,frame_time_ms,9.05603
+616,virtual_size,1172.88
+616,allocated_size,1776.66
+616,color_size,3365.59
+616,color_size undo_redo,0
+617,paths,3.13622
+617,colors,0.677888
+617,shadows,5.31853
+617,frame_time_ms,9.13264
+617,virtual_size,1172.88
+617,allocated_size,1776.66
+617,color_size,3365.59
+617,color_size undo_redo,0
+618,paths,2.70336
+618,colors,0.66144
+618,shadows,5.20304
+618,frame_time_ms,8.56784
+618,virtual_size,1172.88
+618,allocated_size,1776.66
+618,color_size,3365.59
+618,color_size undo_redo,0
+619,paths,2.44838
+619,colors,0.648192
+619,shadows,5.13936
+619,frame_time_ms,8.23594
+619,virtual_size,1172.88
+619,allocated_size,1776.66
+619,color_size,3365.59
+619,color_size undo_redo,0
+620,paths,2.39514
+620,colors,0.646144
+620,shadows,5.44256
+620,frame_time_ms,8.48384
+620,virtual_size,1172.88
+620,allocated_size,1776.66
+620,color_size,3365.59
+620,color_size undo_redo,0
+621,paths,2.77402
+621,colors,0.634848
+621,shadows,5.21318
+621,frame_time_ms,8.62205
+621,virtual_size,1172.88
+621,allocated_size,1776.66
+621,color_size,3365.59
+621,color_size undo_redo,0
+622,paths,2.87846
+622,colors,0.62464
+622,shadows,5.07168
+622,frame_time_ms,8.57478
+622,virtual_size,1172.88
+622,allocated_size,1776.66
+622,color_size,3365.59
+622,color_size undo_redo,0
+623,paths,2.2999
+623,colors,0.615424
+623,shadows,5.06758
+623,frame_time_ms,7.98291
+623,virtual_size,1172.88
+623,allocated_size,1776.66
+623,color_size,3365.59
+623,color_size undo_redo,0
+624,paths,2.26704
+624,colors,0.604864
+624,shadows,5.09549
+624,frame_time_ms,7.96739
+624,virtual_size,1172.88
+624,allocated_size,1776.66
+624,color_size,3365.59
+624,color_size undo_redo,0
+625,paths,2.58422
+625,colors,0.606208
+625,shadows,5.25395
+625,frame_time_ms,8.44438
+625,virtual_size,1172.88
+625,allocated_size,1776.66
+625,color_size,3365.59
+625,color_size undo_redo,0
+626,paths,2.60813
+626,colors,0.597856
+626,shadows,5.0767
+626,frame_time_ms,8.28269
+626,virtual_size,1172.88
+626,allocated_size,1776.66
+626,color_size,3365.59
+626,color_size undo_redo,0
+627,paths,2.22483
+627,colors,0.593792
+627,shadows,5.01043
+627,frame_time_ms,7.82906
+627,virtual_size,1172.88
+627,allocated_size,1776.66
+627,color_size,3365.59
+627,color_size undo_redo,0
+628,paths,2.66342
+628,colors,0.590528
+628,shadows,5.11181
+628,frame_time_ms,8.36576
+628,virtual_size,1172.88
+628,allocated_size,1776.66
+628,color_size,3365.59
+628,color_size undo_redo,0
+629,paths,2.89581
+629,colors,0.5888
+629,shadows,5.26336
+629,frame_time_ms,8.74797
+629,virtual_size,1172.88
+629,allocated_size,1776.66
+629,color_size,3365.59
+629,color_size undo_redo,0
+630,paths,1.96096
+630,colors,0.56832
+630,shadows,5.0112
+630,frame_time_ms,7.54048
+630,virtual_size,1172.88
+630,allocated_size,1776.66
+630,color_size,3365.59
+630,color_size undo_redo,0
+631,paths,1.9415
+631,colors,0.574336
+631,shadows,5.25603
+631,frame_time_ms,7.77187
+631,virtual_size,1172.88
+631,allocated_size,1776.66
+631,color_size,3365.59
+631,color_size undo_redo,0
+632,paths,2.16166
+632,colors,0.565248
+632,shadows,5.21728
+632,frame_time_ms,7.94419
+632,virtual_size,1172.88
+632,allocated_size,1776.66
+632,color_size,3365.59
+632,color_size undo_redo,0
+633,paths,1.9241
+633,colors,0.566272
+633,shadows,4.62653
+633,frame_time_ms,7.1169
+633,virtual_size,1172.88
+633,allocated_size,1776.66
+633,color_size,3365.59
+633,color_size undo_redo,0
+634,paths,1.98442
+634,colors,0.581632
+634,shadows,5.28077
+634,frame_time_ms,7.84682
+634,virtual_size,1172.88
+634,allocated_size,1776.66
+634,color_size,3365.59
+634,color_size undo_redo,0
+635,paths,2.44122
+635,colors,0.586752
+635,shadows,4.90598
+635,frame_time_ms,7.93395
+635,virtual_size,1172.88
+635,allocated_size,1776.66
+635,color_size,3365.59
+635,color_size undo_redo,0
+636,paths,2.02957
+636,colors,0.600064
+636,shadows,5.00326
+636,frame_time_ms,7.6329
+636,virtual_size,1172.88
+636,allocated_size,1776.66
+636,color_size,3365.59
+636,color_size undo_redo,0
+637,paths,2.03949
+637,colors,0.591648
+637,shadows,5.25894
+637,frame_time_ms,7.89008
+637,virtual_size,1172.88
+637,allocated_size,1776.66
+637,color_size,3365.59
+637,color_size undo_redo,0
+638,paths,2.60506
+638,colors,0.59904
+638,shadows,5.20192
+638,frame_time_ms,8.40602
+638,virtual_size,1172.88
+638,allocated_size,1776.66
+638,color_size,3365.59
+638,color_size undo_redo,0
+639,paths,2.07872
+639,colors,0.592864
+639,shadows,4.9879
+639,frame_time_ms,7.65949
+639,virtual_size,1172.88
+639,allocated_size,1776.66
+639,color_size,3365.59
+639,color_size undo_redo,0
+640,paths,2.13402
+640,colors,0.603136
+640,shadows,5.27334
+640,frame_time_ms,8.0105
+640,virtual_size,1172.88
+640,allocated_size,1776.66
+640,color_size,3365.59
+640,color_size undo_redo,0
+641,paths,2.66451
+641,colors,0.610304
+641,shadows,5.08723
+641,frame_time_ms,8.36205
+641,virtual_size,1172.88
+641,allocated_size,1776.66
+641,color_size,3365.59
+641,color_size undo_redo,0
+642,paths,2.37875
+642,colors,0.612448
+642,shadows,4.70528
+642,frame_time_ms,7.69648
+642,virtual_size,1172.88
+642,allocated_size,1776.66
+642,color_size,3365.59
+642,color_size undo_redo,0
+643,paths,2.176
+643,colors,0.62976
+643,shadows,5.35552
+643,frame_time_ms,8.16128
+643,virtual_size,1172.88
+643,allocated_size,1776.66
+643,color_size,3365.59
+643,color_size undo_redo,0
+644,paths,2.55283
+644,colors,0.636928
+644,shadows,5.04102
+644,frame_time_ms,8.23078
+644,virtual_size,1172.88
+644,allocated_size,1776.66
+644,color_size,3365.59
+644,color_size undo_redo,0
+645,paths,2.73901
+645,colors,0.635904
+645,shadows,4.83616
+645,frame_time_ms,8.21107
+645,virtual_size,1172.88
+645,allocated_size,1776.66
+645,color_size,3365.59
+645,color_size undo_redo,0
+646,paths,2.27123
+646,colors,0.644096
+646,shadows,5.26336
+646,frame_time_ms,8.17869
+646,virtual_size,1172.88
+646,allocated_size,1776.66
+646,color_size,3365.59
+646,color_size undo_redo,0
+647,paths,2.60493
+647,colors,0.648192
+647,shadows,5.31149
+647,frame_time_ms,8.56461
+647,virtual_size,1172.88
+647,allocated_size,1776.66
+647,color_size,3365.59
+647,color_size undo_redo,0
+648,paths,2.90717
+648,colors,0.658432
+648,shadows,5.20602
+648,frame_time_ms,8.77162
+648,virtual_size,1172.88
+648,allocated_size,1776.66
+648,color_size,3365.59
+648,color_size undo_redo,0
+649,paths,2.59482
+649,colors,0.65536
+649,shadows,5.21712
+649,frame_time_ms,8.4673
+649,virtual_size,1172.88
+649,allocated_size,1776.66
+649,color_size,3365.59
+649,color_size undo_redo,0
+650,paths,2.32141
+650,colors,0.661504
+650,shadows,5.2367
+650,frame_time_ms,8.21962
+650,virtual_size,1172.88
+650,allocated_size,1776.66
+650,color_size,3365.59
+650,color_size undo_redo,0
+651,paths,2.3552
+651,colors,0.683808
+651,shadows,5.50093
+651,frame_time_ms,8.53994
+651,virtual_size,1172.88
+651,allocated_size,1776.66
+651,color_size,3365.59
+651,color_size undo_redo,0
+652,paths,2.8047
+652,colors,0.68096
+652,shadows,5.36883
+652,frame_time_ms,8.8545
+652,virtual_size,1172.88
+652,allocated_size,1776.66
+652,color_size,3365.59
+652,color_size undo_redo,0
+653,paths,3.00237
+653,colors,0.684832
+653,shadows,5.58762
+653,frame_time_ms,9.27482
+653,virtual_size,1172.88
+653,allocated_size,1776.66
+653,color_size,3365.59
+653,color_size undo_redo,0
+654,paths,2.74125
+654,colors,0.695296
+654,shadows,5.2521
+654,frame_time_ms,8.68864
+654,virtual_size,1172.88
+654,allocated_size,1776.66
+654,color_size,3365.59
+654,color_size undo_redo,0
+655,paths,2.70643
+655,colors,0.684768
+655,shadows,5.25392
+655,frame_time_ms,8.64512
+655,virtual_size,1172.88
+655,allocated_size,1776.66
+655,color_size,3365.59
+655,color_size undo_redo,0
+656,paths,2.73203
+656,colors,0.711648
+656,shadows,5.61869
+656,frame_time_ms,9.06237
+656,virtual_size,1172.88
+656,allocated_size,1776.66
+656,color_size,3365.59
+656,color_size undo_redo,0
+657,paths,2.50986
+657,colors,0.71168
+657,shadows,5.31046
+657,frame_time_ms,8.532
+657,virtual_size,1172.88
+657,allocated_size,1776.66
+657,color_size,3365.59
+657,color_size undo_redo,0
+658,paths,2.5344
+658,colors,0.701216
+658,shadows,5.5511
+658,frame_time_ms,8.78672
+658,virtual_size,1172.88
+658,allocated_size,1776.66
+658,color_size,3365.59
+658,color_size undo_redo,0
+659,paths,3.14573
+659,colors,0.714752
+659,shadows,5.65146
+659,frame_time_ms,9.51194
+659,virtual_size,1172.88
+659,allocated_size,1776.66
+659,color_size,3365.59
+659,color_size undo_redo,0
+660,paths,3.27587
+660,colors,0.730112
+660,shadows,5.32461
+660,frame_time_ms,9.33059
+660,virtual_size,1172.88
+660,allocated_size,1776.66
+660,color_size,3365.59
+660,color_size undo_redo,0
+661,paths,2.90714
+661,colors,0.730112
+661,shadows,5.2992
+661,frame_time_ms,8.93645
+661,virtual_size,1172.88
+661,allocated_size,1776.66
+661,color_size,3365.59
+661,color_size undo_redo,0
+662,paths,2.7105
+662,colors,0.730112
+662,shadows,5.23469
+662,frame_time_ms,8.6753
+662,virtual_size,1172.88
+662,allocated_size,1776.66
+662,color_size,3365.59
+662,color_size undo_redo,0
+663,paths,2.7392
+663,colors,0.720896
+663,shadows,5.29187
+663,frame_time_ms,8.75197
+663,virtual_size,1172.88
+663,allocated_size,1776.66
+663,color_size,3365.59
+663,color_size undo_redo,0
+664,paths,2.73408
+664,colors,0.707584
+664,shadows,5.53472
+664,frame_time_ms,8.97638
+664,virtual_size,1172.88
+664,allocated_size,1776.66
+664,color_size,3365.59
+664,color_size undo_redo,0
+665,paths,3.03411
+665,colors,0.696192
+665,shadows,5.27258
+665,frame_time_ms,9.00288
+665,virtual_size,1172.88
+665,allocated_size,1776.66
+665,color_size,3365.59
+665,color_size undo_redo,0
+666,paths,3.3455
+666,colors,0.678912
+666,shadows,5.27242
+666,frame_time_ms,9.29683
+666,virtual_size,1172.88
+666,allocated_size,1776.66
+666,color_size,3365.59
+666,color_size undo_redo,0
+667,paths,3.2472
+667,colors,0.66048
+667,shadows,5.12899
+667,frame_time_ms,9.03667
+667,virtual_size,1172.88
+667,allocated_size,1776.66
+667,color_size,3365.59
+667,color_size undo_redo,0
+668,paths,3.05459
+668,colors,0.639936
+668,shadows,4.9367
+668,frame_time_ms,8.63123
+668,virtual_size,1172.88
+668,allocated_size,1776.66
+668,color_size,3365.59
+668,color_size undo_redo,0
+669,paths,3.13133
+669,colors,0.610304
+669,shadows,4.57318
+669,frame_time_ms,8.31482
+669,virtual_size,1172.88
+669,allocated_size,1776.66
+669,color_size,3365.59
+669,color_size undo_redo,0
+670,paths,2.52314
+670,colors,0.603136
+670,shadows,4.81382
+670,frame_time_ms,7.9401
+670,virtual_size,1172.88
+670,allocated_size,1776.66
+670,color_size,3365.59
+670,color_size undo_redo,0
+671,paths,2.84848
+671,colors,0.599872
+671,shadows,5.04013
+671,frame_time_ms,8.48848
+671,virtual_size,1172.88
+671,allocated_size,1776.66
+671,color_size,3365.59
+671,color_size undo_redo,0
+672,paths,2.95219
+672,colors,0.590624
+672,shadows,4.46362
+672,frame_time_ms,8.00643
+672,virtual_size,1172.88
+672,allocated_size,1776.66
+672,color_size,3365.59
+672,color_size undo_redo,0
+673,paths,2.88051
+673,colors,0.63888
+673,shadows,4.90086
+673,frame_time_ms,8.42026
+673,virtual_size,1172.88
+673,allocated_size,1776.66
+673,color_size,3365.59
+673,color_size undo_redo,0
+674,paths,2.65216
+674,colors,0.601088
+674,shadows,4.864
+674,frame_time_ms,8.11725
+674,virtual_size,1172.88
+674,allocated_size,1776.66
+674,color_size,3365.59
+674,color_size undo_redo,0
+675,paths,2.63885
+675,colors,0.59184
+675,shadows,5.03706
+675,frame_time_ms,8.26774
+675,virtual_size,1172.88
+675,allocated_size,1776.66
+675,color_size,3365.59
+675,color_size undo_redo,0
+676,paths,3.22765
+676,colors,0.59904
+676,shadows,4.74829
+676,frame_time_ms,8.57498
+676,virtual_size,1172.88
+676,allocated_size,1776.66
+676,color_size,3365.59
+676,color_size undo_redo,0
+677,paths,2.63987
+677,colors,0.59392
+677,shadows,4.47488
+677,frame_time_ms,7.70867
+677,virtual_size,1172.88
+677,allocated_size,1776.66
+677,color_size,3365.59
+677,color_size undo_redo,0
+678,paths,2.66435
+678,colors,0.590848
+678,shadows,4.81792
+678,frame_time_ms,8.07312
+678,virtual_size,1172.88
+678,allocated_size,1776.66
+678,color_size,3365.59
+678,color_size undo_redo,0
+679,paths,3.01862
+679,colors,0.616448
+679,shadows,4.93773
+679,frame_time_ms,8.5728
+679,virtual_size,1172.88
+679,allocated_size,1776.66
+679,color_size,3365.59
+679,color_size undo_redo,0
+680,paths,3.26643
+680,colors,0.600064
+680,shadows,4.91827
+680,frame_time_ms,8.78477
+680,virtual_size,1172.88
+680,allocated_size,1776.66
+680,color_size,3365.59
+680,color_size undo_redo,0
+681,paths,2.92864
+681,colors,0.595968
+681,shadows,4.47072
+681,frame_time_ms,7.99533
+681,virtual_size,1172.88
+681,allocated_size,1776.66
+681,color_size,3365.59
+681,color_size undo_redo,0
+682,paths,2.66342
+682,colors,0.602112
+682,shadows,4.90803
+682,frame_time_ms,8.17357
+682,virtual_size,1172.88
+682,allocated_size,1776.66
+682,color_size,3365.59
+682,color_size undo_redo,0
+683,paths,2.99824
+683,colors,0.605184
+683,shadows,5.05936
+683,frame_time_ms,8.66278
+683,virtual_size,1172.88
+683,allocated_size,1776.66
+683,color_size,3365.59
+683,color_size undo_redo,0
+684,paths,2.91123
+684,colors,0.596736
+684,shadows,4.77696
+684,frame_time_ms,8.28493
+684,virtual_size,1172.88
+684,allocated_size,1776.66
+684,color_size,3365.59
+684,color_size undo_redo,0
+685,paths,3.23584
+685,colors,0.594816
+685,shadows,4.47898
+685,frame_time_ms,8.30963
+685,virtual_size,1172.88
+685,allocated_size,1776.66
+685,color_size,3365.59
+685,color_size undo_redo,0
+686,paths,2.66035
+686,colors,0.60704
+686,shadows,4.76371
+686,frame_time_ms,8.0311
+686,virtual_size,1172.88
+686,allocated_size,1776.66
+686,color_size,3365.59
+686,color_size undo_redo,0
+687,paths,2.9809
+687,colors,0.603136
+687,shadows,4.88653
+687,frame_time_ms,8.47056
+687,virtual_size,1172.88
+687,allocated_size,1776.66
+687,color_size,3365.59
+687,color_size undo_redo,0
+688,paths,3.22458
+688,colors,0.611072
+688,shadows,4.78106
+688,frame_time_ms,8.6167
+688,virtual_size,1172.88
+688,allocated_size,1776.66
+688,color_size,3365.59
+688,color_size undo_redo,0
+689,paths,2.93478
+689,colors,0.613376
+689,shadows,4.89677
+689,frame_time_ms,8.44493
+689,virtual_size,1172.88
+689,allocated_size,1776.66
+689,color_size,3365.59
+689,color_size undo_redo,0
+690,paths,2.66957
+690,colors,0.60928
+690,shadows,4.78176
+690,frame_time_ms,8.06061
+690,virtual_size,1172.88
+690,allocated_size,1776.66
+690,color_size,3365.59
+690,color_size undo_redo,0
+691,paths,2.67776
+691,colors,0.607232
+691,shadows,5.04115
+691,frame_time_ms,8.32614
+691,virtual_size,1172.88
+691,allocated_size,1776.66
+691,color_size,3365.59
+691,color_size undo_redo,0
+692,paths,3.31674
+692,colors,0.628736
+692,shadows,5.14218
+692,frame_time_ms,9.08765
+692,virtual_size,1172.88
+692,allocated_size,1776.66
+692,color_size,3365.59
+692,color_size undo_redo,0
+693,paths,3.05555
+693,colors,0.65024
+693,shadows,4.93875
+693,frame_time_ms,8.64454
+693,virtual_size,1172.88
+693,allocated_size,1776.66
+693,color_size,3365.59
+693,color_size undo_redo,0
+694,paths,3.39456
+694,colors,0.673632
+694,shadows,4.97766
+694,frame_time_ms,9.04586
+694,virtual_size,1172.88
+694,allocated_size,1776.66
+694,color_size,3365.59
+694,color_size undo_redo,0
+695,paths,2.91328
+695,colors,0.704512
+695,shadows,4.73984
+695,frame_time_ms,8.35763
+695,virtual_size,1172.88
+695,allocated_size,1776.66
+695,color_size,3365.59
+695,color_size undo_redo,0
+696,paths,2.96141
+696,colors,0.708512
+696,shadows,5.12102
+696,frame_time_ms,8.79094
+696,virtual_size,1172.88
+696,allocated_size,1776.66
+696,color_size,3365.59
+696,color_size undo_redo,0
+697,paths,3.2553
+697,colors,0.743424
+697,shadows,5.60026
+697,frame_time_ms,9.59898
+697,virtual_size,1172.88
+697,allocated_size,1776.66
+697,color_size,3365.59
+697,color_size undo_redo,0
+698,paths,3.3135
+698,colors,0.756736
+698,shadows,5.6256
+698,frame_time_ms,9.69584
+698,virtual_size,1172.88
+698,allocated_size,1776.66
+698,color_size,3365.59
+698,color_size undo_redo,0
+699,paths,3.2983
+699,colors,0.757568
+699,shadows,5.60826
+699,frame_time_ms,9.66413
+699,virtual_size,1172.88
+699,allocated_size,1776.66
+699,color_size,3365.59
+699,color_size undo_redo,0
+700,paths,3.27034
+700,colors,0.753664
+700,shadows,5.61562
+700,frame_time_ms,9.63962
+700,virtual_size,1172.88
+700,allocated_size,1776.66
+700,color_size,3365.59
+700,color_size undo_redo,0
+701,paths,3.25939
+701,colors,0.740288
+701,shadows,5.41082
+701,frame_time_ms,9.4105
+701,virtual_size,1172.88
+701,allocated_size,1776.66
+701,color_size,3365.59
+701,color_size undo_redo,0
+702,paths,3.36896
+702,colors,0.740352
+702,shadows,5.34221
+702,frame_time_ms,9.45152
+702,virtual_size,1172.88
+702,allocated_size,1776.66
+702,color_size,3365.59
+702,color_size undo_redo,0
+703,paths,3.54611
+703,colors,0.73728
+703,shadows,5.45792
+703,frame_time_ms,9.74131
+703,virtual_size,1172.88
+703,allocated_size,1776.66
+703,color_size,3365.59
+703,color_size undo_redo,0
+704,paths,3.5584
+704,colors,0.739328
+704,shadows,5.60435
+704,frame_time_ms,9.90208
+704,virtual_size,1172.88
+704,allocated_size,1776.66
+704,color_size,3365.59
+704,color_size undo_redo,0
+705,paths,3.52563
+705,colors,0.731136
+705,shadows,5.36371
+705,frame_time_ms,9.62048
+705,virtual_size,1172.88
+705,allocated_size,1776.66
+705,color_size,3365.59
+705,color_size undo_redo,0
+706,paths,3.58986
+706,colors,0.736256
+706,shadows,5.33709
+706,frame_time_ms,9.6632
+706,virtual_size,1172.88
+706,allocated_size,1776.66
+706,color_size,3365.59
+706,color_size undo_redo,0
+707,paths,3.21229
+707,colors,0.726016
+707,shadows,5.43437
+707,frame_time_ms,9.37267
+707,virtual_size,1172.88
+707,allocated_size,1776.66
+707,color_size,3365.59
+707,color_size undo_redo,0
+708,paths,3.31142
+708,colors,0.731136
+708,shadows,5.4945
+708,frame_time_ms,9.53706
+708,virtual_size,1172.88
+708,allocated_size,1776.66
+708,color_size,3365.59
+708,color_size undo_redo,0
+709,paths,3.53587
+709,colors,0.721824
+709,shadows,5.42208
+709,frame_time_ms,9.67978
+709,virtual_size,1172.88
+709,allocated_size,1776.66
+709,color_size,3365.59
+709,color_size undo_redo,0
+710,paths,3.47955
+710,colors,0.718848
+710,shadows,5.29818
+710,frame_time_ms,9.49658
+710,virtual_size,1172.88
+710,allocated_size,1776.66
+710,color_size,3365.59
+710,color_size undo_redo,0
+711,paths,3.18234
+711,colors,0.720896
+711,shadows,5.58291
+711,frame_time_ms,9.48614
+711,virtual_size,1172.88
+711,allocated_size,1776.66
+711,color_size,3365.59
+711,color_size undo_redo,0
+712,paths,3.1272
+712,colors,0.708608
+712,shadows,5.26234
+712,frame_time_ms,9.09814
+712,virtual_size,1172.88
+712,allocated_size,1776.66
+712,color_size,3365.59
+712,color_size undo_redo,0
+713,paths,2.81498
+713,colors,0.71168
+713,shadows,5.35654
+713,frame_time_ms,8.8832
+713,virtual_size,1172.88
+713,allocated_size,1776.66
+713,color_size,3365.59
+713,color_size undo_redo,0
+714,paths,2.82829
+714,colors,0.706368
+714,shadows,4.89984
+714,frame_time_ms,8.4345
+714,virtual_size,1172.88
+714,allocated_size,1776.66
+714,color_size,3365.59
+714,color_size undo_redo,0
+715,paths,2.83341
+715,colors,0.707584
+715,shadows,5.30128
+715,frame_time_ms,8.84227
+715,virtual_size,1172.88
+715,allocated_size,1776.66
+715,color_size,3365.59
+715,color_size undo_redo,0
+716,paths,2.87744
+716,colors,0.70144
+716,shadows,5.58694
+716,frame_time_ms,9.16582
+716,virtual_size,1172.88
+716,allocated_size,1776.66
+716,color_size,3365.59
+716,color_size undo_redo,0
+717,paths,2.87232
+717,colors,0.700352
+717,shadows,5.49274
+717,frame_time_ms,9.06541
+717,virtual_size,1172.88
+717,allocated_size,1776.66
+717,color_size,3365.59
+717,color_size undo_redo,0
+718,paths,3.33722
+718,colors,0.70224
+718,shadows,5.34333
+718,frame_time_ms,9.38278
+718,virtual_size,1172.88
+718,allocated_size,1776.66
+718,color_size,3365.59
+718,color_size undo_redo,0
+719,paths,3.54918
+719,colors,0.694272
+719,shadows,5.38419
+719,frame_time_ms,9.62765
+719,virtual_size,1172.88
+719,allocated_size,1776.66
+719,color_size,3365.59
+719,color_size undo_redo,0
+720,paths,3.26656
+720,colors,0.699392
+720,shadows,5.53062
+720,frame_time_ms,9.49658
+720,virtual_size,1172.88
+720,allocated_size,1776.66
+720,color_size,3365.59
+720,color_size undo_redo,0
+721,paths,3.4519
+721,colors,0.700416
+721,shadows,5.23878
+721,frame_time_ms,9.3911
+721,virtual_size,1172.88
+721,allocated_size,1776.66
+721,color_size,3365.59
+721,color_size undo_redo,0
+722,paths,3.36077
+722,colors,0.707584
+722,shadows,5.22752
+722,frame_time_ms,9.29587
+722,virtual_size,1172.88
+722,allocated_size,1776.66
+722,color_size,3365.59
+722,color_size undo_redo,0
+723,paths,3.42323
+723,colors,0.707584
+723,shadows,5.29818
+723,frame_time_ms,9.42899
+723,virtual_size,1172.88
+723,allocated_size,1776.66
+723,color_size,3365.59
+723,color_size undo_redo,0
+724,paths,3.24915
+724,colors,0.7168
+724,shadows,5.33181
+724,frame_time_ms,9.29776
+724,virtual_size,1172.88
+724,allocated_size,1776.66
+724,color_size,3365.59
+724,color_size undo_redo,0
+725,paths,3.04435
+725,colors,0.691936
+725,shadows,5.30944
+725,frame_time_ms,9.04573
+725,virtual_size,1172.88
+725,allocated_size,1776.66
+725,color_size,3365.59
+725,color_size undo_redo,0
+726,paths,3.04333
+726,colors,0.671744
+726,shadows,4.86093
+726,frame_time_ms,8.576
+726,virtual_size,1172.88
+726,allocated_size,1776.66
+726,color_size,3365.59
+726,color_size undo_redo,0
+727,paths,2.75971
+727,colors,0.68608
+727,shadows,5.2009
+727,frame_time_ms,8.64669
+727,virtual_size,1172.88
+727,allocated_size,1776.66
+727,color_size,3365.59
+727,color_size undo_redo,0
+728,paths,2.76685
+728,colors,0.681664
+728,shadows,5.38317
+728,frame_time_ms,8.83168
+728,virtual_size,1172.88
+728,allocated_size,1776.66
+728,color_size,3365.59
+728,color_size undo_redo,0
+729,paths,3.11395
+729,colors,0.699392
+729,shadows,5.49962
+729,frame_time_ms,9.31296
+729,virtual_size,1172.88
+729,allocated_size,1776.66
+729,color_size,3365.59
+729,color_size undo_redo,0
+730,paths,3.14944
+730,colors,0.685856
+730,shadows,5.30432
+730,frame_time_ms,9.13962
+730,virtual_size,1172.88
+730,allocated_size,1776.66
+730,color_size,3365.59
+730,color_size undo_redo,0
+731,paths,3.38534
+731,colors,0.68704
+731,shadows,5.36576
+731,frame_time_ms,9.43814
+731,virtual_size,1172.88
+731,allocated_size,1776.66
+731,color_size,3365.59
+731,color_size undo_redo,0
+732,paths,3.36486
+732,colors,0.6808
+732,shadows,5.29715
+732,frame_time_ms,9.34282
+732,virtual_size,1172.88
+732,allocated_size,1776.66
+732,color_size,3365.59
+732,color_size undo_redo,0
+733,paths,2.99008
+733,colors,0.678912
+733,shadows,5.21011
+733,frame_time_ms,8.8791
+733,virtual_size,1172.88
+733,allocated_size,1776.66
+733,color_size,3365.59
+733,color_size undo_redo,0
+734,paths,2.73203
+734,colors,0.672768
+734,shadows,4.94877
+734,frame_time_ms,8.35357
+734,virtual_size,1172.88
+734,allocated_size,1776.66
+734,color_size,3365.59
+734,color_size undo_redo,0
+735,paths,2.75328
+735,colors,0.699072
+735,shadows,5.39136
+735,frame_time_ms,8.84371
+735,virtual_size,1172.88
+735,allocated_size,1776.66
+735,color_size,3365.59
+735,color_size undo_redo,0
+736,paths,2.80963
+736,colors,0.687104
+736,shadows,5.62074
+736,frame_time_ms,9.11747
+736,virtual_size,1172.88
+736,allocated_size,1776.66
+736,color_size,3365.59
+736,color_size undo_redo,0
+737,paths,2.88547
+737,colors,0.694272
+737,shadows,5.7856
+737,frame_time_ms,9.36534
+737,virtual_size,1172.88
+737,allocated_size,1776.66
+737,color_size,3365.59
+737,color_size undo_redo,0
+738,paths,3.26144
+738,colors,0.704512
+738,shadows,5.6873
+738,frame_time_ms,9.65325
+738,virtual_size,1172.88
+738,allocated_size,1776.66
+738,color_size,3365.59
+738,color_size undo_redo,0
+739,paths,3.26758
+739,colors,0.725952
+739,shadows,5.80486
+739,frame_time_ms,9.7984
+739,virtual_size,1172.88
+739,allocated_size,1776.66
+739,color_size,3365.59
+739,color_size undo_redo,0
+740,paths,3.36486
+740,colors,0.713728
+740,shadows,5.62381
+740,frame_time_ms,9.7024
+740,virtual_size,1172.88
+740,allocated_size,1776.66
+740,color_size,3365.59
+740,color_size undo_redo,0
+741,paths,3.52646
+741,colors,0.7288
+741,shadows,5.80586
+741,frame_time_ms,10.0611
+741,virtual_size,1172.88
+741,allocated_size,1776.66
+741,color_size,3365.59
+741,color_size undo_redo,0
+742,paths,3.56762
+742,colors,0.738304
+742,shadows,5.72314
+742,frame_time_ms,10.0291
+742,virtual_size,1172.88
+742,allocated_size,1776.66
+742,color_size,3365.59
+742,color_size undo_redo,0
+743,paths,3.13251
+743,colors,0.75264
+743,shadows,5.86547
+743,frame_time_ms,9.75062
+743,virtual_size,1172.88
+743,allocated_size,1776.66
+743,color_size,3365.59
+743,color_size undo_redo,0
+744,paths,2.99418
+744,colors,0.7136
+744,shadows,5.82739
+744,frame_time_ms,9.53517
+744,virtual_size,1172.88
+744,allocated_size,1776.66
+744,color_size,3365.59
+744,color_size undo_redo,0
+745,paths,2.8928
+745,colors,0.693248
+745,shadows,5.82554
+745,frame_time_ms,9.41158
+745,virtual_size,1172.88
+745,allocated_size,1776.66
+745,color_size,3365.59
+745,color_size undo_redo,0
+746,paths,3.25018
+746,colors,0.715776
+746,shadows,5.88173
+746,frame_time_ms,9.84768
+746,virtual_size,1172.88
+746,allocated_size,1776.66
+746,color_size,3365.59
+746,color_size undo_redo,0
+747,paths,2.9225
+747,colors,0.698368
+747,shadows,5.84685
+747,frame_time_ms,9.46771
+747,virtual_size,1172.88
+747,allocated_size,1776.66
+747,color_size,3365.59
+747,color_size undo_redo,0
+748,paths,3.23072
+748,colors,0.694208
+748,shadows,5.66682
+748,frame_time_ms,9.59174
+748,virtual_size,1172.88
+748,allocated_size,1776.66
+748,color_size,3365.59
+748,color_size undo_redo,0
+749,paths,3.39866
+749,colors,0.699392
+749,shadows,5.80198
+749,frame_time_ms,9.90003
+749,virtual_size,1172.88
+749,allocated_size,1776.66
+749,color_size,3365.59
+749,color_size undo_redo,0
+750,paths,2.8713
+750,colors,0.688032
+750,shadows,5.87981
+750,frame_time_ms,9.43914
+750,virtual_size,1172.88
+750,allocated_size,1776.66
+750,color_size,3365.59
+750,color_size undo_redo,0
+751,paths,2.89075
+751,colors,0.688864
+751,shadows,5.66886
+751,frame_time_ms,9.24848
+751,virtual_size,1172.88
+751,allocated_size,1776.66
+751,color_size,3365.59
+751,color_size undo_redo,0
+752,paths,2.88256
+752,colors,0.690176
+752,shadows,5.80285
+752,frame_time_ms,9.37558
+752,virtual_size,1172.88
+752,allocated_size,1776.66
+752,color_size,3365.59
+752,color_size undo_redo,0
+753,paths,3.22355
+753,colors,0.689152
+753,shadows,5.78048
+753,frame_time_ms,9.69318
+753,virtual_size,1172.88
+753,allocated_size,1776.66
+753,color_size,3365.59
+753,color_size undo_redo,0
+754,paths,3.19574
+754,colors,0.67584
+754,shadows,5.65555
+754,frame_time_ms,9.52714
+754,virtual_size,1172.88
+754,allocated_size,1776.66
+754,color_size,3365.59
+754,color_size undo_redo,0
+755,paths,3.20109
+755,colors,0.688128
+755,shadows,5.81117
+755,frame_time_ms,9.70038
+755,virtual_size,1172.88
+755,allocated_size,1776.66
+755,color_size,3365.59
+755,color_size undo_redo,0
+756,paths,3.20102
+756,colors,0.676864
+756,shadows,5.84294
+756,frame_time_ms,9.72083
+756,virtual_size,1172.88
+756,allocated_size,1776.66
+756,color_size,3365.59
+756,color_size undo_redo,0
+757,paths,3.27782
+757,colors,0.684032
+757,shadows,5.80301
+757,frame_time_ms,9.76486
+757,virtual_size,1172.88
+757,allocated_size,1776.66
+757,color_size,3365.59
+757,color_size undo_redo,0
+758,paths,3.02592
+758,colors,0.68096
+758,shadows,5.78458
+758,frame_time_ms,9.49146
+758,virtual_size,1172.88
+758,allocated_size,1776.66
+758,color_size,3365.59
+758,color_size undo_redo,0
+759,paths,3.05034
+759,colors,0.6912
+759,shadows,5.7641
+759,frame_time_ms,9.50563
+759,virtual_size,1172.88
+759,allocated_size,1776.66
+759,color_size,3365.59
+759,color_size undo_redo,0
+760,paths,3.08634
+760,colors,0.688128
+760,shadows,5.5296
+760,frame_time_ms,9.30406
+760,virtual_size,1172.88
+760,allocated_size,1776.66
+760,color_size,3365.59
+760,color_size undo_redo,0
+761,paths,3.2775
+761,colors,0.681824
+761,shadows,5.45178
+761,frame_time_ms,9.4111
+761,virtual_size,1172.88
+761,allocated_size,1776.66
+761,color_size,3365.59
+761,color_size undo_redo,0
+762,paths,3.3985
+762,colors,0.698368
+762,shadows,5.60947
+762,frame_time_ms,9.70634
+762,virtual_size,1172.88
+762,allocated_size,1776.66
+762,color_size,3365.59
+762,color_size undo_redo,0
+763,paths,3.43859
+763,colors,0.685056
+763,shadows,5.25414
+763,frame_time_ms,9.37779
+763,virtual_size,1172.88
+763,allocated_size,1776.66
+763,color_size,3365.59
+763,color_size undo_redo,0
+764,paths,3.35245
+764,colors,0.697312
+764,shadows,5.2416
+764,frame_time_ms,9.29136
+764,virtual_size,1172.88
+764,allocated_size,1776.66
+764,color_size,3365.59
+764,color_size undo_redo,0
+765,paths,3.0679
+765,colors,0.6656
+765,shadows,5.23741
+765,frame_time_ms,8.97091
+765,virtual_size,1172.88
+765,allocated_size,1776.66
+765,color_size,3365.59
+765,color_size undo_redo,0
+766,paths,2.72685
+766,colors,0.683936
+766,shadows,4.90086
+766,frame_time_ms,8.31165
+766,virtual_size,1172.88
+766,allocated_size,1776.66
+766,color_size,3365.59
+766,color_size undo_redo,0
+767,paths,2.56512
+767,colors,0.67584
+767,shadows,5.33197
+767,frame_time_ms,8.57293
+767,virtual_size,1172.88
+767,allocated_size,1776.66
+767,color_size,3365.59
+767,color_size undo_redo,0
+768,paths,2.50986
+768,colors,0.68096
+768,shadows,5.55315
+768,frame_time_ms,8.74397
+768,virtual_size,1172.88
+768,allocated_size,1776.66
+768,color_size,3365.59
+768,color_size undo_redo,0
+769,paths,2.93168
+769,colors,0.67584
+769,shadows,5.52038
+769,frame_time_ms,9.1279
+769,virtual_size,1172.88
+769,allocated_size,1776.66
+769,color_size,3365.59
+769,color_size undo_redo,0
+770,paths,3.02387
+770,colors,0.669472
+770,shadows,5.22106
+770,frame_time_ms,8.9144
+770,virtual_size,1172.88
+770,allocated_size,1776.66
+770,color_size,3365.59
+770,color_size undo_redo,0
+771,paths,2.95408
+771,colors,0.652288
+771,shadows,4.95206
+771,frame_time_ms,8.55843
+771,virtual_size,1172.88
+771,allocated_size,1776.66
+771,color_size,3365.59
+771,color_size undo_redo,0
+772,paths,2.39923
+772,colors,0.662528
+772,shadows,5.27872
+772,frame_time_ms,8.34048
+772,virtual_size,1172.88
+772,allocated_size,1776.66
+772,color_size,3365.59
+772,color_size undo_redo,0
+773,paths,2.75149
+773,colors,0.662528
+773,shadows,5.56042
+773,frame_time_ms,8.97443
+773,virtual_size,1172.88
+773,allocated_size,1776.66
+773,color_size,3365.59
+773,color_size undo_redo,0
+774,paths,2.99418
+774,colors,0.649216
+774,shadows,5.31354
+774,frame_time_ms,8.95693
+774,virtual_size,1172.88
+774,allocated_size,1776.66
+774,color_size,3365.59
+774,color_size undo_redo,0
+775,paths,2.67162
+775,colors,0.648192
+775,shadows,5.37498
+775,frame_time_ms,8.69478
+775,virtual_size,1172.88
+775,allocated_size,1776.66
+775,color_size,3365.59
+775,color_size undo_redo,0
+776,paths,2.40538
+776,colors,0.623616
+776,shadows,4.94077
+776,frame_time_ms,7.96976
+776,virtual_size,1172.88
+776,allocated_size,1776.66
+776,color_size,3365.59
+776,color_size undo_redo,0
+777,paths,2.41245
+777,colors,0.62976
+777,shadows,5.47328
+777,frame_time_ms,8.51549
+777,virtual_size,1172.88
+777,allocated_size,1776.66
+777,color_size,3365.59
+777,color_size undo_redo,0
+778,paths,2.70848
+778,colors,0.630784
+778,shadows,5.3553
+778,frame_time_ms,8.69456
+778,virtual_size,1172.88
+778,allocated_size,1776.66
+778,color_size,3365.59
+778,color_size undo_redo,0
+779,paths,2.99622
+779,colors,0.635904
+779,shadows,5.2009
+779,frame_time_ms,8.83302
+779,virtual_size,1172.88
+779,allocated_size,1776.66
+779,color_size,3365.59
+779,color_size undo_redo,0
+780,paths,2.5897
+780,colors,0.623616
+780,shadows,4.88234
+780,frame_time_ms,8.09565
+780,virtual_size,1172.88
+780,allocated_size,1776.66
+780,color_size,3365.59
+780,color_size undo_redo,0
+781,paths,2.31526
+781,colors,0.651264
+781,shadows,5.17222
+781,frame_time_ms,8.13875
+781,virtual_size,1172.88
+781,allocated_size,1776.66
+781,color_size,3365.59
+781,color_size undo_redo,0
+782,paths,2.30093
+782,colors,0.618272
+782,shadows,5.30534
+782,frame_time_ms,8.22454
+782,virtual_size,1172.88
+782,allocated_size,1776.66
+782,color_size,3365.59
+782,color_size undo_redo,0
+783,paths,2.93581
+783,colors,0.62464
+783,shadows,5.28384
+783,frame_time_ms,8.84429
+783,virtual_size,1172.88
+783,allocated_size,1776.66
+783,color_size,3365.59
+783,color_size undo_redo,0
+784,paths,2.62554
+784,colors,0.63488
+784,shadows,4.87219
+784,frame_time_ms,8.13261
+784,virtual_size,1172.88
+784,allocated_size,1776.66
+784,color_size,3365.59
+784,color_size undo_redo,0
+785,paths,2.4575
+785,colors,0.642848
+785,shadows,5.18656
+785,frame_time_ms,8.28691
+785,virtual_size,1172.88
+785,allocated_size,1776.66
+785,color_size,3365.59
+785,color_size undo_redo,0
+786,paths,2.80883
+786,colors,0.643072
+786,shadows,5.336
+786,frame_time_ms,8.7879
+786,virtual_size,1172.88
+786,allocated_size,1776.66
+786,color_size,3365.59
+786,color_size undo_redo,0
+787,paths,3.16928
+787,colors,0.646144
+787,shadows,5.17094
+787,frame_time_ms,8.98637
+787,virtual_size,1172.88
+787,allocated_size,1776.66
+787,color_size,3365.59
+787,color_size undo_redo,0
+788,paths,2.8416
+788,colors,0.648896
+788,shadows,5.44454
+788,frame_time_ms,8.93504
+788,virtual_size,1172.88
+788,allocated_size,1776.66
+788,color_size,3365.59
+788,color_size undo_redo,0
+789,paths,2.85798
+789,colors,0.659168
+789,shadows,5.27661
+789,frame_time_ms,8.79376
+789,virtual_size,1172.88
+789,allocated_size,1776.66
+789,color_size,3365.59
+789,color_size undo_redo,0
+790,paths,2.59994
+790,colors,0.642048
+790,shadows,4.86298
+790,frame_time_ms,8.10496
+790,virtual_size,1172.88
+790,allocated_size,1776.66
+790,color_size,3365.59
+790,color_size undo_redo,0
+791,paths,2.91942
+791,colors,0.661504
+791,shadows,5.16915
+791,frame_time_ms,8.75008
+791,virtual_size,1172.88
+791,allocated_size,1776.66
+791,color_size,3365.59
+791,color_size undo_redo,0
+792,paths,3.05562
+792,colors,0.6776
+792,shadows,5.49888
+792,frame_time_ms,9.2321
+792,virtual_size,1172.88
+792,allocated_size,1776.66
+792,color_size,3365.59
+792,color_size undo_redo,0
+793,paths,3.15674
+793,colors,0.671744
+793,shadows,5.33914
+793,frame_time_ms,9.16762
+793,virtual_size,1172.88
+793,allocated_size,1776.66
+793,color_size,3365.59
+793,color_size undo_redo,0
+794,paths,3.19078
+794,colors,0.669696
+794,shadows,5.40365
+794,frame_time_ms,9.26413
+794,virtual_size,1172.88
+794,allocated_size,1776.66
+794,color_size,3365.59
+794,color_size undo_redo,0
+795,paths,3.29011
+795,colors,0.677888
+795,shadows,5.6328
+795,frame_time_ms,9.6008
+795,virtual_size,1172.88
+795,allocated_size,1776.66
+795,color_size,3365.59
+795,color_size undo_redo,0
+796,paths,3.50074
+796,colors,0.685056
+796,shadows,5.48864
+796,frame_time_ms,9.67443
+796,virtual_size,1172.88
+796,allocated_size,1776.66
+796,color_size,3365.59
+796,color_size undo_redo,0
+797,paths,3.55638
+797,colors,0.684032
+797,shadows,5.42003
+797,frame_time_ms,9.66045
+797,virtual_size,1172.88
+797,allocated_size,1776.66
+797,color_size,3365.59
+797,color_size undo_redo,0
+798,paths,3.69562
+798,colors,0.693248
+798,shadows,5.4231
+798,frame_time_ms,9.81197
+798,virtual_size,1172.88
+798,allocated_size,1776.66
+798,color_size,3365.59
+798,color_size undo_redo,0
+799,paths,3.66694
+799,colors,0.718848
+799,shadows,5.31149
+799,frame_time_ms,9.69728
+799,virtual_size,1172.88
+799,allocated_size,1776.66
+799,color_size,3365.59
+799,color_size undo_redo,0
+800,paths,3.83795
+800,colors,0.697344
+800,shadows,5.46592
+800,frame_time_ms,10.0012
+800,virtual_size,1172.88
+800,allocated_size,1776.66
+800,color_size,3365.59
+800,color_size undo_redo,0
+801,paths,3.81952
+801,colors,0.704512
+801,shadows,5.43405
+801,frame_time_ms,9.95808
+801,virtual_size,1172.88
+801,allocated_size,1776.66
+801,color_size,3365.59
+801,color_size undo_redo,0
+802,paths,3.83693
+802,colors,0.713728
+802,shadows,5.33702
+802,frame_time_ms,9.88768
+802,virtual_size,1172.88
+802,allocated_size,1776.66
+802,color_size,3365.59
+802,color_size undo_redo,0
+803,paths,3.80826
+803,colors,0.70656
+803,shadows,5.49056
+803,frame_time_ms,10.0054
+803,virtual_size,1172.88
+803,allocated_size,1776.66
+803,color_size,3365.59
+803,color_size undo_redo,0
+804,paths,3.87997
+804,colors,0.700416
+804,shadows,5.61766
+804,frame_time_ms,10.198
+804,virtual_size,1172.88
+804,allocated_size,1776.66
+804,color_size,3365.59
+804,color_size undo_redo,0
+805,paths,3.5031
+805,colors,0.699392
+805,shadows,5.61971
+805,frame_time_ms,9.82221
+805,virtual_size,1172.88
+805,allocated_size,1776.66
+805,color_size,3365.59
+805,color_size undo_redo,0
+806,paths,3.43654
+806,colors,0.700416
+806,shadows,5.56237
+806,frame_time_ms,9.69933
+806,virtual_size,1172.88
+806,allocated_size,1776.66
+806,color_size,3365.59
+806,color_size undo_redo,0
+807,paths,2.98086
+807,colors,0.702464
+807,shadows,5.69638
+807,frame_time_ms,9.37971
+807,virtual_size,1172.88
+807,allocated_size,1776.66
+807,color_size,3365.59
+807,color_size undo_redo,0
+808,paths,3.20614
+808,colors,0.677824
+808,shadows,5.53062
+808,frame_time_ms,9.41459
+808,virtual_size,1172.88
+808,allocated_size,1776.66
+808,color_size,3365.59
+808,color_size undo_redo,0
+809,paths,3.16416
+809,colors,0.679616
+809,shadows,5.24186
+809,frame_time_ms,9.08563
+809,virtual_size,1172.88
+809,allocated_size,1776.66
+809,color_size,3365.59
+809,color_size undo_redo,0
+810,paths,3.5369
+810,colors,0.674816
+810,shadows,5.21216
+810,frame_time_ms,9.42387
+810,virtual_size,1172.88
+810,allocated_size,1776.66
+810,color_size,3365.59
+810,color_size undo_redo,0
+811,paths,3.70893
+811,colors,0.66864
+811,shadows,5.04525
+811,frame_time_ms,9.42282
+811,virtual_size,1172.88
+811,allocated_size,1776.66
+811,color_size,3365.59
+811,color_size undo_redo,0
+812,paths,3.2768
+812,colors,0.677888
+812,shadows,5.14048
+812,frame_time_ms,9.09517
+812,virtual_size,1172.88
+812,allocated_size,1776.66
+812,color_size,3365.59
+812,color_size undo_redo,0
+813,paths,3.09632
+813,colors,0.674688
+813,shadows,5.06266
+813,frame_time_ms,8.83366
+813,virtual_size,1172.88
+813,allocated_size,1776.66
+813,color_size,3365.59
+813,color_size undo_redo,0
+814,paths,2.80982
+814,colors,0.666368
+814,shadows,4.6663
+814,frame_time_ms,8.1425
+814,virtual_size,1172.88
+814,allocated_size,1776.66
+814,color_size,3365.59
+814,color_size undo_redo,0
+815,paths,3.07712
+815,colors,0.649216
+815,shadows,4.63981
+815,frame_time_ms,8.36614
+815,virtual_size,1172.88
+815,allocated_size,1776.66
+815,color_size,3365.59
+815,color_size undo_redo,0
+816,paths,2.75354
+816,colors,0.667648
+816,shadows,5.27254
+816,frame_time_ms,8.69373
+816,virtual_size,1172.88
+816,allocated_size,1776.66
+816,color_size,3365.59
+816,color_size undo_redo,0
+817,paths,3.11802
+817,colors,0.663552
+817,shadows,5.05139
+817,frame_time_ms,8.83296
+817,virtual_size,1172.88
+817,allocated_size,1776.66
+817,color_size,3365.59
+817,color_size undo_redo,0
+818,paths,3.5328
+818,colors,0.676672
+818,shadows,4.95514
+818,frame_time_ms,9.16461
+818,virtual_size,1172.88
+818,allocated_size,1776.66
+818,color_size,3365.59
+818,color_size undo_redo,0
+819,paths,2.76358
+819,colors,0.684032
+819,shadows,4.9816
+819,frame_time_ms,8.42922
+819,virtual_size,1172.88
+819,allocated_size,1776.66
+819,color_size,3365.59
+819,color_size undo_redo,0
+820,paths,2.75526
+820,colors,0.662464
+820,shadows,5.03808
+820,frame_time_ms,8.45581
+820,virtual_size,1172.88
+820,allocated_size,1776.66
+820,color_size,3365.59
+820,color_size undo_redo,0
+821,paths,2.73203
+821,colors,0.663456
+821,shadows,5.22752
+821,frame_time_ms,8.62301
+821,virtual_size,1172.88
+821,allocated_size,1776.66
+821,color_size,3365.59
+821,color_size undo_redo,0
+822,paths,3.03206
+822,colors,0.674816
+822,shadows,4.98381
+822,frame_time_ms,8.69069
+822,virtual_size,1172.88
+822,allocated_size,1776.66
+822,color_size,3365.59
+822,color_size undo_redo,0
+823,paths,3.27987
+823,colors,0.666624
+823,shadows,4.98579
+823,frame_time_ms,8.93229
+823,virtual_size,1172.88
+823,allocated_size,1776.66
+823,color_size,3365.59
+823,color_size undo_redo,0
+824,paths,2.88461
+824,colors,0.671424
+824,shadows,4.97971
+824,frame_time_ms,8.53574
+824,virtual_size,1172.88
+824,allocated_size,1776.66
+824,color_size,3365.59
+824,color_size undo_redo,0
+825,paths,2.6112
+825,colors,0.663392
+825,shadows,4.64077
+825,frame_time_ms,7.91536
+825,virtual_size,1172.88
+825,allocated_size,1776.66
+825,color_size,3365.59
+825,color_size undo_redo,0
+826,paths,2.59584
+826,colors,0.65536
+826,shadows,5.07494
+826,frame_time_ms,8.32614
+826,virtual_size,1172.88
+826,allocated_size,1776.66
+826,color_size,3365.59
+826,color_size undo_redo,0
+827,paths,2.9225
+827,colors,0.658432
+827,shadows,5.0903
+827,frame_time_ms,8.67123
+827,virtual_size,1172.88
+827,allocated_size,1776.66
+827,color_size,3365.59
+827,color_size undo_redo,0
+828,paths,3.03616
+828,colors,0.668672
+828,shadows,5.24595
+828,frame_time_ms,8.95078
+828,virtual_size,1172.88
+828,allocated_size,1776.66
+828,color_size,3365.59
+828,color_size undo_redo,0
+829,paths,3.04742
+829,colors,0.6656
+829,shadows,4.99814
+829,frame_time_ms,8.71117
+829,virtual_size,1172.88
+829,allocated_size,1776.66
+829,color_size,3365.59
+829,color_size undo_redo,0
+830,paths,3.12611
+830,colors,0.66768
+830,shadows,5.11245
+830,frame_time_ms,8.90624
+830,virtual_size,1172.88
+830,allocated_size,1776.66
+830,color_size,3365.59
+830,color_size undo_redo,0
+831,paths,2.84448
+831,colors,0.68608
+831,shadows,4.95002
+831,frame_time_ms,8.48058
+831,virtual_size,1172.88
+831,allocated_size,1776.66
+831,color_size,3365.59
+831,color_size undo_redo,0
+832,paths,3.20102
+832,colors,0.683008
+832,shadows,4.73293
+832,frame_time_ms,8.61696
+832,virtual_size,1172.88
+832,allocated_size,1776.66
+832,color_size,3365.59
+832,color_size undo_redo,0
+833,paths,3.03002
+833,colors,0.6912
+833,shadows,5.40877
+833,frame_time_ms,9.12998
+833,virtual_size,1172.88
+833,allocated_size,1776.66
+833,color_size,3365.59
+833,color_size undo_redo,0
+834,paths,3.0423
+834,colors,0.695296
+834,shadows,5.39546
+834,frame_time_ms,9.13306
+834,virtual_size,1172.88
+834,allocated_size,1776.66
+834,color_size,3365.59
+834,color_size undo_redo,0
+835,paths,3.31446
+835,colors,0.689152
+835,shadows,5.38214
+835,frame_time_ms,9.38576
+835,virtual_size,1172.88
+835,allocated_size,1776.66
+835,color_size,3365.59
+835,color_size undo_redo,0
+836,paths,3.28499
+836,colors,0.687104
+836,shadows,5.26717
+836,frame_time_ms,9.23926
+836,virtual_size,1172.88
+836,allocated_size,1776.66
+836,color_size,3365.59
+836,color_size undo_redo,0
+837,paths,3.58605
+837,colors,0.690944
+837,shadows,5.56851
+837,frame_time_ms,9.8455
+837,virtual_size,1172.88
+837,allocated_size,1776.66
+837,color_size,3365.59
+837,color_size undo_redo,0
+838,paths,3.63206
+838,colors,0.690176
+838,shadows,5.41798
+838,frame_time_ms,9.74022
+838,virtual_size,1172.88
+838,allocated_size,1776.66
+838,color_size,3365.59
+838,color_size undo_redo,0
+839,paths,3.57888
+839,colors,0.67584
+839,shadows,5.12922
+839,frame_time_ms,9.38394
+839,virtual_size,1172.88
+839,allocated_size,1776.66
+839,color_size,3365.59
+839,color_size undo_redo,0
+840,paths,3.56966
+840,colors,0.679616
+840,shadows,5.22746
+840,frame_time_ms,9.47674
+840,virtual_size,1172.88
+840,allocated_size,1776.66
+840,color_size,3365.59
+840,color_size undo_redo,0
+841,paths,3.41786
+841,colors,0.67584
+841,shadows,5.48147
+841,frame_time_ms,9.57517
+841,virtual_size,1172.88
+841,allocated_size,1776.66
+841,color_size,3365.59
+841,color_size undo_redo,0
+842,paths,3.23584
+842,colors,0.67472
+842,shadows,5.1241
+842,frame_time_ms,9.03466
+842,virtual_size,1172.88
+842,allocated_size,1776.66
+842,color_size,3365.59
+842,color_size undo_redo,0
+843,paths,3.37613
+843,colors,0.678912
+843,shadows,5.14867
+843,frame_time_ms,9.20371
+843,virtual_size,1172.88
+843,allocated_size,1776.66
+843,color_size,3365.59
+843,color_size undo_redo,0
+844,paths,2.85696
+844,colors,0.680768
+844,shadows,4.84045
+844,frame_time_ms,8.37818
+844,virtual_size,1172.88
+844,allocated_size,1776.66
+844,color_size,3365.59
+844,color_size undo_redo,0
+845,paths,2.88144
+845,colors,0.677888
+845,shadows,5.14157
+845,frame_time_ms,8.7009
+845,virtual_size,1172.88
+845,allocated_size,1776.66
+845,color_size,3365.59
+845,color_size undo_redo,0
+846,paths,2.90787
+846,colors,0.692224
+846,shadows,5.18656
+846,frame_time_ms,8.78666
+846,virtual_size,1172.88
+846,allocated_size,1776.66
+846,color_size,3365.59
+846,color_size undo_redo,0
+847,paths,3.25427
+847,colors,0.688128
+847,shadows,5.49274
+847,frame_time_ms,9.43514
+847,virtual_size,1172.88
+847,allocated_size,1776.66
+847,color_size,3365.59
+847,color_size undo_redo,0
+848,paths,3.25114
+848,colors,0.68608
+848,shadows,5.50195
+848,frame_time_ms,9.43917
+848,virtual_size,1172.88
+848,allocated_size,1776.66
+848,color_size,3365.59
+848,color_size undo_redo,0
+849,paths,3.30138
+849,colors,0.704512
+849,shadows,5.21216
+849,frame_time_ms,9.21805
+849,virtual_size,1172.88
+849,allocated_size,1776.66
+849,color_size,3365.59
+849,color_size undo_redo,0
+850,paths,3.6311
+850,colors,0.676864
+850,shadows,5.21114
+850,frame_time_ms,9.5191
+850,virtual_size,1172.88
+850,allocated_size,1776.66
+850,color_size,3365.59
+850,color_size undo_redo,0
+851,paths,3.65466
+851,colors,0.673792
+851,shadows,5.24579
+851,frame_time_ms,9.57424
+851,virtual_size,1172.88
+851,allocated_size,1776.66
+851,color_size,3365.59
+851,color_size undo_redo,0
+852,paths,3.47936
+852,colors,0.68096
+852,shadows,5.36781
+852,frame_time_ms,9.52813
+852,virtual_size,1172.88
+852,allocated_size,1776.66
+852,color_size,3365.59
+852,color_size undo_redo,0
+853,paths,3.74784
+853,colors,0.689152
+853,shadows,5.40467
+853,frame_time_ms,9.84166
+853,virtual_size,1172.88
+853,allocated_size,1776.66
+853,color_size,3365.59
+853,color_size undo_redo,0
+854,paths,3.59219
+854,colors,0.67584
+854,shadows,5.46394
+854,frame_time_ms,9.73197
+854,virtual_size,1172.88
+854,allocated_size,1776.66
+854,color_size,3365.59
+854,color_size undo_redo,0
+855,paths,3.67104
+855,colors,0.678912
+855,shadows,5.36576
+855,frame_time_ms,9.71571
+855,virtual_size,1172.88
+855,allocated_size,1776.66
+855,color_size,3365.59
+855,color_size undo_redo,0
+856,paths,3.65056
+856,colors,0.64192
+856,shadows,5.18963
+856,frame_time_ms,9.48211
+856,virtual_size,1172.88
+856,allocated_size,1776.66
+856,color_size,3365.59
+856,color_size undo_redo,0
+857,paths,3.23171
+857,colors,0.62464
+857,shadows,5.44362
+857,frame_time_ms,9.29997
+857,virtual_size,1172.88
+857,allocated_size,1776.66
+857,color_size,3365.59
+857,color_size undo_redo,0
+858,paths,3.26861
+858,colors,0.621568
+858,shadows,5.57773
+858,frame_time_ms,9.4679
+858,virtual_size,1172.88
+858,allocated_size,1776.66
+858,color_size,3365.59
+858,color_size undo_redo,0
+859,paths,3.22048
+859,colors,0.610304
+859,shadows,5.21933
+859,frame_time_ms,9.05011
+859,virtual_size,1172.88
+859,allocated_size,1776.66
+859,color_size,3365.59
+859,color_size undo_redo,0
+860,paths,2.8672
+860,colors,0.601088
+860,shadows,4.86707
+860,frame_time_ms,8.33536
+860,virtual_size,1172.88
+860,allocated_size,1776.66
+860,color_size,3365.59
+860,color_size undo_redo,0
+861,paths,2.83238
+861,colors,0.59392
+861,shadows,5.04422
+861,frame_time_ms,8.47053
+861,virtual_size,1172.88
+861,allocated_size,1776.66
+861,color_size,3365.59
+861,color_size undo_redo,0
+862,paths,2.85389
+862,colors,0.593664
+862,shadows,5.26131
+862,frame_time_ms,8.70886
+862,virtual_size,1172.88
+862,allocated_size,1776.66
+862,color_size,3365.59
+862,color_size undo_redo,0
+863,paths,3.49594
+863,colors,0.594944
+863,shadows,4.97357
+863,frame_time_ms,9.06445
+863,virtual_size,1172.88
+863,allocated_size,1776.66
+863,color_size,3365.59
+863,color_size undo_redo,0
+864,paths,3.21024
+864,colors,0.616448
+864,shadows,5.12205
+864,frame_time_ms,8.94874
+864,virtual_size,1172.88
+864,allocated_size,1776.66
+864,color_size,3365.59
+864,color_size undo_redo,0
+865,paths,3.23994
+865,colors,0.59168
+865,shadows,5.09542
+865,frame_time_ms,8.92704
+865,virtual_size,1172.88
+865,allocated_size,1776.66
+865,color_size,3365.59
+865,color_size undo_redo,0
+866,paths,2.98496
+866,colors,0.596992
+866,shadows,4.67763
+866,frame_time_ms,8.25958
+866,virtual_size,1172.88
+866,allocated_size,1776.66
+866,color_size,3365.59
+866,color_size undo_redo,0
+867,paths,3.21325
+867,colors,0.601088
+867,shadows,4.99274
+867,frame_time_ms,8.80707
+867,virtual_size,1172.88
+867,allocated_size,1776.66
+867,color_size,3365.59
+867,color_size undo_redo,0
+868,paths,3.00134
+868,colors,0.587776
+868,shadows,5.11181
+868,frame_time_ms,8.70093
+868,virtual_size,1172.88
+868,allocated_size,1776.66
+868,color_size,3365.59
+868,color_size undo_redo,0
+869,paths,2.96448
+869,colors,0.589504
+869,shadows,5.03264
+869,frame_time_ms,8.58662
+869,virtual_size,1172.88
+869,allocated_size,1776.66
+869,color_size,3365.59
+869,color_size undo_redo,0
+870,paths,3.60653
+870,colors,0.58768
+870,shadows,5.05446
+870,frame_time_ms,9.24867
+870,virtual_size,1172.88
+870,allocated_size,1776.66
+870,color_size,3365.59
+870,color_size undo_redo,0
+871,paths,3.49901
+871,colors,0.589632
+871,shadows,4.90598
+871,frame_time_ms,8.99462
+871,virtual_size,1172.88
+871,allocated_size,1776.66
+871,color_size,3365.59
+871,color_size undo_redo,0
+872,paths,2.95834
+872,colors,0.579584
+872,shadows,4.89232
+872,frame_time_ms,8.43024
+872,virtual_size,1172.88
+872,allocated_size,1776.66
+872,color_size,3365.59
+872,color_size undo_redo,0
+873,paths,2.98394
+873,colors,0.585728
+873,shadows,4.95821
+873,frame_time_ms,8.52787
+873,virtual_size,1172.88
+873,allocated_size,1776.66
+873,color_size,3365.59
+873,color_size undo_redo,0
+874,paths,2.97984
+874,colors,0.591776
+874,shadows,4.98688
+874,frame_time_ms,8.5585
+874,virtual_size,1172.88
+874,allocated_size,1776.66
+874,color_size,3365.59
+874,color_size undo_redo,0
+875,paths,3.3096
+875,colors,0.580608
+875,shadows,4.81075
+875,frame_time_ms,8.70096
+875,virtual_size,1172.88
+875,allocated_size,1776.66
+875,color_size,3365.59
+875,color_size undo_redo,0
+876,paths,3.25837
+876,colors,0.582656
+876,shadows,5.13014
+876,frame_time_ms,8.97117
+876,virtual_size,1172.88
+876,allocated_size,1776.66
+876,color_size,3365.59
+876,color_size undo_redo,0
+877,paths,3.26861
+877,colors,0.587744
+877,shadows,4.85469
+877,frame_time_ms,8.71104
+877,virtual_size,1172.88
+877,allocated_size,1776.66
+877,color_size,3365.59
+877,color_size undo_redo,0
+878,paths,3.00646
+878,colors,0.584704
+878,shadows,4.50048
+878,frame_time_ms,8.09165
+878,virtual_size,1172.88
+878,allocated_size,1776.66
+878,color_size,3365.59
+878,color_size undo_redo,0
+879,paths,2.99008
+879,colors,0.595968
+879,shadows,4.81792
+879,frame_time_ms,8.40397
+879,virtual_size,1172.88
+879,allocated_size,1776.66
+879,color_size,3365.59
+879,color_size undo_redo,0
+880,paths,3.03923
+880,colors,0.607232
+880,shadows,4.90496
+880,frame_time_ms,8.55142
+880,virtual_size,1172.88
+880,allocated_size,1776.66
+880,color_size,3365.59
+880,color_size undo_redo,0
+881,paths,3.27782
+881,colors,0.60416
+881,shadows,4.87424
+881,frame_time_ms,8.75622
+881,virtual_size,1172.88
+881,allocated_size,1776.66
+881,color_size,3365.59
+881,color_size undo_redo,0
+882,paths,3.54099
+882,colors,0.60928
+882,shadows,4.9664
+882,frame_time_ms,9.11667
+882,virtual_size,1172.88
+882,allocated_size,1776.66
+882,color_size,3365.59
+882,color_size undo_redo,0
+883,paths,2.96214
+883,colors,0.598016
+883,shadows,5.11898
+883,frame_time_ms,8.67914
+883,virtual_size,1172.88
+883,allocated_size,1776.66
+883,color_size,3365.59
+883,color_size undo_redo,0
+884,paths,2.6368
+884,colors,0.603136
+884,shadows,4.51661
+884,frame_time_ms,7.75654
+884,virtual_size,1172.88
+884,allocated_size,1776.66
+884,color_size,3365.59
+884,color_size undo_redo,0
+885,paths,2.57536
+885,colors,0.598016
+885,shadows,4.97542
+885,frame_time_ms,8.1488
+885,virtual_size,1172.88
+885,allocated_size,1776.66
+885,color_size,3365.59
+885,color_size undo_redo,0
+886,paths,2.98496
+886,colors,0.599968
+886,shadows,4.77386
+886,frame_time_ms,8.35878
+886,virtual_size,1172.88
+886,allocated_size,1776.66
+886,color_size,3365.59
+886,color_size undo_redo,0
+887,paths,2.82419
+887,colors,0.5888
+887,shadows,4.4841
+887,frame_time_ms,7.89709
+887,virtual_size,1172.88
+887,allocated_size,1776.66
+887,color_size,3365.59
+887,color_size undo_redo,0
+888,paths,2.55488
+888,colors,0.598016
+888,shadows,4.80461
+888,frame_time_ms,7.9575
+888,virtual_size,1172.88
+888,allocated_size,1776.66
+888,color_size,3365.59
+888,color_size undo_redo,0
+889,paths,2.52621
+889,colors,0.605184
+889,shadows,4.91213
+889,frame_time_ms,8.04352
+889,virtual_size,1172.88
+889,allocated_size,1776.66
+889,color_size,3365.59
+889,color_size undo_redo,0
+890,paths,3.16419
+890,colors,0.607232
+890,shadows,4.80861
+890,frame_time_ms,8.58003
+890,virtual_size,1172.88
+890,allocated_size,1776.66
+890,color_size,3365.59
+890,color_size undo_redo,0
+891,paths,2.83853
+891,colors,0.611264
+891,shadows,4.92544
+891,frame_time_ms,8.37523
+891,virtual_size,1172.88
+891,allocated_size,1776.66
+891,color_size,3365.59
+891,color_size undo_redo,0
+892,paths,2.55766
+892,colors,0.596992
+892,shadows,4.916
+892,frame_time_ms,8.07066
+892,virtual_size,1172.88
+892,allocated_size,1776.66
+892,color_size,3365.59
+892,color_size undo_redo,0
+893,paths,2.57741
+893,colors,0.60928
+893,shadows,5.16301
+893,frame_time_ms,8.3497
+893,virtual_size,1172.88
+893,allocated_size,1776.66
+893,color_size,3365.59
+893,color_size undo_redo,0
+894,paths,3.21638
+894,colors,0.615136
+894,shadows,5.03808
+894,frame_time_ms,8.8696
+894,virtual_size,1172.88
+894,allocated_size,1776.66
+894,color_size,3365.59
+894,color_size undo_redo,0
+895,paths,3.11603
+895,colors,0.600064
+895,shadows,4.91213
+895,frame_time_ms,8.62822
+895,virtual_size,1172.88
+895,allocated_size,1776.66
+895,color_size,3365.59
+895,color_size undo_redo,0
+896,paths,3.27373
+896,colors,0.60928
+896,shadows,4.91418
+896,frame_time_ms,8.79718
+896,virtual_size,1172.88
+896,allocated_size,1776.66
+896,color_size,3365.59
+896,color_size undo_redo,0
+897,paths,2.68493
+897,colors,0.600064
+897,shadows,4.91315
+897,frame_time_ms,8.19814
+897,virtual_size,1172.88
+897,allocated_size,1776.66
+897,color_size,3365.59
+897,color_size undo_redo,0
+898,paths,2.70016
+898,colors,0.608256
+898,shadows,5.11082
+898,frame_time_ms,8.41923
+898,virtual_size,1172.88
+898,allocated_size,1776.66
+898,color_size,3365.59
+898,color_size undo_redo,0
+899,paths,3.01462
+899,colors,0.610304
+899,shadows,5.04707
+899,frame_time_ms,8.672
+899,virtual_size,1172.88
+899,allocated_size,1776.66
+899,color_size,3365.59
+899,color_size undo_redo,0
+900,paths,3.31674
+900,colors,0.610304
+900,shadows,5.2225
+900,frame_time_ms,9.14954
+900,virtual_size,1172.88
+900,allocated_size,1776.66
+900,color_size,3365.59
+900,color_size undo_redo,0
+901,paths,3.31242
+901,colors,0.605184
+901,shadows,5.05856
+901,frame_time_ms,8.97616
+901,virtual_size,1172.88
+901,allocated_size,1776.66
+901,color_size,3365.59
+901,color_size undo_redo,0
+902,paths,2.96125
+902,colors,0.601088
+902,shadows,5.07498
+902,frame_time_ms,8.63731
+902,virtual_size,1172.88
+902,allocated_size,1776.66
+902,color_size,3365.59
+902,color_size undo_redo,0
+903,paths,2.69722
+903,colors,0.589728
+903,shadows,4.64896
+903,frame_time_ms,7.9359
+903,virtual_size,1172.88
+903,allocated_size,1776.66
+903,color_size,3365.59
+903,color_size undo_redo,0
+904,paths,2.98077
+904,colors,0.77312
+904,shadows,4.65584
+904,frame_time_ms,8.40973
+904,virtual_size,1172.88
+904,allocated_size,1776.66
+904,color_size,3365.59
+904,color_size undo_redo,0
+905,paths,2.69414
+905,colors,0.623616
+905,shadows,5.24288
+905,frame_time_ms,8.56064
+905,virtual_size,1172.88
+905,allocated_size,1776.66
+905,color_size,3365.59
+905,color_size undo_redo,0
+906,paths,3.01574
+906,colors,0.60416
+906,shadows,4.93978
+906,frame_time_ms,8.55968
+906,virtual_size,1172.88
+906,allocated_size,1776.66
+906,color_size,3365.59
+906,color_size undo_redo,0
+907,paths,2.96346
+907,colors,0.603136
+907,shadows,5.00122
+907,frame_time_ms,8.56781
+907,virtual_size,1172.88
+907,allocated_size,1776.66
+907,color_size,3365.59
+907,color_size undo_redo,0
+908,paths,2.70029
+908,colors,0.612352
+908,shadows,4.66848
+908,frame_time_ms,7.98112
+908,virtual_size,1172.88
+908,allocated_size,1776.66
+908,color_size,3365.59
+908,color_size undo_redo,0
+909,paths,2.69722
+909,colors,0.606976
+909,shadows,5.08211
+909,frame_time_ms,8.3863
+909,virtual_size,1172.88
+909,allocated_size,1776.66
+909,color_size,3365.59
+909,color_size undo_redo,0
+910,paths,2.97862
+910,colors,0.623616
+910,shadows,5.28282
+910,frame_time_ms,8.88506
+910,virtual_size,1172.88
+910,allocated_size,1776.66
+910,color_size,3365.59
+910,color_size undo_redo,0
+911,paths,3.23686
+911,colors,0.605184
+911,shadows,5.2777
+911,frame_time_ms,9.11974
+911,virtual_size,1172.88
+911,allocated_size,1776.66
+911,color_size,3365.59
+911,color_size undo_redo,0
+912,paths,3.10653
+912,colors,0.607232
+912,shadows,5.2183
+912,frame_time_ms,8.93206
+912,virtual_size,1172.88
+912,allocated_size,1776.66
+912,color_size,3365.59
+912,color_size undo_redo,0
+913,paths,2.7177
+913,colors,0.610304
+913,shadows,4.64282
+913,frame_time_ms,7.97082
+913,virtual_size,1172.88
+913,allocated_size,1776.66
+913,color_size,3365.59
+913,color_size undo_redo,0
+914,paths,2.70131
+914,colors,0.625408
+914,shadows,4.93347
+914,frame_time_ms,8.26019
+914,virtual_size,1172.88
+914,allocated_size,1776.66
+914,color_size,3365.59
+914,color_size undo_redo,0
+915,paths,2.76275
+915,colors,0.635904
+915,shadows,5.11168
+915,frame_time_ms,8.51034
+915,virtual_size,1172.88
+915,allocated_size,1776.66
+915,color_size,3365.59
+915,color_size undo_redo,0
+916,paths,3.26656
+916,colors,0.618496
+916,shadows,4.92851
+916,frame_time_ms,8.81357
+916,virtual_size,1172.88
+916,allocated_size,1776.66
+916,color_size,3365.59
+916,color_size undo_redo,0
+917,paths,3.59834
+917,colors,0.613248
+917,shadows,4.92646
+917,frame_time_ms,9.13805
+917,virtual_size,1172.88
+917,allocated_size,1776.66
+917,color_size,3365.59
+917,color_size undo_redo,0
+918,paths,3.13411
+918,colors,0.625664
+918,shadows,5.03706
+918,frame_time_ms,8.79683
+918,virtual_size,1172.88
+918,allocated_size,1776.66
+918,color_size,3365.59
+918,color_size undo_redo,0
+919,paths,2.8937
+919,colors,0.606208
+919,shadows,4.55987
+919,frame_time_ms,8.05978
+919,virtual_size,1172.88
+919,allocated_size,1776.66
+919,color_size,3365.59
+919,color_size undo_redo,0
+920,paths,2.9481
+920,colors,0.626688
+920,shadows,5.0031
+920,frame_time_ms,8.57789
+920,virtual_size,1172.88
+920,allocated_size,1776.66
+920,color_size,3365.59
+920,color_size undo_redo,0
+921,paths,3.28608
+921,colors,0.626688
+921,shadows,5.03808
+921,frame_time_ms,8.95085
+921,virtual_size,1172.88
+921,allocated_size,1776.66
+921,color_size,3365.59
+921,color_size undo_redo,0
+922,paths,3.47136
+922,colors,0.635904
+922,shadows,5.01658
+922,frame_time_ms,9.12384
+922,virtual_size,1172.88
+922,allocated_size,1776.66
+922,color_size,3365.59
+922,color_size undo_redo,0
+923,paths,3.69869
+923,colors,0.646144
+923,shadows,4.84762
+923,frame_time_ms,9.19245
+923,virtual_size,1172.88
+923,allocated_size,1776.66
+923,color_size,3365.59
+923,color_size undo_redo,0
+924,paths,3.72941
+924,colors,0.641024
+924,shadows,5.11078
+924,frame_time_ms,9.48122
+924,virtual_size,1172.88
+924,allocated_size,1776.66
+924,color_size,3365.59
+924,color_size undo_redo,0
+925,paths,3.82858
+925,colors,0.65024
+925,shadows,4.8599
+925,frame_time_ms,9.33872
+925,virtual_size,1172.88
+925,allocated_size,1776.66
+925,color_size,3365.59
+925,color_size undo_redo,0
+926,paths,3.72634
+926,colors,0.661504
+926,shadows,4.99082
+926,frame_time_ms,9.37866
+926,virtual_size,1172.88
+926,allocated_size,1776.66
+926,color_size,3365.59
+926,color_size undo_redo,0
+927,paths,3.75808
+927,colors,0.660352
+927,shadows,5.18656
+927,frame_time_ms,9.60499
+927,virtual_size,1172.88
+927,allocated_size,1776.66
+927,color_size,3365.59
+927,color_size undo_redo,0
+928,paths,3.78778
+928,colors,0.649216
+928,shadows,4.92115
+928,frame_time_ms,9.35814
+928,virtual_size,1172.88
+928,allocated_size,1776.66
+928,color_size,3365.59
+928,color_size undo_redo,0
+929,paths,3.76832
+929,colors,0.67072
+929,shadows,4.91008
+929,frame_time_ms,9.34912
+929,virtual_size,1172.88
+929,allocated_size,1776.66
+929,color_size,3365.59
+929,color_size undo_redo,0
+930,paths,3.44042
+930,colors,0.667648
+930,shadows,4.58138
+930,frame_time_ms,8.68944
+930,virtual_size,1172.88
+930,allocated_size,1776.66
+930,color_size,3365.59
+930,color_size undo_redo,0
+931,paths,3.23994
+931,colors,0.662528
+931,shadows,4.95488
+931,frame_time_ms,8.85734
+931,virtual_size,1172.88
+931,allocated_size,1776.66
+931,color_size,3365.59
+931,color_size undo_redo,0
+932,paths,3.27258
+932,colors,0.666624
+932,shadows,5.11386
+932,frame_time_ms,9.05306
+932,virtual_size,1172.88
+932,allocated_size,1776.66
+932,color_size,3365.59
+932,color_size undo_redo,0
+933,paths,3.5745
+933,colors,0.664672
+933,shadows,5.06573
+933,frame_time_ms,9.3049
+933,virtual_size,1172.88
+933,allocated_size,1776.66
+933,color_size,3365.59
+933,color_size undo_redo,0
+934,paths,3.6433
+934,colors,0.662496
+934,shadows,5.0391
+934,frame_time_ms,9.3449
+934,virtual_size,1172.88
+934,allocated_size,1776.66
+934,color_size,3365.59
+934,color_size undo_redo,0
+935,paths,3.50925
+935,colors,0.661504
+935,shadows,5.16096
+935,frame_time_ms,9.33171
+935,virtual_size,1172.88
+935,allocated_size,1776.66
+935,color_size,3365.59
+935,color_size undo_redo,0
+936,paths,3.49184
+936,colors,0.661504
+936,shadows,4.84864
+936,frame_time_ms,9.00198
+936,virtual_size,1172.88
+936,allocated_size,1776.66
+936,color_size,3365.59
+936,color_size undo_redo,0
+937,paths,3.82771
+937,colors,0.661504
+937,shadows,5.02586
+937,frame_time_ms,9.51507
+937,virtual_size,1172.88
+937,allocated_size,1776.66
+937,color_size,3365.59
+937,color_size undo_redo,0
+938,paths,3.60755
+938,colors,0.653056
+938,shadows,5.04115
+938,frame_time_ms,9.30176
+938,virtual_size,1172.88
+938,allocated_size,1776.66
+938,color_size,3365.59
+938,color_size undo_redo,0
+939,paths,3.77846
+939,colors,0.655168
+939,shadows,4.87629
+939,frame_time_ms,9.30992
+939,virtual_size,1172.88
+939,allocated_size,1776.66
+939,color_size,3365.59
+939,color_size undo_redo,0
+940,paths,3.7079
+940,colors,0.653312
+940,shadows,4.88653
+940,frame_time_ms,9.24774
+940,virtual_size,1172.88
+940,allocated_size,1776.66
+940,color_size,3365.59
+940,color_size undo_redo,0
+941,paths,3.49475
+941,colors,0.640864
+941,shadows,4.55475
+941,frame_time_ms,8.69037
+941,virtual_size,1172.88
+941,allocated_size,1776.66
+941,color_size,3365.59
+941,color_size undo_redo,0
+942,paths,3.14243
+942,colors,0.635904
+942,shadows,4.54758
+942,frame_time_ms,8.32592
+942,virtual_size,1172.88
+942,allocated_size,1776.66
+942,color_size,3365.59
+942,color_size undo_redo,0
+943,paths,3.15187
+943,colors,0.653312
+943,shadows,5.01315
+943,frame_time_ms,8.81834
+943,virtual_size,1172.88
+943,allocated_size,1776.66
+943,color_size,3365.59
+943,color_size undo_redo,0
+944,paths,3.5113
+944,colors,0.656384
+944,shadows,5.14662
+944,frame_time_ms,9.3143
+944,virtual_size,1172.88
+944,allocated_size,1776.66
+944,color_size,3365.59
+944,color_size undo_redo,0
+945,paths,3.54288
+945,colors,0.671392
+945,shadows,5.18656
+945,frame_time_ms,9.40083
+945,virtual_size,1172.88
+945,allocated_size,1776.66
+945,color_size,3365.59
+945,color_size undo_redo,0
+946,paths,3.83674
+946,colors,0.65536
+946,shadows,4.87011
+946,frame_time_ms,9.36221
+946,virtual_size,1172.88
+946,allocated_size,1776.66
+946,color_size,3365.59
+946,color_size undo_redo,0
+947,paths,3.76422
+947,colors,0.650112
+947,shadows,4.8384
+947,frame_time_ms,9.25274
+947,virtual_size,1172.88
+947,allocated_size,1776.66
+947,color_size,3365.59
+947,color_size undo_redo,0
+948,paths,3.76422
+948,colors,0.649216
+948,shadows,4.84454
+948,frame_time_ms,9.25798
+948,virtual_size,1172.88
+948,allocated_size,1776.66
+948,color_size,3365.59
+948,color_size undo_redo,0
+949,paths,3.46819
+949,colors,0.653312
+949,shadows,4.55782
+949,frame_time_ms,8.67933
+949,virtual_size,1172.88
+949,allocated_size,1776.66
+949,color_size,3365.59
+949,color_size undo_redo,0
+950,paths,3.18032
+950,colors,0.652288
+950,shadows,4.92851
+950,frame_time_ms,8.76112
+950,virtual_size,1172.88
+950,allocated_size,1776.66
+950,color_size,3365.59
+950,color_size undo_redo,0
+951,paths,3.24506
+951,colors,0.656192
+951,shadows,4.91008
+951,frame_time_ms,8.81133
+951,virtual_size,1172.88
+951,allocated_size,1776.66
+951,color_size,3365.59
+951,color_size undo_redo,0
+952,paths,3.53485
+952,colors,0.651264
+952,shadows,4.97562
+952,frame_time_ms,9.16173
+952,virtual_size,1172.88
+952,allocated_size,1776.66
+952,color_size,3365.59
+952,color_size undo_redo,0
+953,paths,3.5328
+953,colors,0.653312
+953,shadows,5.16986
+953,frame_time_ms,9.35597
+953,virtual_size,1172.88
+953,allocated_size,1776.66
+953,color_size,3365.59
+953,color_size undo_redo,0
+954,paths,3.64
+954,colors,0.65536
+954,shadows,4.93978
+954,frame_time_ms,9.23514
+954,virtual_size,1172.88
+954,allocated_size,1776.66
+954,color_size,3365.59
+954,color_size undo_redo,0
+955,paths,3.68742
+955,colors,0.656384
+955,shadows,4.82611
+955,frame_time_ms,9.16992
+955,virtual_size,1172.88
+955,allocated_size,1776.66
+955,color_size,3365.59
+955,color_size undo_redo,0
+956,paths,3.62598
+956,colors,0.657408
+956,shadows,4.95923
+956,frame_time_ms,9.24262
+956,virtual_size,1172.88
+956,allocated_size,1776.66
+956,color_size,3365.59
+956,color_size undo_redo,0
+957,paths,3.7632
+957,colors,0.665472
+957,shadows,4.98893
+957,frame_time_ms,9.4176
+957,virtual_size,1172.88
+957,allocated_size,1776.66
+957,color_size,3365.59
+957,color_size undo_redo,0
+958,paths,3.59219
+958,colors,0.656096
+958,shadows,4.84864
+958,frame_time_ms,9.09693
+958,virtual_size,1172.88
+958,allocated_size,1776.66
+958,color_size,3365.59
+958,color_size undo_redo,0
+959,paths,3.67789
+959,colors,0.65536
+959,shadows,4.54144
+959,frame_time_ms,8.87469
+959,virtual_size,1172.88
+959,allocated_size,1776.66
+959,color_size,3365.59
+959,color_size undo_redo,0
+960,paths,2.94502
+960,colors,0.66048
+960,shadows,4.87526
+960,frame_time_ms,8.48077
+960,virtual_size,1172.88
+960,allocated_size,1776.66
+960,color_size,3365.59
+960,color_size undo_redo,0
+961,paths,2.84458
+961,colors,0.667648
+961,shadows,5.14048
+961,frame_time_ms,8.6527
+961,virtual_size,1172.88
+961,allocated_size,1776.66
+961,color_size,3365.59
+961,color_size undo_redo,0
+962,paths,3.08838
+962,colors,0.669696
+962,shadows,4.97459
+962,frame_time_ms,8.73267
+962,virtual_size,1172.88
+962,allocated_size,1776.66
+962,color_size,3365.59
+962,color_size undo_redo,0
+963,paths,3.39117
+963,colors,0.667648
+963,shadows,5.08723
+963,frame_time_ms,9.14605
+963,virtual_size,1172.88
+963,allocated_size,1776.66
+963,color_size,3365.59
+963,color_size undo_redo,0
+964,paths,3.03405
+964,colors,0.662528
+964,shadows,5.08006
+964,frame_time_ms,8.77664
+964,virtual_size,1172.88
+964,allocated_size,1776.66
+964,color_size,3365.59
+964,color_size undo_redo,0
+965,paths,2.78842
+965,colors,0.66864
+965,shadows,4.60288
+965,frame_time_ms,8.05994
+965,virtual_size,1172.88
+965,allocated_size,1776.66
+965,color_size,3365.59
+965,color_size undo_redo,0
+966,paths,2.78006
+966,colors,0.678912
+966,shadows,5.2368
+966,frame_time_ms,8.69578
+966,virtual_size,1172.88
+966,allocated_size,1776.66
+966,color_size,3365.59
+966,color_size undo_redo,0
+967,paths,3.12627
+967,colors,0.6656
+967,shadows,5.00429
+967,frame_time_ms,8.79616
+967,virtual_size,1172.88
+967,allocated_size,1776.66
+967,color_size,3365.59
+967,color_size undo_redo,0
+968,paths,3.33005
+968,colors,0.6656
+968,shadows,4.89267
+968,frame_time_ms,8.88832
+968,virtual_size,1172.88
+968,allocated_size,1776.66
+968,color_size,3365.59
+968,color_size undo_redo,0
+969,paths,3.0935
+969,colors,0.668672
+969,shadows,5.01043
+969,frame_time_ms,8.77261
+969,virtual_size,1172.88
+969,allocated_size,1776.66
+969,color_size,3365.59
+969,color_size undo_redo,0
+970,paths,2.77082
+970,colors,0.656384
+970,shadows,4.87501
+970,frame_time_ms,8.30221
+970,virtual_size,1172.88
+970,allocated_size,1776.66
+970,color_size,3365.59
+970,color_size undo_redo,0
+971,paths,2.78925
+971,colors,0.661504
+971,shadows,4.88858
+971,frame_time_ms,8.33933
+971,virtual_size,1172.88
+971,allocated_size,1776.66
+971,color_size,3365.59
+971,color_size undo_redo,0
+972,paths,3.10477
+972,colors,0.659136
+972,shadows,4.88755
+972,frame_time_ms,8.65146
+972,virtual_size,1172.88
+972,allocated_size,1776.66
+972,color_size,3365.59
+972,color_size undo_redo,0
+973,paths,3.13037
+973,colors,0.672768
+973,shadows,5.19264
+973,frame_time_ms,8.99578
+973,virtual_size,1172.88
+973,allocated_size,1776.66
+973,color_size,3365.59
+973,color_size undo_redo,0
+974,paths,3.38314
+974,colors,0.658432
+974,shadows,4.86707
+974,frame_time_ms,8.90864
+974,virtual_size,1172.88
+974,allocated_size,1776.66
+974,color_size,3365.59
+974,color_size undo_redo,0
+975,paths,3.22147
+975,colors,0.654336
+975,shadows,5.1497
+975,frame_time_ms,9.0255
+975,virtual_size,1172.88
+975,allocated_size,1776.66
+975,color_size,3365.59
+975,color_size undo_redo,0
+976,paths,3.0208
+976,colors,0.657408
+976,shadows,4.88022
+976,frame_time_ms,8.55843
+976,virtual_size,1172.88
+976,allocated_size,1776.66
+976,color_size,3365.59
+976,color_size undo_redo,0
+977,paths,2.75651
+977,colors,0.684672
+977,shadows,4.55885
+977,frame_time_ms,8.00003
+977,virtual_size,1172.88
+977,allocated_size,1776.66
+977,color_size,3365.59
+977,color_size undo_redo,0
+978,paths,2.76582
+978,colors,0.658432
+978,shadows,4.8639
+978,frame_time_ms,8.28816
+978,virtual_size,1172.88
+978,allocated_size,1776.66
+978,color_size,3365.59
+978,color_size undo_redo,0
+979,paths,3.09955
+979,colors,0.655264
+979,shadows,5.1497
+979,frame_time_ms,8.90451
+979,virtual_size,1172.88
+979,allocated_size,1776.66
+979,color_size,3365.59
+979,color_size undo_redo,0
+980,paths,3.4048
+980,colors,0.665536
+980,shadows,5.00429
+980,frame_time_ms,9.07462
+980,virtual_size,1172.88
+980,allocated_size,1776.66
+980,color_size,3365.59
+980,color_size undo_redo,0
+981,paths,3.05664
+981,colors,0.666624
+981,shadows,5.20192
+981,frame_time_ms,8.92518
+981,virtual_size,1172.88
+981,allocated_size,1776.66
+981,color_size,3365.59
+981,color_size undo_redo,0
+982,paths,3.07405
+982,colors,0.670656
+982,shadows,5.01965
+982,frame_time_ms,8.76435
+982,virtual_size,1172.88
+982,allocated_size,1776.66
+982,color_size,3365.59
+982,color_size undo_redo,0
+983,paths,2.76685
+983,colors,0.657408
+983,shadows,4.9111
+983,frame_time_ms,8.33536
+983,virtual_size,1172.88
+983,allocated_size,1776.66
+983,color_size,3365.59
+983,color_size undo_redo,0
+984,paths,2.75453
+984,colors,0.667488
+984,shadows,5.1456
+984,frame_time_ms,8.56762
+984,virtual_size,1172.88
+984,allocated_size,1776.66
+984,color_size,3365.59
+984,color_size undo_redo,0
+985,paths,3.14646
+985,colors,0.666624
+985,shadows,4.98893
+985,frame_time_ms,8.80202
+985,virtual_size,1172.88
+985,allocated_size,1776.66
+985,color_size,3365.59
+985,color_size undo_redo,0
+986,paths,3.25222
+986,colors,0.663552
+986,shadows,5.01555
+986,frame_time_ms,8.93133
+986,virtual_size,1172.88
+986,allocated_size,1776.66
+986,color_size,3365.59
+986,color_size undo_redo,0
+987,paths,3.05971
+987,colors,0.65536
+987,shadows,5.0032
+987,frame_time_ms,8.71827
+987,virtual_size,1172.88
+987,allocated_size,1776.66
+987,color_size,3365.59
+987,color_size undo_redo,0
+988,paths,2.76378
+988,colors,0.66048
+988,shadows,4.56816
+988,frame_time_ms,7.99242
+988,virtual_size,1172.88
+988,allocated_size,1776.66
+988,color_size,3365.59
+988,color_size undo_redo,0
+989,paths,2.76275
+989,colors,0.66048
+989,shadows,5.03091
+989,frame_time_ms,8.45414
+989,virtual_size,1172.88
+989,allocated_size,1776.66
+989,color_size,3365.59
+989,color_size undo_redo,0
+990,paths,2.74842
+990,colors,0.66048
+990,shadows,5.17325
+990,frame_time_ms,8.58214
+990,virtual_size,1172.88
+990,allocated_size,1776.66
+990,color_size,3365.59
+990,color_size undo_redo,0
+991,paths,3.21331
+991,colors,0.664576
+991,shadows,4.85453
+991,frame_time_ms,8.73242
+991,virtual_size,1172.88
+991,allocated_size,1776.66
+991,color_size,3365.59
+991,color_size undo_redo,0
+992,paths,3.20819
+992,colors,0.658176
+992,shadows,4.85069
+992,frame_time_ms,8.71706
+992,virtual_size,1172.88
+992,allocated_size,1776.66
+992,color_size,3365.59
+992,color_size undo_redo,0
+993,paths,3.05766
+993,colors,0.657408
+993,shadows,5.05651
+993,frame_time_ms,8.77158
+993,virtual_size,1172.88
+993,allocated_size,1776.66
+993,color_size,3365.59
+993,color_size undo_redo,0
+994,paths,2.81805
+994,colors,0.654336
+994,shadows,4.62848
+994,frame_time_ms,8.10086
+994,virtual_size,1172.88
+994,allocated_size,1776.66
+994,color_size,3365.59
+994,color_size undo_redo,0
+995,paths,2.81565
+995,colors,0.663552
+995,shadows,5.16579
+995,frame_time_ms,8.64499
+995,virtual_size,1172.88
+995,allocated_size,1776.66
+995,color_size,3365.59
+995,color_size undo_redo,0
+996,paths,3.1079
+996,colors,0.6656
+996,shadows,5.05344
+996,frame_time_ms,8.82694
+996,virtual_size,1172.88
+996,allocated_size,1776.66
+996,color_size,3365.59
+996,color_size undo_redo,0
+997,paths,3.25222
+997,colors,0.661504
+997,shadows,4.8896
+997,frame_time_ms,8.80333
+997,virtual_size,1172.88
+997,allocated_size,1776.66
+997,color_size,3365.59
+997,color_size undo_redo,0

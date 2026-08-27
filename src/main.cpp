@@ -66,13 +66,13 @@ int main(int argc, char** argv)
 	engine.set_dag(EDag::HashDag);
 #endif
 
-//#if USE_VIDEO
-//	engine.toggle_fullscreen();
-//    engine.videoManager.load_video("./videos/" SCENE "_" VIDEO_NAME ".txt");
-//	std::this_thread::sleep_for(std::chrono::seconds(5));
-//#else
-//    engine.replayReader.load_csv("./replays/" SCENE "_" REPLAY_NAME ".csv");
-//#endif
+#if USE_VIDEO
+	engine.toggle_fullscreen();
+    engine.videoManager.load_video("./videos/" SCENE "_" VIDEO_NAME ".txt");
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+#else
+    engine.replayReader.load_csv("./replays/" SCENE "_" REPLAY_NAME ".csv");
+#endif
 
 	printf("Starting...\n");
 

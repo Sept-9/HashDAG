@@ -347,3 +347,4 @@ cmake-build-debug/
 cmake-build-release/
 profiling/
 data/
+.plot_dependencies/
