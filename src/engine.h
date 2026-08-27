@@ -139,8 +139,9 @@ private:
     float lodPixelThreshold = float(LOD_PIXEL_THRESHOLD);
 	bool showUI = true;
 	float swirlPeriod = 100;
-	bool enableSwirl = true;
+    bool enableSwirl = true;
 	bool fullscreen = false;
+	bool screenshotRequested = false;
 	Vector3 transformRotation = { 0, 0, 0 };
 	float transformScale = 1;
     double time = 0;
@@ -186,6 +187,7 @@ private:
     }
 
     void tick();
+	void save_screenshot();
 
     void init_graphics();
 

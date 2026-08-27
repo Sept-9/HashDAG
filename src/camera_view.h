@@ -9,8 +9,8 @@ struct CameraView
 {
 	static constexpr float fov = 60.f;
 
-	Vector3 position = { 0.f, 0.f, 0.f };
-	Matrix3x3 rotation = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
+	Vector3 position = INITIAL_CAMERA_POSITION;
+	Matrix3x3 rotation = INITIAL_CAMERA_ROTATION;
 
 	inline Vector3 right() const
 	{

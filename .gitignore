@@ -348,3 +348,8 @@ cmake-build-release/
 profiling/
 data/
 .plot_dependencies/
+.iq_venv/
+.torch_cache/
+.matplotlib/
+screenshots/
+image_quality_results/

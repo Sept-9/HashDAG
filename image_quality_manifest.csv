@@ -1,0 +1,10 @@
+method,lod,image
+Box normal,0.5,screenshots/box_normal_tau_0p5.png
+Box normal,1.0,screenshots/box_normal_tau_1p0.png
+Box normal,1.5,screenshots/box_normal_tau_1p5.png
+Relief,0.5,screenshots/relief_tau_0p5.png
+Relief,1.0,screenshots/relief_tau_1p0.png
+Relief,1.5,screenshots/relief_tau_1p5.png
+Coverage-aware relief,0.5,screenshots/coverage_relief_tau_0p5.png
+Coverage-aware relief,1.0,screenshots/coverage_relief_tau_1p0.png
+Coverage-aware relief,1.5,screenshots/coverage_relief_tau_1p5.png

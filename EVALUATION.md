@@ -71,3 +71,19 @@ python python/plot_evaluation_frame_times.py --original original.stats.csv --box
 The default is the raw per-frame curve. Add `--smooth-window 10` to show a
 10-frame moving average. The command also prints frame count, mean, median, and
 95th-percentile GPU time for each configuration.
+
+## Fixed camera for image-quality tests
+
+Start an interactive run with replay and automatic exit disabled:
+
+```cpp
+#define ENABLE_REPLAY 0
+#define EXIT_AFTER_REPLAY 0
+```
+
+Move to the desired viewpoint and press either Enter or keypad Enter. The
+console prints `INITIAL_CAMERA_POSITION`, `INITIAL_CAMERA_ROTATION`, and the
+current `LOD_PIXEL_THRESHOLD` as macro definitions. Copy those lines into
+`src/script_definitions.h` and rebuild. Subsequent runs then start at exactly
+that pose. Keep `ENABLE_REPLAY=0`, because a replay overwrites the configured
+pose on its first frame.

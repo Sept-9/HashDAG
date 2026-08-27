@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 	engine.toggle_fullscreen();
     engine.videoManager.load_video("./videos/" SCENE "_" VIDEO_NAME ".txt");
 	std::this_thread::sleep_for(std::chrono::seconds(5));
-#else
+#elif ENABLE_REPLAY
     engine.replayReader.load_csv("./replays/" SCENE "_" REPLAY_NAME ".csv");
 #endif
 

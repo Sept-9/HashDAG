@@ -20,6 +20,33 @@
 #define USE_VIDEO 0
 #endif
 
+/** Config: automatically load replays/SCENE_REPLAY_NAME.csv on startup. */
+#ifndef ENABLE_REPLAY
+#define ENABLE_REPLAY 1
+#endif
+
+/** Config: close the application when an automatically loaded replay ends. */
+#ifndef EXIT_AFTER_REPLAY
+#define EXIT_AFTER_REPLAY 0
+#endif
+
+/** Config: camera pose used when no replay overrides it.
+ *
+ * INITIAL_CAMERA_ROTATION is row-major. Its third row is the forward vector.
+ */
+#ifndef INITIAL_CAMERA_POSITION
+#define INITIAL_CAMERA_POSITION { 0.f, 0.f, 0.f }
+#endif
+
+#ifndef INITIAL_CAMERA_ROTATION
+#define INITIAL_CAMERA_ROTATION { 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f }
+#endif
+
+/** Config: lossless, UI-free PNG written when V is pressed. */
+#ifndef SCREENSHOT_OUTPUT
+#define SCREENSHOT_OUTPUT "screenshots/capture.png"
+#endif
+
 /** Config: setup stuff for video replay recording
  */
 #ifndef RECORD_VIDEO

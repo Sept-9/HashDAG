@@ -8,6 +8,17 @@
 
 #include "glfont.h"
 
+#ifdef _MSC_VER
+#pragma warning(push, 0)
+#endif
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../third_party/stb/stb_image_write.h"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+#include <filesystem>
+
 Engine Engine::engine;
 
 inline void clear_console()
@@ -309,13 +320,12 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
         }
         if (key == GLFW_KEY_RIGHT_BRACKET)
         {
-            lodPixelThreshold = (lodPixelThreshold <= 0.f) ? 0.5f : lodPixelThreshold * 1.4142136f;
+            lodPixelThreshold += 0.5f;
             printf("LOD pixel threshold: %f\n", lodPixelThreshold);
         }
         if (key == GLFW_KEY_LEFT_BRACKET)
         {
-            lodPixelThreshold /= 1.4142136f;
-            if (lodPixelThreshold < 0.05f) lodPixelThreshold = 0.f;
+            lodPixelThreshold = std::max(0.f, lodPixelThreshold - 0.5f);
             printf("LOD pixel threshold: %f%s\n", lodPixelThreshold, lodPixelThreshold == 0.f ? " (LOD disabled)" : "");
         }
         if (key == GLFW_KEY_H)
@@ -326,6 +336,10 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
         {
         	toggle_fullscreen();
         }
+		if (key == GLFW_KEY_V)
+		{
+			screenshotRequested = true;
+		}
 
 		const double rotationStep = (state.keys[GLFW_KEY_LEFT_SHIFT] || state.keys[GLFW_KEY_RIGHT_SHIFT] ? -10 : 10);
 		if (key == GLFW_KEY_F1)
@@ -399,9 +413,14 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
 		{
             hashDag.data.save_bucket_sizes(false);
 		}
-		if (key == GLFW_KEY_KP_ENTER)
+		if (key == GLFW_KEY_ENTER || key == GLFW_KEY_KP_ENTER)
 		{
-			printf("view.rotation = { %f, %f, %f, %f, %f, %f, %f, %f, %f };\n",
+			printf("\n// Copy these lines to src/script_definitions.h for a fixed camera:\n");
+			printf("#define INITIAL_CAMERA_POSITION { %.9ff, %.9ff, %.9ff }\n",
+			       view.position.X,
+			       view.position.Y,
+			       view.position.Z);
+			printf("#define INITIAL_CAMERA_ROTATION { %.9ff, %.9ff, %.9ff, %.9ff, %.9ff, %.9ff, %.9ff, %.9ff, %.9ff }\n",
 			       view.rotation.D00,
 			       view.rotation.D01,
 			       view.rotation.D02,
@@ -411,10 +430,7 @@ void Engine::key_callback_impl(int key, int scancode, int action, int mods)
 			       view.rotation.D20,
 			       view.rotation.D21,
 			       view.rotation.D22);
-			printf("view.position = { %f, %f, %f };\n",
-			       view.position.X,
-			       view.position.Y,
-			       view.position.Z);
+			printf("#define LOD_PIXEL_THRESHOLD %.9ff\n\n", lodPixelThreshold);
 		}
 	}
 }
@@ -1000,6 +1016,12 @@ void Engine::loop_graphics()
 
 		tick();
 
+		if (screenshotRequested)
+		{
+			save_screenshot();
+			screenshotRequested = false;
+		}
+
         glfwSetWindowTitle(window, "HashDag");
 
 		// Clear the screen
@@ -1181,10 +1203,49 @@ void Engine::loop_graphics()
     } // Check if the ESC key was pressed or the window was closed
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS
            && glfwWindowShouldClose(window) == 0
-#ifdef EXIT_AFTER_REPLAY
+#if EXIT_AFTER_REPLAY
            && !replayReader.at_end()
 #endif
             );
+}
+
+void Engine::save_screenshot()
+{
+	PROFILE_FUNCTION();
+
+	// Read the CUDA-produced render texture itself, not the window framebuffer.
+	// This preserves the fixed render resolution and excludes all UI overlays.
+	std::vector<uint8> pixels(size_t(imageWidth) * size_t(imageHeight) * 4u);
+
+	GLint previousTexture = 0;
+	GLint previousPackAlignment = 0;
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, &previousTexture);
+	glGetIntegerv(GL_PACK_ALIGNMENT, &previousPackAlignment);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, image);
+	glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
+	glBindTexture(GL_TEXTURE_2D, GLuint(previousTexture));
+	glPixelStorei(GL_PACK_ALIGNMENT, previousPackAlignment);
+
+	const size_t rowBytes = size_t(imageWidth) * 4u;
+
+	const std::filesystem::path outputPath(SCREENSHOT_OUTPUT);
+	if (!outputPath.parent_path().empty())
+	{
+		std::error_code error;
+		std::filesystem::create_directories(outputPath.parent_path(), error);
+		checkfAlways(!error, "Could not create screenshot directory: %s", error.message().c_str());
+	}
+
+	const int written = stbi_write_png(
+		outputPath.string().c_str(),
+		int(imageWidth),
+		int(imageHeight),
+		4,
+		pixels.data(),
+		int(rowBytes));
+	checkfAlways(written != 0, "Could not write screenshot: %s", outputPath.string().c_str());
+	printf("Saved UI-free screenshot: %s (%ux%u)\n", outputPath.string().c_str(), imageWidth, imageHeight);
 }
 
 void Engine::destroy()

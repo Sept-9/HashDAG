@@ -49,6 +49,7 @@ F1/F2/F3 to rotate
 F4 to enable/disable swirl
 F5 to increase (shift to decrease) swirl period
 F6 to increase scale
+V to save a UI-free PNG of the current render texture
 ```
 
 ## Creating DAGs
