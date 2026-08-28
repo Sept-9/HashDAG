@@ -70,7 +70,14 @@ python python/plot_evaluation_frame_times.py --original original.stats.csv --box
 
 The default is the raw per-frame curve. Add `--smooth-window 10` to show a
 10-frame moving average. The command also prints frame count, mean, median, and
-95th-percentile GPU time for each configuration.
+95th-percentile GPU time for each configuration. When `--original` is present,
+it also creates `evaluation_frame_time_summary.csv`, `.tex`, `.pdf`, and `.png`.
+
+The mean speedup is `mean(Original) / mean(Method)`. For "Max speedup in
+particular frame", frames are aligned by frame number and the result is the
+maximum value of `Original(frame) / Method(frame)`, rather than the frame with
+the largest absolute millisecond difference. Use `--summary-prefix PATH` to
+change the table output path.
 
 ## Fixed camera for image-quality tests
 

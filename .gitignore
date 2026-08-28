@@ -353,3 +353,4 @@ data/
 .matplotlib/
 screenshots/
 image_quality_results/
+build_stats/

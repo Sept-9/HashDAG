@@ -77,6 +77,132 @@ def moving_average(values: List[float], window: int) -> List[float]:
     return smoothed
 
 
+def summarize_performance(
+    loaded: Dict[str, Tuple[List[int], List[float]]]
+) -> List[Dict[str, object]]:
+    """Compare every configuration with Original on matching replay frames."""
+    if "original" not in loaded:
+        return []
+
+    frame_maps = {
+        key: dict(zip(frames, times)) for key, (frames, times) in loaded.items()
+    }
+    common_frames = sorted(set.intersection(*(set(values) for values in frame_maps.values())))
+    if not common_frames:
+        raise ValueError("the input files have no frame numbers in common")
+
+    original = frame_maps["original"]
+    original_mean = statistics.fmean(original[frame] for frame in common_frames)
+    rows: List[Dict[str, object]] = []
+
+    for key, label, _ in CONFIGS:
+        if key not in frame_maps:
+            continue
+        current = frame_maps[key]
+        current_mean = statistics.fmean(current[frame] for frame in common_frames)
+        row: Dict[str, object] = {
+            "configuration": label,
+            "frames": len(common_frames),
+            "mean_frame_time_ms": current_mean,
+            "mean_speedup_x": original_mean / current_mean,
+            "max_speedup_in_particular_frame_x": 1.0,
+        }
+
+        if key != "original":
+            if any(current[frame] <= 0.0 for frame in common_frames):
+                raise ValueError(f"{label}: frame times must be positive for speedup")
+            max_frame = max(common_frames, key=lambda frame: original[frame] / current[frame])
+            original_time = original[max_frame]
+            method_time = current[max_frame]
+            row["max_speedup_in_particular_frame_x"] = original_time / method_time
+        rows.append(row)
+    return rows
+
+
+def write_performance_summary(rows: List[Dict[str, object]], prefix: Path) -> None:
+    """Write machine-readable, LaTeX, and rendered versions of the summary table."""
+    prefix.parent.mkdir(parents=True, exist_ok=True)
+    columns = (
+        "configuration",
+        "frames",
+        "mean_frame_time_ms",
+        "mean_speedup_x",
+        "max_speedup_in_particular_frame_x",
+    )
+
+    csv_path = prefix.with_suffix(".csv")
+    with csv_path.open("w", newline="", encoding="utf-8") as stream:
+        writer = csv.DictWriter(stream, fieldnames=columns)
+        writer.writeheader()
+        writer.writerows(rows)
+
+    tex_path = prefix.with_suffix(".tex")
+    tex_lines = [
+        r"\begin{tabular}{lrrr}",
+        r"\toprule",
+        r"Configuration & Mean (ms) & Mean speedup & Max speedup in particular frame \\",
+        r"\midrule",
+    ]
+    for row in rows:
+        tex_lines.append(
+            f"{row['configuration']} & {float(row['mean_frame_time_ms']):.3f} & "
+            f"${float(row['mean_speedup_x']):.2f}\\times$ & "
+            f"${float(row['max_speedup_in_particular_frame_x']):.2f}\\times$ \\\\"
+        )
+    tex_lines.extend([r"\bottomrule", r"\end{tabular}"])
+    tex_path.write_text("\n".join(tex_lines) + "\n", encoding="utf-8")
+
+    display_headers = [
+        "Configuration",
+        "Mean frame\ntime (ms)",
+        "Mean\nspeedup",
+        "Max speedup in\nparticular frame",
+    ]
+    display_rows = []
+    for row in rows:
+        display_rows.append(
+            [
+                row["configuration"],
+                f"{float(row['mean_frame_time_ms']):.3f}",
+                f"{float(row['mean_speedup_x']):.2f}x",
+                f"{float(row['max_speedup_in_particular_frame_x']):.2f}x",
+            ]
+        )
+
+    fig, ax = plt.subplots(figsize=(8.2, 2.9), dpi=180)
+    ax.axis("off")
+    ax.set_title("Epic Citadel 128k performance summary", fontsize=13, pad=12)
+    table = ax.table(
+        cellText=display_rows,
+        colLabels=display_headers,
+        cellLoc="center",
+        colLoc="center",
+        loc="center",
+        colWidths=[0.30, 0.22, 0.18, 0.30],
+    )
+    table.auto_set_font_size(False)
+    table.set_fontsize(9)
+    table.scale(1.0, 1.65)
+    for (row_index, column_index), cell in table.get_celld().items():
+        cell.set_edgecolor("#D0D0D0")
+        cell.set_linewidth(0.6)
+        if row_index == 0:
+            cell.set_facecolor("#303F56")
+            cell.set_text_props(color="white", weight="bold")
+        elif row_index % 2 == 0:
+            cell.set_facecolor("#F2F5F8")
+        if column_index == 0 and row_index > 0:
+            cell.set_text_props(ha="left")
+    fig.tight_layout()
+    fig.savefig(prefix.with_suffix(".pdf"), bbox_inches="tight")
+    fig.savefig(prefix.with_suffix(".png"), bbox_inches="tight")
+    plt.close(fig)
+
+    print(f"Saved performance summary: {csv_path.resolve()}")
+    print(f"Saved LaTeX table: {tex_path.resolve()}")
+    print(f"Saved rendered table: {prefix.with_suffix('.pdf').resolve()}")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Plot Epic Citadel GPU frame time curves from StatsRecorder CSV files."
@@ -106,6 +232,12 @@ def parse_args() -> argparse.Namespace:
         default="Epic Citadel 128k",
         help="figure title (default: %(default)s)",
     )
+    parser.add_argument(
+        "--summary-prefix",
+        type=Path,
+        default=Path("evaluation_frame_time_summary"),
+        help="output prefix for summary .csv/.tex/.pdf/.png files",
+    )
     args = parser.parse_args()
     if args.smooth_window < 1:
         parser.error("--smooth-window must be at least 1")
@@ -117,12 +249,14 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     fig, ax = plt.subplots(figsize=(10, 5.6), dpi=160)
+    loaded: Dict[str, Tuple[List[int], List[float]]] = {}
 
     for key, label, color in CONFIGS:
         path = getattr(args, key)
         if path is None:
             continue
         frames, raw_times = load_frame_times(path)
+        loaded[key] = (frames, raw_times)
         times = moving_average(raw_times, args.smooth_window)
         ax.plot(frames, times, color=color, linewidth=1.35, label=label)
 
@@ -146,7 +280,14 @@ def main() -> None:
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.output, bbox_inches="tight")
+    plt.close(fig)
     print(f"Saved figure: {args.output.resolve()}")
+
+    summary_rows = summarize_performance(loaded)
+    if summary_rows:
+        write_performance_summary(summary_rows, args.summary_prefix)
+    else:
+        print("Skipped performance summary: --original is required as the baseline")
 
 
 if __name__ == "__main__":

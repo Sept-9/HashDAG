@@ -190,6 +190,10 @@ public:
         usage += nodes_CPU.allocated_size_in_MB();
         usage += leaves_CPU.allocated_size_in_MB();
         usage += offsets_CPU.allocated_size_in_MB();
+        if (nodeAverages_CPU.is_valid())
+        {
+            usage += nodeAverages_CPU.allocated_size_in_MB();
+        }
         usage += mainLeaf.size_in_MB();
         return usage;
     }

@@ -503,6 +503,20 @@
 #define ENABLE_PREFILTERED_SHADING 1
 #endif
 
+/** Optional construction/storage statistics output.
+ *
+ * Define a different path for each build, for example:
+ *   #define BUILD_STATS_OUTPUT "build_stats/without_prefilter.csv"
+ *   #define EXIT_AFTER_BUILD_STATS 1
+ *
+ * The output directory is created automatically. Timing starts after the
+ * source BasicDAG files have been loaded and includes HashDAG construction,
+ * inline prefilter construction (when enabled), and GPU upload.
+ */
+#ifndef EXIT_AFTER_BUILD_STATS
+#define EXIT_AFTER_BUILD_STATS 0
+#endif
+
 /** Config: shallowest DAG level for which a prefiltered histogram is stored
  *
  * Levels above this are so coarse that they are almost never a LOD hit; skipping them

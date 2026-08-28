@@ -5,6 +5,66 @@
 #include "dags/dag_utils.h"
 #include "engine.h"
 
+#include <filesystem>
+#include <fstream>
+#include <iomanip>
+
+namespace
+{
+void write_build_stats(
+    const char* outputFile,
+    double geometryBuildMs,
+    double colorBuildMs,
+    double totalBuildMs,
+    const HashDAG& hashDag,
+    const HashDAGColors& hashDagColors)
+{
+    const std::filesystem::path outputPath(outputFile);
+    if (outputPath.has_parent_path())
+    {
+        std::error_code error;
+        std::filesystem::create_directories(outputPath.parent_path(), error);
+        checkfAlways(!error, "Could not create build stats directory: %s", error.message().c_str());
+    }
+
+    const double geometryLogicalMb = hashDag.data.get_virtual_used_size(false);
+    const double geometryAllocatedMb = hashDag.data.get_allocated_pages_size();
+    const double colorLogicalMb = hashDagColors.get_total_used_memory();
+
+    std::ofstream output(outputPath);
+    checkfAlways(output.is_open(), "Could not open build stats output: %s", outputFile);
+    output << "configuration,prefilter_enabled,geometry_build_ms,color_build_ms,total_build_ms,"
+              "geometry_logical_mb,geometry_allocated_mb,color_logical_mb,total_logical_mb\n";
+    output << (ENABLE_PREFILTERED_SHADING ? "Inline prefilter" : "Without prefilter") << ','
+           << ENABLE_PREFILTERED_SHADING << ','
+           << std::fixed << std::setprecision(6)
+           << geometryBuildMs << ','
+           << colorBuildMs << ','
+           << totalBuildMs << ','
+           << geometryLogicalMb << ','
+           << geometryAllocatedMb << ','
+           << colorLogicalMb << ','
+           << (geometryLogicalMb + colorLogicalMb) << '\n';
+    checkfAlways(output.good(), "Could not write build stats output: %s", outputFile);
+
+    printf("Build statistics written to %s\n", outputFile);
+}
+
+// EXIT_AFTER_BUILD_STATS stops before Engine::init(), so Engine::destroy()
+// cannot be used: it also tears down graphics objects that were never created.
+// Release only the data loaded or constructed above before returning.
+void destroy_build_data(Engine& engine)
+{
+    engine.undoRedo.free();
+    engine.hashDagColors.free();
+    engine.hashDag.free();
+    engine.basicDagColorErrors.free();
+    engine.basicDagUncompressedColors.free();
+    engine.basicDagCompressedColors.free();
+    engine.basicDag.free();
+}
+}
+
 int main(int argc, char** argv)
 {
     PROFILE_FUNCTION();
@@ -41,11 +101,35 @@ int main(int argc, char** argv)
 #endif
 #endif
 
+    double geometryBuildMs = 0.0;
+    double colorBuildMs = 0.0;
+    double totalBuildMs = 0.0;
 	if (LOAD_COMPRESSED_COLORS)
     {
+        const SimpleScopeStat totalBuildTimer;
+        const SimpleScopeStat geometryBuildTimer;
         HashDAGFactory::load_from_DAG(engine.hashDag, engine.basicDag, 0x8FFFFFFF / C_pageSize / sizeof(uint32));
+        geometryBuildMs = geometryBuildTimer.get_time();
+
+        const SimpleScopeStat colorBuildTimer;
         HashDAGFactory::load_colors_from_DAG(engine.hashDagColors, engine.basicDag, engine.basicDagCompressedColors);
+        colorBuildMs = colorBuildTimer.get_time();
+        totalBuildMs = totalBuildTimer.get_time();
     }
+
+#ifdef BUILD_STATS_OUTPUT
+    write_build_stats(
+        BUILD_STATS_OUTPUT,
+        geometryBuildMs,
+        colorBuildMs,
+        totalBuildMs,
+        engine.hashDag,
+        engine.hashDagColors);
+#if EXIT_AFTER_BUILD_STATS
+    destroy_build_data(engine);
+    return 0;
+#endif
+#endif
 
 	engine.basicDagColorErrors.uncompressedColors = engine.basicDagUncompressedColors;
 	engine.basicDagColorErrors.compressedColors = engine.basicDagCompressedColors;

@@ -24,3 +24,5 @@
 //#define FRAME_TIME_OUTPUT "complete.stats.csv"
 //#define EXIT_AFTER_REPLAY 1
 #define SCREENSHOT_OUTPUT "screenshots/ground_truth.png"
+#define BUILD_STATS_OUTPUT "build_stats/inline_prefilter.csv"
+#define EXIT_AFTER_BUILD_STATS 1
