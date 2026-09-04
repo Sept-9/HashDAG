@@ -2,6 +2,8 @@
 
 This repository extends the HashDAG voxel renderer with screen-space level of detail (LOD), multi-resolution colour lookup, node-local directional relief, roughness modulation, and coverage-aware refinement. The objective is to avoid resolving sub-pixel voxel geometry while retaining more of its silhouette and shading behaviour than a coarse box-normal approximation.
 
+The complete method, experiments, and discussion are available in the [project report](Report.pdf).
+
 The project is a research fork of the implementation accompanying [Interactively Modifying Compressed Sparse Voxel Representations](https://graphics.tudelft.nl/Publications-new/2020/CBE20/ModifyingCompressedVoxels-main.pdf) by Careil, Billeter, and Eisemann. The original [video](https://youtu.be/GQAwDn1bh0E) and [talk](https://youtu.be/ltkk_nlMhQo?t=254) remain useful introductions to HashDAG editing.
 
 ![Voxelized Sponza rendered by the project](docs/readme-images/voxelized_sponza.png)
